@@ -5,4 +5,10 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 ## Recommended IDE Setup
 
 - [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (previously Volar) and disable Vetur
-# agrimart-vue3
+# agrimart-vue
+
+ How to run
+ - install yarn
+ - cd to agrimart-vue3
+ - enter command yarn
+ - then yarn dev
