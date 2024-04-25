@@ -12,7 +12,7 @@
             class="img-fluid w-100 h-100 bg-secondary rounded"
             alt="First slide"
           />
-          <a href="#" class="btn px-4 py-2 text-white rounded">Fruites</a>
+          <a href="#" class="btn px-4 py-2 text-white rounded">Fruits</a>
         </div>
         <div class="carousel-item rounded">
           <img
@@ -20,63 +20,64 @@
             class="img-fluid w-100 h-100 rounded"
             alt="Second slide"
           />
-          <a href="#" class="btn px-4 py-2 text-white rounded">Vesitables</a>
+          <a href="#" class="btn px-4 py-2 text-white rounded">Vegetables</a>
         </div>
+        <!-- Left and right controls/icons -->
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselId"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselId"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
-      <button
-        class="carousel-control-prev"
-        type="button"
-        data-bs-target="#carouselId"
-        data-bs-slide="prev"
-      >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button
-        class="carousel-control-next"
-        type="button"
-        data-bs-target="#carouselId"
-        data-bs-slide="next"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
     </div>
   </div>
 </template>
 
 <script>
 $(".vegetable-carousel").owlCarousel({
-        autoplay: true,
-        smartSpeed: 1500,
-        center: false,
-        dots: true,
-        loop: true,
-        margin: 25,
-        nav : true,
-        navText : [
-            '<i class="bi bi-arrow-left"></i>',
-            '<i class="bi bi-arrow-right"></i>'
-        ],
-        responsiveClass: true,
-        responsive: {
-            0:{
-                items:1
-            },
-            576:{
-                items:1
-            },
-            768:{
-                items:2
-            },
-            992:{
-                items:3
-            },
-            1200:{
-                items:4
-            }
-        }
-    });
+  autoplay: true,
+  smartSpeed: 1500,
+  center: false,
+  dots: true,
+  loop: true,
+  margin: 25,
+  nav: true,
+  navText: [
+    '<i class="bi bi-arrow-left"></i>',
+    '<i class="bi bi-arrow-right"></i>',
+  ],
+  responsiveClass: true,
+  responsive: {
+    0: {
+      items: 1,
+    },
+    576: {
+      items: 1,
+    },
+    768: {
+      items: 2,
+    },
+    992: {
+      items: 3,
+    },
+    1200: {
+      items: 4,
+    },
+  },
+});
 
 export default {};
 </script>

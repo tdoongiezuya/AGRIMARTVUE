@@ -205,7 +205,7 @@
 
 /*** Hero Header ***/
 .hero-header {
-    background: url(../assets/img/hero-img3.png);
+    background: url(../assets/img/hero-img.png);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -329,6 +329,7 @@
 .fruite .fruite-item {
     height: 100%;
     transition: 0.5s;
+    
 }
 .fruite .fruite-item:hover {
     box-shadow: 0 0 55px rgba(0, 0, 0, 0.4);
@@ -338,6 +339,8 @@
     overflow: hidden;
     transition: 0.5s;
     border-radius: 10px 10px 0 0;
+    height:150px;
+    
 }
 
 .fruite .fruite-item .fruite-img img {

@@ -4,6 +4,7 @@ import About from "../pages/About.vue";
 import Shop from "../pages/Shop.vue";
 import Cart from "../pages/Cart.vue";
 import ProductDetail from "../pages/ProductDetail.vue";
+import User from "../pages/User.vue";
 
 
 const routes = [
@@ -28,7 +29,7 @@ const routes = [
     component: Cart,
   },
   {
-    path: "/detail",
+    path: "/products/:id",
     name: "ProductDetail",
     component: ProductDetail,
   }

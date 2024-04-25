@@ -1,5 +1,6 @@
 <template>
   <div class="container-fluid fruite py-5">
+   <Header/>
     <div class="container py-5">
       <h1 class="mb-4">Agriculture Products</h1>
       <div class="row g-4">
@@ -76,28 +77,57 @@
             </div>
             <div class="col-lg-9">
               <div class="row g-4 justify-content-center">
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
+                <Card v-for="(product, index) in products" 
+                  :key="index" 
+                  :product="product"
+                  @cart-updated="pushToCart"
+                  />
               </div>
             </div>
 
+            
+              <!-- <div v-for="(item, index) in this.products" :key="index">
+                <h1>{{ item }}</h1>
+              </div>
+              <button @click="add()" >add</button> -->
           </div>
         </div>
       </div>
-      
     </div>
   </div>
 </template>
 <script>
+import axios from 'axios'
 import Card from "../components/Card.vue";
-
+import Header from '../components/Header.vue';
 import Categories from "../components/Categories.vue";
 
 export default {
-  components: { Categories, Card },
+  components: { Categories, Card, Header },
+  data(){
+    return {
+      BaseURL:"http://localhost:3000/",
+      products: [],
+      cart: [],
+    }
+  },
+  async mounted() {
+    await this.fetchProducts()
+  }, 
+  
+  methods:{
+    async fetchProducts() {
+      try {
+        const response = await axios.get(this.BaseURL + "products")
+        this.products = response.data
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    pushToCart(product){
+      this.cart.push(product)
+    }
+  }
 };
 </script>
 <style></style>

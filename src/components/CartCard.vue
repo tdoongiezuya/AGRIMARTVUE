@@ -11,10 +11,10 @@
       </div>
     </th>
     <td>
-      <p class="mb-0 mt-4">Big Banana</p>
+      <p class="mb-0 mt-4">{{item.name}}</p>
     </td>
     <td>
-      <p class="mb-0 mt-4">2.99 $</p>
+      <p class="mb-0 mt-4">{{item.price}}</p>
     </td>
     <td>
       <div class="input-group quantity mt-4" style="width: 100px">
@@ -36,10 +36,10 @@
       </div>
     </td>
     <td>
-      <p class="mb-0 mt-4">2.99 $</p>
+      <p class="mb-0 mt-4">{{item.price * item.quantity}}</p>
     </td>
     <td>
-      <button class="btn btn-md rounded-circle bg-light border mt-4">
+      <button @click="removeItem" class="btn btn-md rounded-circle bg-light border mt-4">
         <i class="fa fa-times text-danger"></i>
       </button>
     </td>
@@ -47,7 +47,17 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props:['item'],
+  methods: {
+    updateQuantity(){
+      this.$emit('update-quantity', this.item);
+    },
+    removeItem() {
+      this.$emit('remove-item', this.item.id);
+    }
+  }
+};
 </script>
 
 <style></style>

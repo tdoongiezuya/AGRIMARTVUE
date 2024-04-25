@@ -10,9 +10,13 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
+    "@quasar/extras": "^1.16.11",
     "@vue/compat": "^3.4.23",
+    "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "bootstrap-vue": "^2.23.1",
+    "json-server": "^1.0.0-alpha.23",
+    "quasar": "^2.15.3",
     "vue": "^3.4.23",
     "vue-router": "^4.3.1"
   },

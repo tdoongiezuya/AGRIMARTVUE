@@ -1,0 +1,96 @@
+{
+    "products": [
+       {
+         "id": 1,
+         "productName": "Apple",
+         "category": "Fruit",
+         "image": "https://cdn.britannica.com/22/187222-050-07B17FB6/apples-on-a-tree-branch.jpg",
+         "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, molestias?",
+         "price": 1.50
+       },
+       {
+         "id": 2,
+         "productName": "Orange",
+         "category": "Fruit",
+         "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, molestias?",
+         "image": "https://staticcookist.akamaized.net/wp-content/uploads/sites/22/2020/06/meat-1200x675.jpg",
+         "price": 1.20
+       },
+       {
+         "id": 3,
+         "productName": "Banana",
+         "category": "Fruit",
+         "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, molestias?",
+         "image": "https://staticcookist.akamaized.net/wp-content/uploads/sites/22/2020/06/meat-1200x675.jpg",
+         "price": 0.90
+       },
+       {
+         "id": 4,
+         "productName": "Carrot",
+         "category": "Vegetable",
+         "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, molestias?",
+         "image": "https://staticcookist.akamaized.net/wp-content/uploads/sites/22/2020/06/meat-1200x675.jpg",
+         "price": 0.75
+       },
+       {
+         "id": 5,
+         "productName": "Celery",
+         "category": "Vegetable",
+         "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, molestias?",
+         "image": "https://staticcookist.akamaized.net/wp-content/uploads/sites/22/2020/06/meat-1200x675.jpg",
+         "price": 0.50
+       },
+       {
+         "id": 6,
+         "productName": "Broccoli",
+         "category": "Vegetable",
+         "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, molestias?",
+         "image": "https://staticcookist.akamaized.net/wp-content/uploads/sites/22/2020/06/meat-1200x675.jpg",
+         "price": 1.00
+       },
+       {
+         "id": 7,
+         "productName": "Chicken",
+         "category": "Meat",
+         "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, molestias?",
+         "image": "https://staticcookist.akamaized.net/wp-content/uploads/sites/22/2020/06/meat-1200x675.jpg",
+         "price": 5.99
+       },
+       {
+         "id": 8,
+         "productName": "Beef",
+         "category": "Meat",
+         "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, molestias?",
+         "image": "https://staticcookist.akamaized.net/wp-content/uploads/sites/22/2020/06/meat-1200x675.jpg",
+         "price": 6.99
+       },
+       {
+         "id": 9,
+         "productName": "Pork",
+         "category": "Meat",
+         "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, molestias?",
+         "image": "https://staticcookist.akamaized.net/wp-content/uploads/sites/22/2020/06/meat-1200x675.jpg",
+         "price": 7.99
+       }
+    ],
+    "users": [
+      { 
+        "id": 1, 
+        "username": "admin", 
+        "password": "admin",
+        "role": "admin"
+      },      
+      { 
+        "id": 2, 
+        "username": "farmer", 
+        "password": "farmer",
+        "role": "farmer"
+      },      
+      { 
+        "id": 3, 
+        "username": "consumer", 
+        "password": "consumer",
+        "role": "consumer"
+      }
+    ]
+   }
