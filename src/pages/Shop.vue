@@ -77,8 +77,8 @@
             </div>
             <div class="col-lg-9">
               <div class="row g-4 justify-content-center">
-                <Card v-for="(product, index) in products" 
-                  :key="index" 
+                <Card v-for="product in products" 
+                  :key="product.id" 
                   :product="product"
                   @cart-updated="pushToCart"
                   />
@@ -104,26 +104,16 @@ import Categories from "../components/Categories.vue";
 
 export default {
   components: { Categories, Card, Header },
+  props:{
+    products: Object
+  },
   data(){
     return {
-      BaseURL:"http://localhost:3000/",
-      products: [],
-      cart: [],
+
     }
   },
-  async mounted() {
-    await this.fetchProducts()
-  }, 
   
   methods:{
-    async fetchProducts() {
-      try {
-        const response = await axios.get(this.BaseURL + "products")
-        this.products = response.data
-      } catch (error) {
-        console.error(error)
-      }
-    },
     pushToCart(product){
       this.cart.push(product)
     }

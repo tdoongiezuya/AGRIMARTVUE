@@ -14,7 +14,8 @@
                         <div class="position-relative mx-auto">
                             <router-link to="/shop" class="btn btn-primary border-2 border-secondary py-3 px-4  rounded-pill text-white h-100">
                             <i class="fa fa-shopping-bag me-2 text-white"></i> Shop Now </router-link>
-          
+                            <router-link :to="{name: 'Signin'}" class="btn border-2  border-secondary rounded-pill py-3 px-4 mx-4 text-primary h-100">
+                            <i class="fas fa-user me-2 "></i> Sign in </router-link>
                         </div>
                     </div>
                     <carousel/>

@@ -17,6 +17,7 @@
     "bootstrap-vue": "^2.23.1",
     "json-server": "^1.0.0-alpha.23",
     "quasar": "^2.15.3",
+    "sweetalert": "^2.1.2",
     "vue": "^3.4.23",
     "vue-router": "^4.3.1"
   },

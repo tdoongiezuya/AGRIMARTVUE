@@ -1,63 +1,37 @@
 <template>
-  <tr>
-    <th scope="row">
-      <div class="d-flex align-items-center">
+  <div class="row border-top border-bottom">
+    <div class="row main align-items-center">
+      <div class="col-2">
         <img
-          src="../assets/img/vegetable-item-3.png"
-          class="img-fluid me-5 rounded-circle"
-          style="width: 80px; height: 80px"
-          alt=""
+          class="img-fluid"
+          src="https://staticcookist.akamaized.net/wp-content/uploads/sites/22/2020/06/meat-1200x675.jpg"
         />
       </div>
-    </th>
-    <td>
-      <p class="mb-0 mt-4">{{item.name}}</p>
-    </td>
-    <td>
-      <p class="mb-0 mt-4">{{item.price}}</p>
-    </td>
-    <td>
-      <div class="input-group quantity mt-4" style="width: 100px">
-        <div class="input-group-btn">
-          <button class="btn btn-sm btn-minus rounded-circle bg-light border">
-            <i class="fa fa-minus"></i>
-          </button>
-        </div>
-        <input
-          type="text"
-          class="form-control form-control-sm text-center border-0"
-          value="1"
-        />
-        <div class="input-group-btn">
-          <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-            <i class="fa fa-plus"></i>
-          </button>
-        </div>
+      <div class="col">
+        <div class="row text-muted">Shirt</div>
+        <div class="row">Cotton T-shirt</div>
       </div>
-    </td>
-    <td>
-      <p class="mb-0 mt-4">{{item.price * item.quantity}}</p>
-    </td>
-    <td>
-      <button @click="removeItem" class="btn btn-md rounded-circle bg-light border mt-4">
-        <i class="fa fa-times text-danger"></i>
-      </button>
-    </td>
-  </tr>
+      <div class="col">P 100 / kg</div>
+      <div class="col">
+        <router-link
+          class="btn border-2 border-secondary rounded-pill py-1 px-3 text-primary h-50"
+        >
+          <i class="fas fa-comment me-2"></i> Contact Seller
+        </router-link>
+      </div>
+      <div class="col">
+        <a @click="removeCart" class="mx-5 btn"
+          ><i class="fas fa-trash-alt text-primary"></i
+        ></a>
+      </div>
+    </div>
+  </div>
 </template>
 
-<script>
-export default {
-  props:['item'],
-  methods: {
-    updateQuantity(){
-      this.$emit('update-quantity', this.item);
-    },
-    removeItem() {
-      this.$emit('remove-item', this.item.id);
-    }
-  }
-};
-</script>
+<script></script>
 
-<style></style>
+<style scoped>
+img {
+  width: 300px;
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header/>
+    <Header />
     <div class="container-fluid py-5 mt-5">
       <div class="container py-5">
         <div class="row g-4 mb-5">
@@ -19,8 +19,8 @@
               </div>
               <div class="col-lg-6">
                 <h4 class="fw-bold mb-3">{{ product.productName }}</h4>
-                <p class="mb-3">{{ product.category }}</p>
-                <h5 class="fw-bold mb-3">{{ product.price }}</h5>
+                <p class="mb-3">Category: {{ product.category }}</p>
+                <h5 class="fw-bold mb-3">P{{ product.price }} / Kg</h5>
                 <div class="d-flex mb-4">
                   <i class="fa fa-star text-secondary"></i>
                   <i class="fa fa-star text-secondary"></i>
@@ -35,6 +35,7 @@
                   <div class="input-group-btn">
                     <button
                       class="btn btn-sm btn-minus rounded-circle bg-light border"
+                      @click="decrementQuantity"
                     >
                       <i class="fa fa-minus"></i>
                     </button>
@@ -43,10 +44,12 @@
                     type="text"
                     class="form-control form-control-sm text-center border-0"
                     value="1"
+                    v-model="quantity"
                   />
                   <div class="input-group-btn">
                     <button
                       class="btn btn-sm btn-plus rounded-circle bg-light border"
+                      @click="incrementQuantity"
                     >
                       <i class="fa fa-plus"></i>
                     </button>
@@ -54,6 +57,7 @@
                 </div>
                 <a
                   href="#"
+                  @click="addToCart(productId)"
                   class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"
                   ><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to
                   cart</a
@@ -117,34 +121,62 @@
 </template>
 
 <script>
-import axios from 'axios';
 import Header from "../components/Header.vue";
-
+import swal from "sweetalert";
+import axios from "axios";
 export default {
-  components: { Header },
-  props: {
-    product: []
-  },
   data() {
     return {
-      products: [],
-      cart: [],
+      product: {},
+      quantity: 1,
     };
   },
-  async mounted() {
-    await this.fetchProducts()
-  }, 
-  methods:{
-    fetchProducts() {
-      axios.get(`http://localhost:3000/products/${this.id}`)
-        .then(response => {
-          this.product = response.data;
-        })
-        .catch(error => {
-          console.error(error);
+  components: { Header },
+  props: ["baseURL", "products"],
+  methods: {
+    incrementQuantity() {
+      this.quantity++;
+    },
+    decrementQuantity() {
+      if (this.quantity > 0) {
+        this.quantity--;
+      }
+    },
+    addToCart() {
+      if (!this.token) {
+        // user is not logged in
+        // show some error
+        swal({
+          text: "please login to add item in cart",
+          icon: "error",
         });
-    }
-  }
+        return;
+      }
+
+      // add to cart
+
+      axios
+        .post(`${this.baseURL}/cart/add?token=${this.token}`, {
+          productId: this.id,
+          quantity: this.quantity,
+        })
+        .then((res) => {
+          if (res.status == 201) {
+            swal({
+              text: "Product added in cart",
+              icon: "success",
+            });
+            this.$emit("fetchData");
+          }
+        })
+        .catch((err) => console.log("err", err));
+    },
+  },
+  mounted() {
+    this.id = this.$route.params.id;
+    this.product = this.products.find((product) => product.id == this.id);
+    this.token = localStorage.getItem("token");
+  },
 };
 </script>
 

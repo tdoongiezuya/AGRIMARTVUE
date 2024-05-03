@@ -1,75 +1,42 @@
 <template>
   <div class="container-fluid pt-5">
-    <div class="container-fluid py-5">
-      <div class="container-fluid py-5">
-        <div class="container py-5">
-          <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">Products</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Price</th>
-                  <th scope="col">Quantity</th>
-                  <th scope="col">Total</th>
-                  <th scope="col">Handle</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="item in cartItems" :key="item.id">
-                  <th scope="row">
-                    <div class="d-flex align-items-center">
-                      <img
-                        :src="item.image"
-                        class="img-fluid me-5 rounded-circle"
-                        style="width: 80px; height: 80px"
-                        alt=""
-                      />
-                    </div>
-                  </th>
-                  <td>
-                    <p class="mb-0 mt-4">{{ item.name }}</p>
-                  </td>
-                  <td>
-                    <p class="mb-0 mt-4">{{ item.price }}</p>
-                  </td>
-                  <td>
-                    <div class="input-group quantity mt-4" style="width: 100px">
-                      <div class="input-group-btn">
-                        <button
-                          class="btn btn-sm btn-minus rounded-circle bg-light border"
-                        >
-                          <i class="fa fa-minus"></i>
-                        </button>
-                      </div>
-                      <input
-                        type="text"
-                        class="form-control form-control-sm text-center border-0"
-                        value="1"
-                      />
-                      <div class="input-group-btn"> 
-                        <button
-                          class="btn btn-sm btn-plus rounded-circle bg-light border"
-                        >
-                          <i class="fa fa-plus"></i>
-                        </button>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <p class="mb-0 mt-4">{{ item.price * item.quantity }}</p>
-                  </td>
-                  <td>
-                    <button
-                      @click="removeItem"
-                      class="btn btn-md rounded-circle bg-light border mt-4"
-                    >
-                      <i class="fa fa-times text-danger"></i>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+    <Header />
+    <div class="card">
+      <div class="row">
+        <div class="col cart">
+          <div class="title">
+            <div class="row">
+              <div class="col">
+                <h4><b>Shopping Cart</b></h4>
+              </div>
+            </div>
+          </div>
+          <div class="row border-top border-bottom">
+            <div class="row main align-items-center">
+              <div class="col-2">
+                <img
+                  class="img-fluid"
+                  src="https://staticcookist.akamaized.net/wp-content/uploads/sites/22/2020/06/meat-1200x675.jpg"
+                />
+              </div>
+              <div class="col">
+                <div class="row text-muted">Shirt</div>
+                <div class="row">Cotton T-shirt</div>
+              </div>
+              <div class="col">P 100 / kg</div>
+              <div class="col">
+                <router-link
+                  class="btn border-2 border-secondary rounded-pill py-1 px-3 text-primary h-50"
+                >
+                  <i class="fas fa-comment me-2"></i> Contact Seller
+                </router-link>
+              </div>
+              <div class="col">
+                <a @click="removeCart" class="mx-5 btn"
+                  ><i class="fas fa-trash-alt text-primary"></i
+                ></a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -78,17 +45,66 @@
 </template>
 
 <script>
-
+import CartCard from "../components/CartCard.vue";
+import Header from "../components/Header.vue";
 export default {
-  
   data() {
     return {
-      cartItem:[]
- 
+      cartItem: {
+        product: {
+          imageURL: "",
+          name: "",
+          price: 0,
+        },
+      },
     };
   },
+  components: { CartCard, Header },
+  props: ["baseURL"],
+  methods: {
+    // listCartItems() {
+    //   axios
+    //     .get(`${this.baseURL}cart/?token=${this.token}`)
+    //     .then((res) => {
+    //       const result = res.data;
+    //       this.cartItems = result.cartItems;
+    //       this.totalCost = result.totalCost;
+    //     })
+    //     .catch((err) => console.log("err", err));
+    // },
+    // deleteItem(itemId) {
+    //   axios
+    //     .delete(`${this.baseURL}cart/delete/${itemId}/?token=${this.token}`)
+    //     .then((res) => {
+    //       if (res.status == 200) {
+    //         this.$router.go(0);
+    //       }
+    //     })
+    //     .catch((err) => console.log("err", err));
+    // },
+  },
+  mounted() {},
 };
 </script>
 
-<style>
+<style scoped>
+.card {
+  margin: auto;
+  max-width: 950px;
+  width: 100%;
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 1rem;
+  border: transparent;
+}
+@media (max-width: 767px) {
+  .card {
+    margin: 3vh auto;
+  }
+}
+.cart {
+  background-color: #fff;
+  padding: 4vh 5vh;
+  border-bottom-left-radius: 1rem;
+  border-top-left-radius: 1rem;
+}
 </style>

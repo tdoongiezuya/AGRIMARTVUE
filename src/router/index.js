@@ -3,8 +3,10 @@ import Home from "../pages/Home.vue";
 import About from "../pages/About.vue";
 import Shop from "../pages/Shop.vue";
 import Cart from "../pages/Cart.vue";
-import ProductDetail from "../pages/ProductDetail.vue";
-import User from "../pages/User.vue";
+import ProductDetail from "../pages/ProductDetail.vue"
+import Signin from "../pages/Signin.vue";
+import Signup from "../pages/Signup.vue";
+import Chat from "../pages/Chat.vue";
 
 
 const routes = [
@@ -29,9 +31,24 @@ const routes = [
     component: Cart,
   },
   {
-    path: "/products/:id",
+    path: "/products/detail/:id",
     name: "ProductDetail",
     component: ProductDetail,
+  },
+  {
+    path: "/signin",
+    name: "Signin",
+    component: Signin,
+  },
+  {
+    path: "/signup",
+    name: "Signup",
+    component: Signup,
+  },
+  {
+    path: "/chat",
+    name: "Chat",
+    component: Chat,
   }
 ];
 

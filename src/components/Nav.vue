@@ -1,3 +1,4 @@
+
 <template>
   <nav >
     
@@ -18,28 +19,32 @@
                 </div>
             </div>
             <div class="container px-0">
-                <nav class="navbar navbar-light bg-white navbar-expand-xl">
+                <nav class="navbar navbar-light bg-white navbar-expand-xl" v-bind:class=" { 'navbarOpen': show }">
                     <a href="#" class="navbar-brand"><img src="../assets/img/logo.png" class="logo display-6" alt=""></a>
-                    <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <button class="navbar-toggler py-2 px-3" type="button"  data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"  @click.stop="toggleNavbar()" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="fa fa-bars text-primary"></span>
                     </button>
-                    <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+                    <div class="collapse navbar-collapse bg-white" id="navbarCollapse" :class="{ 'show': show }"  >
                         <div class="navbar-nav mx-auto">
-                            <router-link to="/" class="nav-item nav-link">Home</router-link>
-                            <router-link to="/shop" class="nav-item nav-link">Shop</router-link>
-                            <router-link to="/about" class="nav-item nav-link">About</router-link>
-                            <router-link to="/contact" class="nav-item nav-link">Contact</router-link>
+                            <router-link to="/" class="nav-item nav-link" >Home</router-link>
+                            <router-link to="/shop" class="nav-item nav-link" >Shop</router-link>
+                            <router-link to="/about" class="nav-item nav-link" >About</router-link>
+                            <router-link to="/contact" class="nav-item nav-link" >Contact</router-link>
                         </div>
                         
                         <div class="d-flex m-3 me-0">
                             <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-primary"></i></button>
-                            <router-link to="/cart" class="position-relative me-4 my-auto">
+                            <router-link to="/cart" class="position-relative me-4 my-auto" >
                                 <i class="fa fa-shopping-bag fa-2x"></i>
-                                <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+                                <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-white px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                             </router-link>
-                            <a href="#" class="my-auto">
+                            <router-link to="/chat" class="position-relative me-4 my-auto" >
+                                <i class="fas fa-comment fa-2x"></i>
+                                <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-white px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+                            </router-link>
+                            <router-link :to="{name: 'Signin'}" class="my-auto" >
                                 <i class="fas fa-user fa-2x"></i>
-                            </a>
+                            </router-link>
                         </div>
                     </div>
                 </nav>
@@ -49,12 +54,26 @@
     </nav>
 </template>
 
+<script setup>
+ import {ref} from 'vue'
+  const visible = ref(false);
+</script>
 <script>
 import ModalSearch from './ModalSearch.vue'
+import Signin from '../pages/Signin.vue';
 
 export default {
-  components: { ModalSearch },
-
+    data(){
+        return{
+            show : true,
+        }  
+    },
+    components: { ModalSearch },
+    methods: {
+        toggleNavbar() {
+        this.show = !this.show;
+        }
+    }
 }
 </script>
 
