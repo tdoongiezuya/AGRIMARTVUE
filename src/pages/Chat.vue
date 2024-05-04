@@ -1,9 +1,8 @@
 <template>
   <div class="container-fluid pt-5">
     <Header />
-    
-    <div style="position: relative; height: 70%">
 
+    <div style="position: relative; height: 70%">
       <section>
         <div class="container py-5">
           <div class="row">
@@ -85,11 +84,10 @@
                         style="position: relative; height: 400px"
                       >
                         <chat-message-box
-                          v-for="message in messages"
+                          v-for="message in this.messages"
                           :key="message.chat_id"
                           :message="message"
-                          :userId="currentUserId"
-                          :user="getUser(message.sender_id)"
+                          :userId="this.currentUserId"
                         >
                         </chat-message-box>
                       </div>
@@ -107,6 +105,7 @@
                           class="form-control form-control-lg border"
                           id="exampleFormControlInput2"
                           placeholder="Type message"
+                          v-model="this.currentMessage"
                         />
                         <a class="ms-1 text-muted" href="#!"
                           ><i class="fas fa-paperclip"></i
@@ -114,7 +113,7 @@
                         <!-- <a class="ms-3 text-muted" href="#!"
                           ><i class="fas fa-smile"></i
                         ></a> -->
-                        <a class="ms-3" href="#!"
+                        <a class="ms-3" v-on:click="sendMessage"
                           ><i class="fas fa-paper-plane"></i
                         ></a>
                       </div>
@@ -134,29 +133,57 @@
 import ChatUserList from "../components/ChatUserList.vue";
 import Header from "../components/Header.vue";
 import ChatMessageBox from "../components/ChatMessageBox.vue";
+import { nanoid } from "nanoid";
+import { io } from "https://cdn.socket.io/4.7.5/socket.io.esm.min.js";
+
+const socket = io("http://localhost:3000/");
 export default {
   components: { Header, ChatUserList, ChatMessageBox },
   data() {
     return {
       messages: [],
       currentUserId: 1, // Example user ID, replace with actual user ID
-      users: {} // Example users object, replace with actual users data
+      users: {},
+      currentMessage: "", // Example users object, replace with actual users data
     };
   },
+  methods: {
+    sendMessage() {
+      const newMessage = {
+        chat_id: nanoid(),
+        sender_id: this.currentUserId,
+        receiver_id: 2,
+        time: Date.now(),
+        message: this.currentMessage,
+      };
+      socket.emit("message", newMessage);
+      this.messages.push(newMessage);
+      this.currentMessage = "";
+    },
+  },
+
   mounted() {
+    socket.on(this.currentUserId, (message) => {
+      this.messages.push({
+        chat_id: message.chat_id,
+        sender_id: message.sender_id,
+        receiver_id: this.currentUserId,
+        time: Date.now(),
+        message: message.message,
+      });
+    });
     // Fetch messages from your backend when the component is mounted
     // This is just a placeholder, replace with actual fetching logic
-    this.messages = [
-      {
-        chat_id: 1,
-        sender_id: 1,
-        receiver_id: 2,
-        time: '2024-05-03T12:00:00Z',
-        message: 'Hello, how are you?'
-      },
-      // Add more messages as needed
-    ];
- }
+    //   this.messages = [
+    //     {
+    //       chat_id: 1,
+    //       sender_id: 1,
+    //       receiver_id: 2,
+    //       time: "2024-05-03T12:00:00Z",
+    //       message: "Hello, how are you?",
+    //     },
+    //   ];
+  },
 };
 </script>
 
