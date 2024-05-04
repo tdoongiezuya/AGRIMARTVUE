@@ -7,6 +7,7 @@ import ProductDetail from "../pages/ProductDetail.vue"
 import Signin from "../pages/Signin.vue";
 import Signup from "../pages/Signup.vue";
 import Chat from "../pages/Chat.vue";
+import Profile from "../pages/Profile.vue";
 
 
 const routes = [
@@ -49,6 +50,11 @@ const routes = [
     path: "/chat",
     name: "Chat",
     component: Chat,
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: Profile,
   }
 ];
 

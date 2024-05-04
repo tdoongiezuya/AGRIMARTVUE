@@ -42,7 +42,7 @@
                                 <i class="fas fa-comment fa-2x"></i>
                                 <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-white px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                             </router-link>
-                            <router-link :to="{name: 'Signin'}" class="my-auto" >
+                            <router-link :to="{name: 'Profile'}" class="my-auto" >
                                 <i class="fas fa-user fa-2x"></i>
                             </router-link>
                         </div>
