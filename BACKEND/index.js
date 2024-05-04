@@ -5,35 +5,30 @@ const express = require("express");
 // const routes = require("./routes");
 // const db = require("./db");
 const { readFileSync } = require("fs");
-
 const app = express();
+const cors = require('cors')
 const port = 3000;
-const doc = readFileSync("./chat.html", "utf-8");
-const doc2 = readFileSync("./chat2.html", "utf-8");
 // Middleware
+app.use(cors())
 app.use(express.json());
 
 const server = app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
-const { Server } = require("socket.io");
-const io = new Server(server);
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "*"
+  },
+});
 io.on("connection", (socket) => {
-  socket.on("chat1", (msg) => {
-    console.log(msg)
-    io.emit("chat1", msg)
-  });
-  socket.on("chat2", (msg) => io.emit("chat2", msg));
+  socket.on("message", (message) => {
+    console.log(message)
+    io.emit(message.receiver_id, message)
+  })
 });
 
 // app.use("/", routes);
 
-app.get("/test", (req, res) => {
-  res.send(doc);
-});
-app.get("/test2", (req, res) => {
-  res.send(doc2);
-});
 
 // db.connect((err) => {
 //   if (err) {
