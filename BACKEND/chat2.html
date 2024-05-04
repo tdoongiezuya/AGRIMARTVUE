@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p>Chatting with: Bob</p>
+    <div class="history"></div>
+
+    <input type="text" />
+    <button>Send</button>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+      const socket = io();
+      const input = document.querySelector("input");
+      function renderMessage(msg, sender) {
+        document.querySelector(".history").innerHTML += `<i>${sender}: ${msg}</i><br>`;
+      }
+      document.querySelector("button").addEventListener("click", () => {
+        renderMessage(input.value, "You");
+        socket.emit("chat2", input.value);
+        input.value = "";
+      });
+      socket.on("chat1", (msg) => {
+        renderMessage(msg, "Bob");
+      });
+    </script>
+  </body>
+</html>

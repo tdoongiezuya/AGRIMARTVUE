@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid pt-5">
     <Header />
-    <div class="overflow-auto" style="position: relative; height: 400px">
+    <div class="overflow-scroll" style="position: relative; height: 70%">
       <section>
         <div class="container py-5" >
           <div class="row">

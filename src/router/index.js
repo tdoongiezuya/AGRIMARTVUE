@@ -3,11 +3,11 @@ import Home from "../pages/Home.vue";
 import About from "../pages/About.vue";
 import Shop from "../pages/Shop.vue";
 import Cart from "../pages/Cart.vue";
-import ProductDetail from "../pages/ProductDetail.vue"
+import ProductDetail from "../pages/ProductDetail.vue";
 import Signin from "../pages/Signin.vue";
 import Signup from "../pages/Signup.vue";
 import Chat from "../pages/Chat.vue";
-
+import ChatTest from "../components/ChatTest.vue";
 
 const routes = [
   {
@@ -49,7 +49,7 @@ const routes = [
     path: "/chat",
     name: "Chat",
     component: Chat,
-  }
+  },
 ];
 
 const router = createRouter({
