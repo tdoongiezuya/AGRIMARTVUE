@@ -1,7 +1,9 @@
 <template>
   <div class="container-fluid pt-5">
     <Header />
+    
     <div style="position: relative; height: 70%">
+
       <section>
         <div class="container py-5">
           <div class="row">
