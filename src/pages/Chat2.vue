@@ -133,10 +133,11 @@
 import ChatUserList from "../components/ChatUserList.vue";
 import Header from "../components/Header.vue";
 import ChatMessageBox from "../components/ChatMessageBox.vue";
-import { nanoid } from "nanoid";
 import { io } from "https://cdn.socket.io/4.7.5/socket.io.esm.min.js";
-
+import formattedDate from "../format_date";
 const socket = io("http://localhost:3000/");
+import axios from "axios";
+
 export default {
   components: { Header, ChatUserList, ChatMessageBox },
   data() {
@@ -150,25 +151,26 @@ export default {
   methods: {
     sendMessage() {
       const newMessage = {
-        chat_id: nanoid(),
         sender_id: this.currentUserId,
         receiver_id: 1,
-        time: Date.now(),
+        datetime: formattedDate(),
         message: this.currentMessage,
-      }
+      };
       socket.emit("message", newMessage);
-      this.messages.push(newMessage);
       this.currentMessage = "";
     },
   },
 
   mounted() {
+    socket.on(`message sent: ${this.currentUserId}`, (chat) => {
+      this.messages.push(chat);
+    });
     socket.on(this.currentUserId, (message) => {
       this.messages.push({
         chat_id: message.chat_id,
         sender_id: message.sender_id,
         receiver_id: this.currentUserId,
-        time: Date.now(),
+        datetime: formattedDate(),
         message: message.message,
       });
     });
@@ -183,6 +185,9 @@ export default {
     //       message: "Hello, how are you?",
     //     },
     //   ];
+    axios.get("http://localhost:3000/chat-history").then((data) => {
+      this.messages = data.data
+    });
   },
 };
 </script>

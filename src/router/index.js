@@ -8,7 +8,9 @@ import Signin from "../pages/Signin.vue";
 import Signup from "../pages/Signup.vue";
 import Chat from "../pages/Chat.vue";
 import Profile from "../pages/Profile.vue";
+import DefaultDashboard from "../layouts/DefaultDashboard.vue";
 import Chat2 from "../pages/Chat2.vue";
+import AdminDashboard from "../layouts/AdminDashboard.vue";
 
 const routes = [
   {
@@ -62,6 +64,16 @@ const routes = [
     name: "Chat2",
     component: Chat2,
   },
+  {
+    path: "/DefaultDashboard",
+    name: "DefaultDashboard",
+    component: DefaultDashboard,
+  },
+  {
+    path: "/admin",
+    name: "AdminDashboard",
+    component: AdminDashboard,
+  }
 ];
 
 const router = createRouter({
