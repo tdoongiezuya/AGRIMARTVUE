@@ -3,12 +3,12 @@ import Home from "../pages/Home.vue";
 import About from "../pages/About.vue";
 import Shop from "../pages/Shop.vue";
 import Cart from "../pages/Cart.vue";
-import ProductDetail from "../pages/ProductDetail.vue"
+import ProductDetail from "../pages/ProductDetail.vue";
 import Signin from "../pages/Signin.vue";
 import Signup from "../pages/Signup.vue";
 import Chat from "../pages/Chat.vue";
 import Profile from "../pages/Profile.vue";
-
+import Chat2 from "../pages/Chat2.vue";
 
 const routes = [
   {
@@ -50,12 +50,18 @@ const routes = [
     path: "/chat",
     name: "Chat",
     component: Chat,
+
   },
   {
     path: "/profile",
     name: "Profile",
     component: Profile,
-  }
+  },  
+  {
+    path: "/chat2",
+    name: "Chat2",
+    component: Chat2,
+  },
 ];
 
 const router = createRouter({
