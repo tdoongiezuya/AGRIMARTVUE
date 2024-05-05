@@ -7,7 +7,9 @@ import ProductDetail from "../pages/ProductDetail.vue";
 import Signin from "../pages/Signin.vue";
 import Signup from "../pages/Signup.vue";
 import Chat from "../pages/Chat.vue";
+import Profile from "../pages/Profile.vue";
 import Chat2 from "../pages/Chat2.vue";
+
 const routes = [
   {
     path: "/",
@@ -48,7 +50,14 @@ const routes = [
     path: "/chat",
     name: "Chat",
     component: Chat,
-  },  {
+
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: Profile,
+  },  
+  {
     path: "/chat2",
     name: "Chat2",
     component: Chat2,

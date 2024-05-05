@@ -213,6 +213,7 @@
 #searchModal .modal-content {
   background: rgba(255, 255, 255, 0.8);
 }
+
 /*** Navbar End ***/
 
 /*** Hero Header ***/
@@ -526,7 +527,6 @@ body {
 ::-webkit-scrollbar-thumb {
   width: 1em;
   background-color: #ddd;
-  outline: 1px solid slategrey;
   border-radius: 1rem;
 }
 .text-small {
