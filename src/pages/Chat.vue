@@ -135,6 +135,8 @@ import Header from "../components/Header.vue";
 import ChatMessageBox from "../components/ChatMessageBox.vue";
 import { nanoid } from "nanoid";
 import { io } from "https://cdn.socket.io/4.7.5/socket.io.esm.min.js";
+import formattedDate from "../format_date";
+import axios from "axios";
 
 const socket = io("http://localhost:3000/");
 export default {
@@ -147,42 +149,44 @@ export default {
       currentMessage: "", // Example users object, replace with actual users data
     };
   },
+
   methods: {
     sendMessage() {
       const newMessage = {
-        chat_id: nanoid(),
         sender_id: this.currentUserId,
         receiver_id: 2,
-        time: Date.now(),
-        message: this.currentMessage,
+        time: formattedDate(),
+        datetime: this.currentMessage,
       };
       socket.emit("message", newMessage);
-      this.messages.push(newMessage);
       this.currentMessage = "";
     },
   },
 
   mounted() {
+    socket.on(`message sent: ${this.currentUserId}`, (chat) => {
+      this.messages.push({
+        chat_id: chat.id,
+        sender_id: chat.sender_id,
+        receiver_id: chat.receiver_id,
+        time: chat.datetime,
+        message: chat.message,
+      });
+    });
     socket.on(this.currentUserId, (message) => {
       this.messages.push({
         chat_id: message.chat_id,
         sender_id: message.sender_id,
         receiver_id: this.currentUserId,
-        time: Date.now(),
+        datetime: formattedDate(),
         message: message.message,
       });
     });
     // Fetch messages from your backend when the component is mounted
     // This is just a placeholder, replace with actual fetching logic
-    //   this.messages = [
-    //     {
-    //       chat_id: 1,
-    //       sender_id: 1,
-    //       receiver_id: 2,
-    //       time: "2024-05-03T12:00:00Z",
-    //       message: "Hello, how are you?",
-    //     },
-    //   ];
+    axios.get("http://localhost:3000/chat-history").then((data) => {
+      this.messages = data.data;
+    });
   },
 };
 </script>

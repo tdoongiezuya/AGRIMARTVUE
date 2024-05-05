@@ -11,7 +11,7 @@
           {{ message.message }}
         </p>
         <p class="small me-3 mb-3 rounded-3 text-muted">
-          <!-- {{ formatTime(message.time) }} -->
+          {{ message.datetime }}
         </p>
       </div>
     </div>
@@ -24,7 +24,7 @@
           {{ message.message }}
         </p>
         <p class="small ms-3 mb-3 rounded-3 text-muted float-end">
-          <!-- {{ formatTime(message.time) }} -->
+          {{ message.datetime }}
         </p>
       </div>
     </div>
