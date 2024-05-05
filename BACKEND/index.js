@@ -2,8 +2,8 @@
 
 const express = require("express");
 // const bodyParser = require("body-parser");
-// const routes = require("./routes");
-// const db = require("./db");
+const routes = require("./routes");
+const db = require("./db");
 const { readFileSync } = require("fs");
 const app = express();
 const cors = require('cors')
@@ -15,9 +15,11 @@ app.use(express.json());
 const server = app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+app.use("/", routes);
 const io = require("socket.io")(server, {
   cors: {
-    origin: "*"
+    origin: "*",
+    methods: ["GET", "POST"]
   },
 });
 io.on("connection", (socket) => {
@@ -30,10 +32,10 @@ io.on("connection", (socket) => {
 // app.use("/", routes);
 
 
-// db.connect((err) => {
-//   if (err) {
-//     console.error("Error connecting to database: " + err.stack);
-//     return;
-//   }
-//   console.log("Connected to database");
-// });
+db.connect((err) => {
+  if (err) {
+    console.error("Error connecting to database: " + err.stack);
+    return;
+  }
+  console.log("Connected to database");
+});

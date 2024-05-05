@@ -4,28 +4,28 @@ const db = require('../db');
 const jwtSecret = process.env.JWT_SECRET;
 
 exports.registerUser = (req, res) => {
-    const { username, email, password, firstName, lastName, middleName } = req.body;
+    const { username, email, password, firstName, lastName, middleName, userLevel } = req.body;
 
     console.log('Data received by the server:', req.body);
 
-    if (!username || !email || !password || !firstName || !lastName) {
-        return res.status(400).send({ message: "All fields (username, email, password, firstName, lastName) are required" });
+    if (!username || !email || !password || !firstName || !lastName || userLevel === undefined) {
+        return res.status(400).send({ message: "All fields (username, email, password, firstName, lastName, userLevel) are required" });
     }
 
     bcrypt.hash(password, 8, (err, hash) => {
         if (err) throw err;
 
-        const userInfoQuery = 'INSERT INTO user_info (last_name, first_name, m_name) VALUES (?, ?, ?)';
-        const userCredQuery = 'INSERT INTO user_cred (user_info_id, username, password, user_level, email) VALUES (?, ?, ?, ?, ?)';
+        const userInfoQuery = 'INSERT INTO user_info (last_name, first_name, user_level) VALUES (?, ?, ?)';
+        const userCredQuery = 'INSERT INTO user_cred (user_info_id, username, password, email) VALUES (?, ?, ?, ?)';
 
-        db.query(userInfoQuery, [lastName, firstName, middleName], (err, userInfoResult) => {
+        db.query(userInfoQuery, [lastName, firstName, userLevel], (err, userInfoResult) => {
             if (err) {
                 return res.status(500).send({ message: "Error saving user info to the database" });
             }
 
             const user_info_id = userInfoResult.insertId;
 
-            db.query(userCredQuery, [user_info_id, username, hash, 'user', email], (err, userCredResult) => {
+            db.query(userCredQuery, [user_info_id, username, hash, email], (err, userCredResult) => {
                 if (err) {
                     return res.status(500).send({ message: "Error saving user credentials to the database" });
                 }
