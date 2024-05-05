@@ -2,7 +2,7 @@
 
 const express = require("express");
 
-// const routes = require("./routes");
+const routes = require("./routes");
 
 const db = require("./db");
 const { readFileSync } = require("fs");
@@ -52,5 +52,3 @@ io.on("connection", (socket) => {
     });
   });
 });
-
-// app.use("/", routes);
