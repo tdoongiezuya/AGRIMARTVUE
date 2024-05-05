@@ -155,8 +155,8 @@ export default {
       const newMessage = {
         sender_id: this.currentUserId,
         receiver_id: 2,
-        time: formattedDate(),
-        datetime: this.currentMessage,
+        datetime: formattedDate(),
+        message: this.currentMessage,
       };
       socket.emit("message", newMessage);
       this.currentMessage = "";
@@ -165,13 +165,7 @@ export default {
 
   mounted() {
     socket.on(`message sent: ${this.currentUserId}`, (chat) => {
-      this.messages.push({
-        chat_id: chat.id,
-        sender_id: chat.sender_id,
-        receiver_id: chat.receiver_id,
-        time: chat.datetime,
-        message: chat.message,
-      });
+      this.messages.push(chat);
     });
     socket.on(this.currentUserId, (message) => {
       this.messages.push({

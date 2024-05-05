@@ -35,12 +35,13 @@ io.on("connection", (socket) => {
         "INSERT INTO chat(receiver_id, sender_id, datetime, message, is_deleted) VALUES (?, ?, ?, ?, ?)",
         [message.receiver_id, message.sender_id, message.datetime, message.message, 0],
         (err, res,) => {
-          console.log(res)
           conn.query(
             "SELECT * FROM chat WHERE chat_id = ? LIMIT 1",
             [res.insertId],
             (err, res) => {
-              io.emit(`message sent: ${message.receiver_id}`, res[0]);
+              console.log(message)
+              io.emit(`message sent: ${message.sender_id}`, res[0]); 
+              io.emit(`${message.receiver_id}`, res[0]);
             }
           );
         }
