@@ -1,15 +1,14 @@
 // require("dotenv").config();
 
 const express = require("express");
-// const bodyParser = require("body-parser");
 // const routes = require("./routes");
-// const db = require("./db");
+const db = require("./db");
 const { readFileSync } = require("fs");
 const app = express();
-const cors = require('cors')
+const cors = require("cors");
 const port = 3000;
 // Middleware
-app.use(cors())
+app.use(cors());
 app.use(express.json());
 
 const server = app.listen(port, () => {
@@ -17,23 +16,37 @@ const server = app.listen(port, () => {
 });
 const io = require("socket.io")(server, {
   cors: {
-    origin: "*"
+    origin: "*",
   },
 });
+
+app.get('/chat-history', (req, res) => {
+  db.getConnection((err, conn) => {
+    console.log('aaa')
+    conn.query('SELECT * FROM chat', (err, result) => {
+      res.send(result)
+    })
+  })
+})
 io.on("connection", (socket) => {
   socket.on("message", (message) => {
-    console.log(message)
-    io.emit(message.receiver_id, message)
-  })
+    db.getConnection((err, conn) => {
+      conn.query(
+        "INSERT INTO chat(receiver_id, sender_id, datetime, message, is_deleted) VALUES (?, ?, ?, ?, ?)",
+        [message.receiver_id, message.sender_id, message.datetime, message.message, 0],
+        (err, res,) => {
+          console.log(res)
+          conn.query(
+            "SELECT * FROM chat WHERE chat_id = ? LIMIT 1",
+            [res.insertId],
+            (err, res) => {
+              io.emit(`message sent: ${message.receiver_id}`, res[0]);
+            }
+          );
+        }
+      );
+    });
+  });
 });
 
 // app.use("/", routes);
-
-
-// db.connect((err) => {
-//   if (err) {
-//     console.error("Error connecting to database: " + err.stack);
-//     return;
-//   }
-//   console.log("Connected to database");
-// });
