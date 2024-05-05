@@ -39,7 +39,7 @@ onMounted(() => {
 <template>
   <div>
     <div class="container-fluid">
-      <Nav />
+      
     </div>
     <main>
       <router-view
