@@ -11,6 +11,7 @@ import Profile from "../pages/Profile.vue";
 import DefaultDashboard from "../layouts/DefaultDashboard.vue";
 import Chat2 from "../pages/Chat2.vue";
 import AdminDashboard from "../layouts/AdminDashboard.vue";
+import FarmerDashboard from "../layouts/FarmerDashboard.vue";
 
 const routes = [
   {
@@ -65,7 +66,7 @@ const routes = [
     component: Chat2,
   },
   {
-    path: "/DefaultDashboard",
+    path: "/default",
     name: "DefaultDashboard",
     component: DefaultDashboard,
   },
@@ -73,6 +74,11 @@ const routes = [
     path: "/admin",
     name: "AdminDashboard",
     component: AdminDashboard,
+  },
+  {
+    path: "/farmer",
+    name: "FarmerDashboard",
+    component: FarmerDashboard,
   }
 ];
 
