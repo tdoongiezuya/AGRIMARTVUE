@@ -54,10 +54,7 @@
     </nav>
 </template>
 
-<script setup>
- import {ref} from 'vue'
-  const visible = ref(false);
-</script>
+
 <script>
 import ModalSearch from './ModalSearch.vue'
 import Signin from '../pages/Signin.vue';
@@ -65,7 +62,7 @@ import Signin from '../pages/Signin.vue';
 export default {
     data(){
         return{
-            show : true,
+            show : false,
         }  
     },
     components: { ModalSearch },

@@ -13,6 +13,7 @@ import Chat2 from "../pages/Chat2.vue";
 import AdminDashboard from "../layouts/AdminDashboard.vue";
 import FarmerDashboard from "../layouts/FarmerDashboard.vue";
 import Contact from "../pages/Contact.vue";
+import FarmerProducts from "../pages/FarmerProducts.vue";
 
 const routes = [
   {
@@ -85,6 +86,11 @@ const routes = [
     path: "/contact",
     name: "Contact",
     component: Contact,
+  },
+  {
+    path: "/farmerproducts",
+    name: "FarmerProducts",
+    component: FarmerProducts,
   }
 ];
 
