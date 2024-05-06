@@ -1,4 +1,4 @@
-const mysql = require('mysql2'); // Importing mysql2 with promise support
+const mysql = require('mysql2/promise'); // Importing mysql2 with promise support
 
 const pool = mysql.createPool({
   connectionLimit: 25,
