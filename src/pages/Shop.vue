@@ -80,8 +80,7 @@
                 <Card v-for="product in products" 
                   :key="product.id" 
                   :product="product"
-                  @cart-updated="pushToCart"
-                  />
+                />
               </div>
             </div>
 
@@ -114,9 +113,7 @@ export default {
   },
   
   methods:{
-    pushToCart(product){
-      this.cart.push(product)
-    }
+    
   }
 };
 </script>
