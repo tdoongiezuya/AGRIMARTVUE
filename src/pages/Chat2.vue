@@ -157,15 +157,18 @@ export default {
         message: this.currentMessage,
       };
       socket.emit("message", newMessage);
+      console.log(newMessage)
       this.currentMessage = "";
     },
   },
 
   mounted() {
     socket.on(`message sent: ${this.currentUserId}`, (chat) => {
+      console.log(chat)
       this.messages.push(chat);
     });
     socket.on(this.currentUserId, (message) => {
+      console.log('ffdf')
       this.messages.push({
         chat_id: message.chat_id,
         sender_id: message.sender_id,
