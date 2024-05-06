@@ -20,7 +20,7 @@
             </div>
             <div class="container px-0">
                 <nav class="navbar navbar-light bg-white navbar-expand-xl" v-bind:class=" { 'navbarOpen': show }">
-                    <a href="#" class="navbar-brand"><img src="../assets/img/logo.png" class="logo display-6" alt=""></a>
+                    <router-link to="/" class="navbar-brand"><img src="../assets/img/logo.png" class="logo display-6" alt=""></router-link>
                     <button class="navbar-toggler py-2 px-3" type="button"  data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"  @click.stop="toggleNavbar()" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="fa fa-bars text-primary"></span>
                     </button>

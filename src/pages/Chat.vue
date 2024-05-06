@@ -37,7 +37,7 @@
                           style="position: relative; height: 500px"
                         >
                           <!-- UserList -->
-                          <!-- <chat-user-list/> -->
+                          <chat-user-list/>
                         </div>
                       </div>
                     </div>
@@ -54,7 +54,7 @@
                             />
                           </div>
                           <div class="flex-grow-1 pl-3 ml-2 px-3">
-                            <h5>Sharon Lessman</h5>
+                            <h5>{{user-info.name}}</h5>
                           </div>
                           <div>
                             <button class="btn btn-light border btn-md px-3">
@@ -147,6 +147,7 @@ export default {
       currentUserId: 1, // Example user ID, replace with actual user ID
       users: {},
       currentMessage: "", // Example users object, replace with actual users data
+      
     };
   },
 
