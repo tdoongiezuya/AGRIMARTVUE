@@ -1,7 +1,9 @@
 // require("dotenv").config();
 
 const express = require("express");
-// const routes = require("./routes");
+
+const routes = require("./routes");
+
 const db = require("./db");
 const { readFileSync } = require("fs");
 const app = express();
@@ -14,6 +16,7 @@ app.use(express.json());
 const server = app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+app.use("/", routes);
 const io = require("socket.io")(server, {
   cors: {
     origin: "*",
@@ -49,5 +52,3 @@ io.on("connection", (socket) => {
     });
   });
 });
-
-// app.use("/", routes);
