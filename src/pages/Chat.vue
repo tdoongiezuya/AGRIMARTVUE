@@ -54,7 +54,7 @@
                             />
                           </div>
                           <div class="flex-grow-1 pl-3 ml-2 px-3">
-                            <h5>{{user-info.name}}</h5>
+                            <h5>Foo Bar</h5>
                           </div>
                           <div>
                             <button class="btn btn-light border btn-md px-3">

@@ -1,5 +1,4 @@
 const Address = require('../models/Address');
-const db = require('../db');
 
 async function add(req, res) {
   const { user_info_id, address_line, city, mobile } = req.body;
@@ -9,8 +8,8 @@ async function add(req, res) {
   }
 
   try {
-    const results = await db.query('INSERT INTO user_address (user_info_id, address_line, city, mobile) VALUES (?, ?, ?, ?)', [user_info_id, address_line, city, mobile]);
-    res.status(201).json({ message: 'Address inserted successfully', address_id: results.insertId });
+    const result = await Address.insert(user_info_id, address_line, city, mobile);
+    res.status(201).json({ message: 'Address inserted successfully', address_id: result.insertId });
   } catch (error) {
     console.error('Error inserting address:', error);
     res.status(500).json({ error: 'Failed to insert address' });
@@ -18,19 +17,15 @@ async function add(req, res) {
 }
 
 async function update(req, res) {
-  const { id } = req.params; // Extract address ID from URL
+  const { address_id } = req.params;
   const { user_info_id, address_line, city, mobile } = req.body;
 
   if (!user_info_id || !address_line || !city || !mobile) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
-  // Set is_deleted to 1 for the old address
   try {
-    await db.query('UPDATE user_address SET is_deleted = 1 WHERE user_address_id = ? AND is_deleted = 0', [id]);
-
-    // Update the new address
-    await db.query('UPDATE user_address SET user_info_id = ?, address_line = ?, city = ?, mobile = ? WHERE user_address_id = ?', [user_info_id, address_line, city, mobile, id]);
+    await Address.update(address_id, user_info_id, address_line, city, mobile);
     res.status(200).json({ message: 'Address updated successfully' });
   } catch (error) {
     console.error('Error updating address:', error);
@@ -38,7 +33,47 @@ async function update(req, res) {
   }
 }
 
+async function get(req, res) {
+  const { address_id } = req.params;
+
+  try {
+    const address = await Address.getById(address_id);
+    if (!address) {
+      return res.status(404).json({ error: 'Address not found' });
+    }
+    res.status(200).json(address);
+  } catch (error) {
+    console.error('Error fetching address:', error);
+    res.status(500).json({ error: 'Failed to fetch address' });
+  }
+}
+
+async function del(req, res) {
+  const { address_id } = req.params;
+
+  try {
+    await Address.delete(address_id);
+    res.status(200).json({ message: 'Address deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting address:', error);
+    res.status(500).json({ error: 'Failed to delete address' });
+  }
+}
+
+async function getAll(req, res) {
+  try {
+    const addresses = await Address.getAll();
+    res.status(200).json(addresses);
+  } catch (error) {
+    console.error('Error fetching addresses:', error);
+    res.status(500).json({ error: 'Failed to fetch addresses' });
+  }
+}
+
 module.exports = {
   add,
   update,
+  get,
+  delete: del,
+  getAll,
 };

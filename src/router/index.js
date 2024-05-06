@@ -13,7 +13,7 @@ import Chat2 from "../pages/Chat2.vue";
 import AdminDashboard from "../layouts/AdminDashboard.vue";
 import FarmerDashboard from "../layouts/FarmerDashboard.vue";
 import Contact from "../pages/Contact.vue";
-import FarmerProducts from "../pages/FarmerProducts.vue";
+// import FarmerProducts from "../pages/FarmerProducts.vue";
 
 const routes = [
   {
@@ -36,11 +36,7 @@ const routes = [
     name: "Cart",
     component: Cart,
   },
-  {
-    path: "/products/detail/:id",
-    name: "ProductDetail",
-    component: ProductDetail,
-  },
+
   {
     path: "/signin",
     name: "Signin",
@@ -55,13 +51,12 @@ const routes = [
     path: "/chat",
     name: "Chat",
     component: Chat,
-
   },
   {
     path: "/profile",
     name: "Profile",
     component: Profile,
-  },  
+  },
   {
     path: "/chat2",
     name: "Chat2",
@@ -78,20 +73,23 @@ const routes = [
     component: AdminDashboard,
   },
   {
-    path: "/farmer",
+    path: "/farmer/:id",
     name: "FarmerDashboard",
     component: FarmerDashboard,
+    // children: [
+    //   {
+    //     path: "/products",
+    //     component: FarmerProducts,
+    //     name: "Products",
+    //     children: [{ path: "/detail/:id", component: ProductDetail }],
+    //   },
+    // ],
   },
   {
     path: "/contact",
     name: "Contact",
     component: Contact,
   },
-  {
-    path: "/farmerproducts",
-    name: "FarmerProducts",
-    component: FarmerProducts,
-  }
 ];
 
 const router = createRouter({

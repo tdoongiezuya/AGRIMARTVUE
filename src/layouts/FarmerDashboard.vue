@@ -43,7 +43,7 @@
             <div class="navbar-nav mx-auto">
               <router-link to="/" class="nav-item nav-link">Home</router-link>
               <router-link
-                :to="{ name: 'FarmerProducts' }"
+                :to="{ path: 'farmer/1/products' }"
                 class="nav-item nav-link"
                 >My Products</router-link
               >
