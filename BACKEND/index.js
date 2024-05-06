@@ -23,34 +23,31 @@ const io = require("socket.io")(server, {
   },
 });
 
-app.get('/chat-history', (req, res) => {
-  db.getConnection((err, conn) => {
-    conn.query('SELECT * FROM chat', (err, result) => {
-      res.send(result)
-    })
-  })
-})
+app.get("/chat-history", async (req, res) => {
+  const result = await db.query("SELECT * FROM chat");
+  console.log(result);
+  res.send(result[0]);
+});
 io.on("connection", (socket) => {
-  console.log('connected')
-  socket.on("message", (message) => {
-    console.log(message)
-    db.getConnection((err, conn) => {
-      conn.query(
-        "INSERT INTO chat(receiver_id, sender_id, datetime, message) VALUES (?, ?, ?, ?)",
-        [message.receiver_id, message.sender_id, message.datetime, message.message, 0],
-        (err, res,) => {
-          console.log(err + 'fffff')
-          conn.query(
-            "SELECT * FROM chat WHERE chat_id = ? LIMIT 1",
-            [res.insertId],
-            (err, res) => {
-              console.log(err)
-              io.emit(`message sent: ${message.sender_id}`, res[0]); 
-              io.emit(`${message.receiver_id}`, res[0]);
-            }
-          );
-        }
-      );
-    });
+  console.log("connected");
+  db;
+  socket.on("message", async (message) => {
+    const res = await db.query(
+      "INSERT INTO chat(receiver_id, sender_id, datetime, message) VALUES (?, ?, ?, ?)",
+      [
+        message.receiver_id,
+        message.sender_id,
+        message.datetime,
+        message.message,
+        0,
+      ]
+    );
+    const msg = await db.query("SELECT * FROM chat WHERE chat_id = ? LIMIT 1", [res[0].insertId]);
+    console.log(msg)
+    io.emit(`message sent: ${message.sender_id}`, msg[0][0]);
+    io.emit(`${message.receiver_id}`, msg[0][0]);
+    (err, res) => {
+      console.log(err + "fffff");
+    };
   });
 });
