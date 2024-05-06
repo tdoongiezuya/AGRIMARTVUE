@@ -4,7 +4,7 @@ const db = require('../db');
 const jwtSecret = process.env.JWT_SECRET;
 
 exports.registerUser = async (req, res) => {
-    const { username, email, password, firstName, lastName, middleName, userLevel } = req.body;
+    const { username, email, password, firstName, lastName, middleName, userLevel} = req.body;
 
     console.log('Data received by the server:', req.body);
 
@@ -15,7 +15,7 @@ exports.registerUser = async (req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(password, 8);
         const userInfoResult = await db.query('INSERT INTO user_info (last_name, first_name, user_level) VALUES (?, ?, ?)', [lastName, firstName, userLevel]);
-        const user_info_id = userInfoResult.insertId;
+        const user_info_id = userInfoResult[0].insertId;
         await db.query('INSERT INTO user_cred (user_info_id, username, password, email) VALUES (?, ?, ?, ?)', [user_info_id, username, hashedPassword, email]);
         
         res.send({ message: "User was registered successfully!" });
@@ -38,8 +38,10 @@ exports.loginUser = async (req, res) => {
         }
 
         const user = results[0];
-        const passwordMatch = await bcrypt.compare(password, user.password);
-
+        const hashPass = /^\$2y\$/.test(user[0].password) ? '$2a$' + user[0].password.slice(4) : user[0].password;
+        console.log(hashPass, password)
+        const passwordMatch = await bcrypt.compare(password, hashPass);
+        console.log(passwordMatch)
         if (passwordMatch) {
             const token = jwt.sign({ id: user.id }, jwtSecret, { expiresIn: 86400 });
             console.log(`User ${username} logged in successfully`);
