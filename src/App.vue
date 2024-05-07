@@ -9,24 +9,22 @@ const categories = ref(null);
 const token = ref(localStorage.getItem("token"));
 
 const fetchData = async () => {
-    try {
-    const productsRes = await axios.get(baseURL + "products/");
-    products.value = productsRes.data;
+  //   try {
+  //   const productsRes = await axios.get(baseURL + "products/");
+  //   products.value = productsRes.data;
 
-    const categoriesRes = await axios.get(baseURL + "category/");
-    categories.value = categoriesRes.data;
-  } catch (err) {
-    console.log(err);
-  }
+  // } catch (err) {
+  //   console.log(err);
+  // }
   // fetch cart item if token is present i.e logged in
-  if (token.value) {
-    try {
-      const resCart = await axios.get(`${baseURL}cart/?token=${token.value}`);
-      cartCount.value = resCart.data.cartItems.length;
-    } catch (err) {
-      console.log("err", err);
-    }
- }  
+  //   if (token.value) {
+  //     try {
+  //       const resCart = await axios.get(`${baseURL}cart/?token=${token.value}`);
+  //       cartCount.value = resCart.data.cartItems.length;
+  //     } catch (err) {
+  //       console.log("err", err);
+  //     }
+  // }  
 };
 
 onMounted(() => {

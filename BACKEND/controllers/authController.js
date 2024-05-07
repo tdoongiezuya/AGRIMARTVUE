@@ -4,17 +4,17 @@ const db = require('../db');
 const jwtSecret = process.env.JWT_SECRET;
 
 exports.registerUser = async (req, res) => {
-    const { username, email, password, firstName, lastName, middleName, userLevel} = req.body;
+    const { username, email, password, first_name, last_name, user_level} = req.body;
 
     console.log('Data received by the server:', req.body);
 
-    if (!username || !email || !password || !firstName || !lastName || userLevel === undefined) {
-        return res.status(400).send({ message: "All fields (username, email, password, firstName, lastName, userLevel) are required" });
+    if (!username || !email || !password || !first_name || !last_name || user_level === undefined) {
+        return res.status(400).send({ message: "All fields (username, email, password, first_name, lastName, user_level) are required" });
     }
 
     try {
         const hashedPassword = await bcrypt.hash(password, 8);
-        const userInfoResult = await db.query('INSERT INTO user_info (last_name, first_name, user_level) VALUES (?, ?, ?)', [lastName, firstName, userLevel]);
+        const userInfoResult = await db.query('INSERT INTO user_info (last_name, first_name, user_level) VALUES (?, ?, ?)', [last_name, first_name, user_level]);
         const user_info_id = userInfoResult[0].insertId;
         await db.query('INSERT INTO user_cred (user_info_id, username, password, email) VALUES (?, ?, ?, ?)', [user_info_id, username, hashedPassword, email]);
         
@@ -28,6 +28,7 @@ exports.registerUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
     const { username, password } = req.body;
     console.log(`Attempting login for ${username}`);
+    console.log('Data received by the server:', req.body);
 
     try {
         const results = await db.query('SELECT * FROM user_cred WHERE username = ?', [username]);

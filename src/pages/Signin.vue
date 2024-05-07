@@ -1,3 +1,4 @@
+<
 <template>
   <section class="p-3 p-md-4 p-xl-4 mt-5">
     <div class="container sign pt-5 mt-5">
@@ -6,12 +7,7 @@
           <div class="col-12 col-md-6 text-bg-primary d-none d-md-block">
             <div
               class="d-flex image-holder align-items-center justify-content-center h-100"
-            >
-              <!-- <div class=" col-10 col-xl-8 py-3">
-              
-              
-            </div> -->
-            </div>
+            ></div>
           </div>
           <div class="col-12 col-md-6 sign-form">
             <div class="card-body p-3 p-md-4 p-xl-5 bg-white">
@@ -25,23 +21,21 @@
                   </div>
                 </div>
               </div>
-              <form @submit="signin">
+              <form @submit.prevent="signin">
                 <div class="row gy-3 gy-md-4 overflow-hidden">
                   <div class="col-12">
-                    <label for="email" class="form-label"
-                      >Email<span class="text-danger">*</span></label
+                    <label for="username" class="form-label"
+                      >Username<span class="text-danger">*</span></label
                     >
                     <input
-                      type="email"
+                      type="text"
                       class="form-control"
-                      name="email"
-                      id="email"
-                      placeholder="name@example.com"
-                      v-model="email"
+                      name="username"
+                      id="username"
+                      v-model="username"
                       required
                     />
                   </div>
-
                   <div class="col-12">
                     <label for="password" class="form-label"
                       >Password <span class="text-danger">*</span></label
@@ -51,12 +45,10 @@
                       class="form-control"
                       name="password"
                       id="password"
-                      value=""
                       v-model="password"
                       required
                     />
                   </div>
-
                   <div class="col-12">
                     <div class="d-grid">
                       <button
@@ -91,43 +83,44 @@
 </template>
 
 <script>
-import swal from "sweetalert";
 import axios from "axios";
+
 export default {
-  props: ["baseURL"],
   data() {
     return {
-      email: null,
+      username: null,
       password: null,
-      loading: null,
     };
   },
   methods: {
-    async signin(e) {
-      e.preventDefault();
-      // set loading to true
-      this.loading = true;
-
-      // request body
-      const body = {
-        email: this.email,
+    async signin() {
+      const user = {
+        username: this.username,
         password: this.password,
       };
-      await axios
-        .post(`${this.baseURL}/login`, body)
-        .then((res) => {
-          localStorage.setItem("token", res.data.token);
-          swal({
-            text: "Login successful",
-            icon: "success",
-          });
-          this.$emit("fetchData");
-          this.$router.push({ name: "Home" });
-        })
-        .catch((err) => console.log("err", err));
+
+      // call the API
+      try {
+        const response = await axios({
+          method: "post",
+          url: `${this.baseURL}/auth/login`, // Ensure the URL is correct
+          data: JSON.stringify(user),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        // Assuming the server responds with a token in the response data
+        localStorage.setItem("token", response.data.token);
+        this.$emit("fetchData");
+        this.$router.push({ name: "Home" });
+      } catch (error) {
+        console.error("Login error", error);
+        // Implement error handling here, e.g., show an error message to the user
+      } finally {
+        this.loading = false;
+      }
     },
   },
 };
 </script>
-
-<style scoped></style>
