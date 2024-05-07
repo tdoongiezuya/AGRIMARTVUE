@@ -17,14 +17,14 @@ const fetchData = async () => {
   //   console.log(err);
   // }
   // fetch cart item if token is present i.e logged in
-  if (token.value) {
-    try {
-      const resCart = await axios.get(`${baseURL}cart/?token=${token.value}`);
-      cartCount.value = resCart.data.cartItems.length;
-    } catch (err) {
-      console.log("err", err);
-    }
- }  
+  //   if (token.value) {
+  //     try {
+  //       const resCart = await axios.get(`${baseURL}cart/?token=${token.value}`);
+  //       cartCount.value = resCart.data.cartItems.length;
+  //     } catch (err) {
+  //       console.log("err", err);
+  //     }
+  // }  
 };
 
 onMounted(() => {

@@ -37,7 +37,7 @@
                         class="form-control"
                         name="firstName"
                         id="firstName"
-                        v-model="firstName"
+                        v-model="first_name"
                         required
                       />
                     </div>
@@ -49,8 +49,8 @@
                         type="text"
                         class="form-control"
                         name="lastName"
-                        id="lastName"
-                        v-model="lastName"
+                        id="last_name"
+                        v-model="last_name"
                         required
                       />
                     </div>
@@ -77,8 +77,8 @@
                       type="text"
                       class="form-control"
                       name="userName"
-                      id="userName"
-                      v-model="userName"
+                      id="user_name"
+                      v-model="username"
                       required
                     />
                   </div>
@@ -109,27 +109,7 @@
                       required
                     />
                   </div>
-                  <!-- <div class="col-12">
-                    <div class="form-check">
-                      <input
-                        class="form-check-input"
-                        type="checkbox"
-                        value=""
-                        name="iAgree"
-                        id="iAgree"
-                        required
-                      />
-                      <label
-                        class="form-check-label text-secondary"
-                        for="iAgree"
-                      >
-                        I agree to the
-                        <a href="#!" class="link-primary text-decoration-none"
-                          >terms and conditions</a
-                        >
-                      </label>
-                    </div>
-                  </div> -->
+                 
                   <div
                     class="d-md-flex justify-content-start align-items-center mb-4 py-2"
                   >
@@ -140,8 +120,8 @@
                         class="form-check-input"
                         type="radio"
                         id="consumer"
-                        v-model="role"
-                        value="consumer"
+                        v-model="user_level"
+                        value=1
                       />
                       <label class="form-check-label" for="consumer"
                         >Consumer</label
@@ -153,8 +133,8 @@
                         class="form-check-input"
                         type="radio"
                         id="farmer"
-                        v-model="role"
-                        value="farmer"
+                        v-model="user_level"
+                        value=2
                       />
                       <label class="form-check-label" for="farmer"
                         >Farmer</label
@@ -202,11 +182,12 @@ export default {
   data() {
     return {
       email: null,
-      firstName: null,
-      lastName: null,
+      username:null,
+      first_name: null,
+      last_name: null,
       password: null,
       passwordConfirm: null,
-      role: null,
+      user_level: null,
     };
   },
   methods: {
@@ -249,17 +230,17 @@ export default {
         // make the post body
         const user = {
           email: this.email,
-          firstName: this.firstName,
-          userName: this.username,
-          lastName: this.lastName,
+          first_name: this.first_name,
+          username: this.username,
+          last_name: this.last_name,
           password: this.password,
-          role: this.role,
+          user_level: this.user_level,
         };
 
         // call the API
         await axios({
           method: "post",
-          url: this.baseURL + "user/signup",
+          url: this.baseURL + "auth/register",
           data: JSON.stringify(user),
           headers: {
             "Content-Type": "application/json",
