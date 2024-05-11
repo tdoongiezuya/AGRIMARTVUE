@@ -59,17 +59,13 @@ export default {
   },
   data() {
     return {
-      editedProfile: { ...this.profile } // Make a copy of the profile to edit
+      editedProfile: { ...this.profile } 
     };
   },
   methods: {
-    // Submit profile data
-    submitProfile() {
-      // Here you can update the profile information using the data
-      // You can use an API call to send the updated data to the server
+    submitProfile() { 
       console.log('Profile data submitted:', this.editedProfile);
-      this.$emit('update-profile', this.editedProfile); // Emit event to update profile in profile.vue
-      this.$emit('close-modal'); // Close the modal after submit
+      this.$emit('update-profile', this.editedProfile); 
     },
     closeModal() {
       this.$emit('close-modal');
