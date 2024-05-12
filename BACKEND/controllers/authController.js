@@ -26,7 +26,7 @@ exports.registerUser = async (req, res) => {
 };
 
 exports.loginUser = async (req, res) => {
-    const { username, password } = req.body;
+    const { username, password, user_info_id } = req.body;
     console.log(`Attempting login for ${username}`);
     console.log('Data received by the server:', req.body);
 
@@ -37,16 +37,36 @@ exports.loginUser = async (req, res) => {
             console.log(`User ${username} not found`);
             return res.status(404).send({ auth: false, message: "User not found" });
         }
-
+        
         const user = results[0];
+        console.log(user)
+        console.log(user[0].user_info_id)
         const hashPass = /^\$2y\$/.test(user[0].password) ? '$2a$' + user[0].password.slice(4) : user[0].password;
         console.log(hashPass, password)
         const passwordMatch = await bcrypt.compare(password, hashPass);
         console.log(passwordMatch)
         if (passwordMatch) {
-            const token = jwt.sign({ id: user.id }, jwtSecret, { expiresIn: 86400 });
+            // Correctly fetching user info using user_info_id
+            const userInfoResults = await db.query('SELECT first_name, last_name, user_level FROM user_info WHERE user_info_id =?', [user[0].user_info_id]);
+           
+            const userInfo = userInfoResults[0];
+            console.log(userInfo)
+            const token = jwt.sign({ id: user.user_info_id }, jwtSecret, { expiresIn: 86400 });
             console.log(`User ${username} logged in successfully`);
-            res.status(200).send({ auth: true, token: token });
+            const response = {
+                auth: true,
+                token: token,
+                user: {
+                    id: user[0].user_info_id,
+                    username: user[0].username,
+                    first_name: userInfo[0].first_name,
+                    last_name: userInfo[0].last_name,
+                    email: user[0].email,
+                    user_level: userInfo[0].user_level
+                    // Add other user details you want to include here
+                }
+            };
+            res.status(200).send(response);
         } else {
             console.log(`Authentication failed for ${username}: Wrong password`);
             res.status(401).send({ auth: false, message: "Authentication failed. Wrong password." });
@@ -56,6 +76,63 @@ exports.loginUser = async (req, res) => {
         res.status(500).send({ auth: false, message: "Error logging in" });
     }
 };
+
+// Endpoint to get user details from user_info table
+exports.getuserInfo = async (req, res) => {
+    const user_info_id = req.params.user_info_id;
+    try {
+        // Query to fetch user details by ID from user_info table
+        const results = await db.query('SELECT first_name, last_name, user_level FROM user_info WHERE user_info_id =?', [user_info_id]);
+
+        if (results.length === 0) {
+            return res.status(404).send({ auth: false, message: "User not found" });
+        }
+
+        const user_info = results[0];
+        // Constructing the response object
+        const userInfoResponse = {
+            first_name: user_info.first_name,
+            last_name: user_info.last_name,
+            user_level: user_info.user_level,
+        };
+
+        res.status(200).send({ auth: true, user_info: userInfoResponse });
+    } catch (error) {
+        console.error("Error fetching user details:", error);
+        res.status(500).send({ auth: false, message: "Error fetching user details" });
+    }
+};
+
+// exports.getUserDetails = async (req, res) => {
+//     try {
+//         // Execute the SQL query to fetch user details
+//         const results = await db.query(`
+//             SELECT 
+//                 ui.first_name, 
+//                 ui.last_name, 
+//                 ui.user_role, 
+//                 IFNULL(ua.address, 'N/A'), 
+//                 IFNULL(ua.phone_number, 'N/A'), 
+//                 IFNULL(ua.city, 'N/A')
+//             FROM 
+//                 user_info ui
+//             LEFT JOIN 
+//                 user_address ua ON ui.user_id = ua.user_id
+//             WHERE 
+//                 ui.user_id =?
+//         `, [req.userId]); // Use req.userId to fetch details for the authenticated user
+
+//         if (results.length === 0) {
+//             return res.status(404).send({ auth: false, message: "User not found" });
+//         }
+
+//         const userDetails = results[0];
+//         res.status(200).send({ auth: true, userDetails: userDetails });
+//     } catch (error) {
+//         console.error("Error fetching user details:", error);
+//         res.status(500).send({ auth: false, message: "Error fetching user details" });
+//     }
+// };
 
 exports.logoutUser = (req, res) => {
     console.log("User logged out");

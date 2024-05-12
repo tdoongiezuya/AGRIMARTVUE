@@ -30,7 +30,7 @@
                       <li>
                         <div class="d-flex justify-content-between fruite-name">
                           <a href="#"
-                            ><i class="fas fa-apple-alt me-2"></i>Apples</a
+                            ><i class="fas fa-apple-alt me-2"></i>Fruits</a
                           >
                           <span>(3)</span>
                         </div>
@@ -38,33 +38,17 @@
                       <li>
                         <div class="d-flex justify-content-between fruite-name">
                           <a href="#"
-                            ><i class="fas fa-apple-alt me-2"></i>Oranges</a
+                            ><i class="fas fa-apple-alt me-2"></i>Vegetables</a
                           >
-                          <span>(5)</span>
+                          <span>(3)</span>
                         </div>
                       </li>
                       <li>
                         <div class="d-flex justify-content-between fruite-name">
                           <a href="#"
-                            ><i class="fas fa-apple-alt me-2"></i>Strawbery</a
+                            ><i class="fas fa-apple-alt me-2"></i>Meat</a
                           >
-                          <span>(2)</span>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="d-flex justify-content-between fruite-name">
-                          <a href="#"
-                            ><i class="fas fa-apple-alt me-2"></i>Banana</a
-                          >
-                          <span>(8)</span>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="d-flex justify-content-between fruite-name">
-                          <a href="#"
-                            ><i class="fas fa-apple-alt me-2"></i>Pumpkin</a
-                          >
-                          <span>(5)</span>
+                          <span>(3)</span>
                         </div>
                       </li>
                     </ul>

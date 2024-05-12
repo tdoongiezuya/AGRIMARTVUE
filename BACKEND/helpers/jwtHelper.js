@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 // Middleware to verify JWT token
-function verifyToken(req, res, next) {
+exports.verifyToken = (req, res, next) => {
     const token = req.headers['authorization'];
     if (!token) return res.status(401).send({ auth: false, message: 'No token provided.' });
 
@@ -14,5 +14,3 @@ function verifyToken(req, res, next) {
     });
 }
 
-// Apply JWT middleware to protected routes
-app.use('/protectedRoute', verifyToken, protectedRouteHandler);

@@ -8,14 +8,14 @@ import Signin from "../pages/Signin.vue";
 import Signup from "../pages/Signup.vue";
 import Chat from "../pages/Chat.vue";
 import Profile from "../pages/Profile.vue";
-import DefaultDashboard from "../layouts/DefaultDashboard.vue";
+
 import Chat2 from "../pages/Chat2.vue";
-import AdminDashboard from "../layouts/AdminDashboard.vue";
-import FarmerDashboard from "../layouts/FarmerDashboard.vue";
+import AdminLayout from "../layouts/AdminLayout.vue";
 import Contact from "../pages/Contact.vue";
-// import FarmerProducts from "../pages/FarmerProducts.vue";
+import FarmerProducts from "../pages/FarmerProducts.vue";
 
 const routes = [
+ 
   {
     path: "/",
     name: "Home",
@@ -36,11 +36,25 @@ const routes = [
     name: "Cart",
     component: Cart,
   },
-
+  {
+    path: "/product/detail/:id",
+    name: "ProductDetail",
+    component: ProductDetail,
+  },
   {
     path: "/signin",
     name: "Signin",
     component: Signin,
+  },
+  {
+    path: "/signup",
+    name: "Signup",
+    component: Signup,
+  },
+  {
+    path: "/contact",
+    name: "Contact",
+    component: Contact,
   },
   {
     path: "/signup",
@@ -62,34 +76,17 @@ const routes = [
     name: "Chat2",
     component: Chat2,
   },
-  {
-    path: "/default",
-    name: "DefaultDashboard",
-    component: DefaultDashboard,
-  },
+  
   {
     path: "/admin",
-    name: "AdminDashboard",
-    component: AdminDashboard,
+    name: "AdminLayout",
+    component: AdminLayout,
   },
   {
-    path: "/farmer/:id",
-    name: "FarmerDashboard",
-    component: FarmerDashboard,
-    // children: [
-    //   {
-    //     path: "/products",
-    //     component: FarmerProducts,
-    //     name: "Products",
-    //     children: [{ path: "/detail/:id", component: ProductDetail }],
-    //   },
-    // ],
-  },
-  {
-    path: "/contact",
-    name: "Contact",
-    component: Contact,
-  },
+    path: "/farmerProducts",
+    name: "FarmerProducts",
+    component: FarmerProducts,
+  }
 ];
 
 const router = createRouter({
@@ -98,3 +95,4 @@ const router = createRouter({
 });
 
 export default router;
+
