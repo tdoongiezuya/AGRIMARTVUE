@@ -1,16 +1,17 @@
 <template>
   <div>
-    <nav/>
+    <Nav/>
     <div>
-        <router-view></router-view>
+        <slot/>
     </div>
   </div>
 </template>
 
 <script>
-import Nav from '../components/Nav.vue';
+import Nav from '../components/navbars/Nav1.vue';
 
 export default {
+  name: 'Default',
   components: { Nav },
 
 }

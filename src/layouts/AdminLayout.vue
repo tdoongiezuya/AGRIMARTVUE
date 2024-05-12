@@ -2,7 +2,7 @@
   <div id="wrapper">
     <!-- Sidebar -->
     <ul
-      class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+      class="navbar-nav bg-primary sidebar sidebar-dark accordion"
       id="accordionSidebar"
     >
       <!-- Sidebar - Brand -->
@@ -163,7 +163,7 @@
       <div id="content">
         <!-- Topbar -->
         <nav
-          class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"
+          class="navbar navbar-expand navbar-light bg-white mb-4 static-top shadow"
         >
           <!-- Sidebar Toggle (Topbar) -->
           <form class="form-inline">
@@ -176,18 +176,18 @@
           </form>
           <!-- Topbar Search -->
           <form
-            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+            class=" d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
           >
-            <div class="input-group">
+            <div class="input-group ">
               <input
                 type="text"
-                class="form-control bg-light border-0 small"
+                class="form-control bg-light border-1 small"
                 placeholder="Search for..."
                 aria-label="Search"
                 aria-describedby="basic-addon2"
               />
               <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
+                <button class="btn btn-primary text-white" type="button">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
               </div>
@@ -207,9 +207,9 @@
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
                         </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <div class="card-body ">
+                            <div class="table-responsive bg-white">
+                                <table class="table table-bordered bg-white" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>Name</th>
@@ -2183,7 +2183,7 @@ pre code {
 .table {
   width: 100%;
   margin-bottom: 1rem;
-  color: #858796;
+  color: #858796 !important;
 }
 
 .table th,
@@ -3004,7 +3004,7 @@ textarea.form-control {
     margin-bottom: 0;
   }
 }
-
+/* 
 .btn {
   display: inline-block;
   font-weight: 400;
@@ -3051,14 +3051,10 @@ textarea.form-control {
 a.btn.disabled,
 fieldset:disabled a.btn {
   pointer-events: none;
-}
+} */
 
-.btn-primary {
-  color: #fff;
-  background-color: #4e73df;
-  border-color: #4e73df;
-}
 
+/* 
 .btn-primary:hover {
   color: #fff;
   background-color: #2e59d9;
@@ -3646,7 +3642,7 @@ fieldset:disabled a.btn {
 
 .btn-block + .btn-block {
   margin-top: 0.5rem;
-}
+} */
 
 input[type="submit"].btn-block,
 input[type="reset"].btn-block,
@@ -7107,7 +7103,7 @@ a.close.disabled {
 .align-text-top {
   vertical-align: text-top !important;
 }
-
+/* 
 .bg-primary {
   background-color: #4e73df !important;
 }
@@ -7126,7 +7122,7 @@ a.bg-secondary:hover, a.bg-secondary:focus,
 button.bg-secondary:hover,
 button.bg-secondary:focus {
   background-color: #6b6d7d !important;
-}
+} */
 
 .bg-success {
   background-color: #1cc88a !important;
@@ -10453,10 +10449,11 @@ a.text-dark:hover, a.text-dark:focus {
   }
   .table {
     border-collapse: collapse !important;
+    background-color: white !important;
   }
   .table td,
   .table th {
-    background-color: #fff !important;
+    background-color: white !important;
   }
   .table-bordered th,
   .table-bordered td {

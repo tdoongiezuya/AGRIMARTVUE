@@ -20,10 +20,9 @@
                 />
               </div>
               <div class="col">
-                <div class="row text-muted">Shirt</div>
-                <div class="row">Cotton T-shirt</div>
+                <div class="row text-muted">Pork leg</div>
               </div>
-              <div class="col">P 100 / kg</div>
+              <div class="col">P {{ cartItem.price }} / kg</div>
               <div class="col">
                 <router-link
                   class="btn border-2 border-secondary rounded-pill py-1 px-3 text-primary h-50"
@@ -45,43 +44,31 @@
 </template>
 
 <script>
+import axios from 'axios';
 import CartCard from "../components/CartCard.vue";
 import Header from "../components/Header.vue";
 export default {
   data() {
     return {
       cartItem: {
-        product: {
-          imageURL: "",
-          name: "",
-          price: 0,
-        },
+        id: null, // Assuming each cart item has an ID
+        name: "",
+        price: 0,
       },
     };
   },
   components: { CartCard, Header },
   props: ["baseURL"],
   methods: {
-    // listCartItems() {
-    //   axios
-    //     .get(`${this.baseURL}cart/?token=${this.token}`)
-    //     .then((res) => {
-    //       const result = res.data;
-    //       this.cartItems = result.cartItems;
-    //       this.totalCost = result.totalCost;
-    //     })
-    //     .catch((err) => console.log("err", err));
-    // },
-    // deleteItem(itemId) {
-    //   axios
-    //     .delete(`${this.baseURL}cart/delete/${itemId}/?token=${this.token}`)
-    //     .then((res) => {
-    //       if (res.status == 200) {
-    //         this.$router.go(0);
-    //       }
-    //     })
-    //     .catch((err) => console.log("err", err));
-    // },
+    async fetchCartItems() {
+      try {
+        const response = await axios.get('');
+        this.cartItems = response.data; // Assuming the API returns an array of cart items
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
   },
   mounted() {},
 };

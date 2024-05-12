@@ -11,34 +11,29 @@
                         <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#" class="text-white">General Santos City, Philippines</a></small>
                         <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">Agrimart@gmail.com</a></small>
                     </div>
-                    <!-- <div class="top-link pe-2">
-                        <a href="#" class="text-white"><small class="text-white mx-2">Privacy Policy</small>/</a>
-                        <a href="#" class="text-white"><small class="text-white mx-2">Terms of Use</small>/</a>
-                        <a href="#" class="text-white"><small class="text-white ms-2">Sales and Refunds</small></a>
-                    </div> -->
                 </div>
             </div>
             <div class="container px-0">
                 <nav class="navbar navbar-light bg-white navbar-expand-xl" v-bind:class=" { 'navbarOpen': show }">
-                    <router-link to="/" class="navbar-brand"><img src="../assets/img/logo.png" class="logo display-6" alt=""></router-link>
+                    <router-link to="/" class="navbar-brand"><img src="../../assets/img/logo.png" class="logo display-6" alt=""></router-link>
                     <button class="navbar-toggler py-2 px-3" type="button"  data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"  @click.stop="toggleNavbar()" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="fa fa-bars text-primary"></span>
                     </button>
                     <div class="collapse navbar-collapse bg-white" id="navbarCollapse" :class="{ 'show': show }"  >
                         <div class="navbar-nav mx-auto">
-                            <router-link to="/" class="nav-item nav-link" >Home</router-link>
-                            <router-link to="/shop" class="nav-item nav-link" >Shop</router-link>
-                            <router-link to="/about" class="nav-item nav-link" >About</router-link>
-                            <router-link to="/contact" class="nav-item nav-link" >Contact</router-link>
+                            <router-link :to="{name: 'Home'}" class="nav-item nav-link" >Home</router-link>
+                            <router-link :to="{name: 'Shop'}" class="nav-item nav-link" >Shop</router-link>
+                            <router-link :to="{name: 'About'}" class="nav-item nav-link" >About</router-link>
+                            <router-link :to="{name: 'Contact'}" class="nav-item nav-link" >Contact</router-link>
                         </div>
                         
                         <div class="d-flex m-3 me-0">
-                            <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-primary"></i></button>
-                            <router-link to="/cart" class="position-relative me-4 my-auto" >
+                            <!-- <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-primary"></i></button> -->
+                            <router-link :to="{name: 'Cart'}" class="position-relative me-4 my-auto" >
                                 <i class="fa fa-shopping-bag fa-2x"></i>
                                 <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-white px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                             </router-link>
-                            <router-link to="/chat" class="position-relative me-4 my-auto" >
+                            <router-link :to="{name: 'Chat'}" class="position-relative me-4 my-auto" >
                                 <i class="fas fa-comment fa-2x"></i>
                                 <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-white px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                             </router-link>
@@ -56,8 +51,8 @@
 
 
 <script>
-import ModalSearch from './ModalSearch.vue'
-import Signin from '../pages/Signin.vue';
+import ModalSearch from '../ModalSearch.vue'
+import Signin from '../../pages/Signin.vue';
 
 export default {
     data(){

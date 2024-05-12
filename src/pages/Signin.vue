@@ -32,7 +32,7 @@
                       class="form-control"
                       name="username"
                       id="username"
-                      v-model="username"
+                      v-model="form.username"
                       required
                     />
                   </div>
@@ -45,7 +45,7 @@
                       class="form-control"
                       name="password"
                       id="password"
-                      v-model="password"
+                      v-model="form.password"
                       required
                     />
                   </div>
@@ -83,42 +83,38 @@
 </template>
 
 <script>
-import axios from "axios";
-
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
-      username: null,
-      password: null,
+      form: {
+        username: null,
+        password: null,
+      },
     };
   },
+
   methods: {
-    async signin() {
-      const user = {
-        username: this.username,
-        password: this.password,
-      };
-
-      // call the API
+    ...mapActions(["commitSignin"]),
+    signin() {
+      console.log("Attempting to signin"); // Debugging line
       try {
-        const response = await axios({
-          method: "post",
-          url: `${this.baseURL}/auth/login`, // Ensure the URL is correct
-          data: JSON.stringify(user),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        // Assuming the server responds with a token in the response data
-        localStorage.setItem("token", response.data.token);
-        this.$emit("fetchData");
-        this.$router.push({ name: "Home" });
+        this.commitSignin(this.form).then(() => {
+          this.$router.replace({
+            name: "Home",
+          });
+          swal({
+            text: "Login successful. Please continue",
+            icon: "success",
+          });
+        }); // Dispatch the Vuex action
       } catch (error) {
-        console.error("Login error", error);
-        // Implement error handling here, e.g., show an error message to the user
-      } finally {
-        this.loading = false;
+        swal({
+          text: "Unable to Log you in!",
+          icon: "error",
+          closeOnClickOutside: false,
+        });
+        console.error("Error during signin", error);
       }
     },
   },

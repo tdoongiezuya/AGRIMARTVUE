@@ -50,12 +50,10 @@ export default {
   props: {
     product: Object,
   },
-  emits: ["cartUpdated"],
+  
 
   methods: {
-    addToCart(product) {
-      this.$emit("cartUpdated", product);
-    },
+    
   },
 };
 </script>

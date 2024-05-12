@@ -22,13 +22,25 @@
                         </div>
                         <h4 class="f-w-600 text-white">Kang Seulgi</h4>
                         <p class="text-white">Farmer</p>
-                        <button
-                          class="btn border border-light rounded-pill px-3 text-light" data-bs-toggle="modal" data-bs-target="#ModalEditProfile"
+                        <div class="m-b-10">
+                          <button
+                          class="btn border border-light rounded-pill px-3 text-light " data-bs-toggle="modal" data-bs-target="#ModalEditProfile"
                           ><i
                             class="mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"
                           ></i
                           >Edit Profile</button
                         >
+                        </div>
+                        <div class="m-b-25">
+                          <button
+                          class="btn border border-light rounded-pill px-3 text-light" data-bs-toggle="modal" data-bs-target="#ModalEditProfile"
+                          ><i
+                            class="mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"
+                          ></i
+                          >Logout</button
+                        >
+                        </div>
+                        
                       </div>
                     </div>
                     <div class="col-sm-8  bg-white">
