@@ -26,7 +26,7 @@ exports.registerUser = async (req, res) => {
 };
 
 exports.loginUser = async (req, res) => {
-    const { username, password, user_info_id } = req.body;
+    const { username, password } = req.body;
     console.log(`Attempting login for ${username}`);
     console.log('Data received by the server:', req.body);
 

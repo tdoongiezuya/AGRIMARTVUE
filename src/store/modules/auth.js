@@ -1,4 +1,5 @@
 import axios from 'axios';
+import router from '../../router';
 export default {
   state: {
     token: null,
@@ -23,9 +24,19 @@ export default {
         commit('setUser', user);
         commit('setToken', token);
         localStorage.setItem('token', token);
+        router.push({name: 'Home'});
+        swal({
+          text: "Login successful. Please continue",
+          icon: "success",
+        });
       } catch (error) {
         console.error("Error logging in:", error);
         // Handle error appropriately
+        swal({
+          text: "Unable to Log you in!",
+          icon: "error",
+          closeOnClickOutside: false,
+        });
       }
     },
 

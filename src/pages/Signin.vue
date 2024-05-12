@@ -99,21 +99,10 @@ export default {
     signin() {
       console.log("Attempting to signin"); // Debugging line
       try {
-        this.commitSignin(this.form).then(() => {
-          this.$router.replace({
-            name: "Home",
-          });
-          swal({
-            text: "Login successful. Please continue",
-            icon: "success",
-          });
-        }); // Dispatch the Vuex action
+        this.commitSignin(this.form)// Dispatch the Vuex action
+        
       } catch (error) {
-        swal({
-          text: "Unable to Log you in!",
-          icon: "error",
-          closeOnClickOutside: false,
-        });
+        
         console.error("Error during signin", error);
       }
     },
