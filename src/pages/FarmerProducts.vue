@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid pt-5">
     <Header />
-    <modal-add-product/>
+    <modal-add-product />
     <div class="card">
       <div class="row">
         <div class="col cart">
@@ -11,58 +11,42 @@
                 <h4><b>My Products</b></h4>
               </div>
               <div class="col-lg-1 col-md-2 col-sm-3">
-                <router-link
-                    class="btn border-2 border-secondary  mr-2  rounded-pill py-1 px-3 text-primary h-100" data-bs-toggle="modal" data-bs-target="#ModalAddProduct"
-                  > Add
-                  </router-link>
+                <router-link class="btn border-2 border-secondary  mr-2  rounded-pill py-1 px-3 text-primary h-100"
+                  data-bs-toggle="modal" data-bs-target="#ModalAddProduct"> Add
+                </router-link>
               </div>
             </div>
           </div>
-          <MDBTable
-            class="align-middle mb-0 bg-white px-2"
-            variant="light"
-            responsive
-            bordered
-          >
+          <MDBTable class="align-middle mb-0 bg-white px-2" variant="light" responsive bordered>
             <thead class="bg-light">
               <tr>
-                <th>Name</th>
-                <th>Title</th>
-                <th>Status</th>
-                <th>Position</th>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Description</th>
                 <th>Actions</th>
               </tr>
             </thead>
-            <tbody >
-              <tr >
+            <tbody>
+              <tr>
                 <td>
                   <div class="d-flex align-items-center">
-                    <img
-                      src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-                      alt=""
-                      style="width: 45px; height: 45px"
-                      class="rounded-circle"
-                    />
+                    <img src="C:\Users\Admin\agrivue\AGRIMARTVUE\src\assets\img\mango.jpg" alt="PRODUCT"
+                      style="width: 120px; height: 120px" />
                     <div class="ms-3">
-                      <p class="fw-bold mb-1">John Doe</p>
-                      <p class="text-muted mb-0">john.doe@gmail.com</p>
+                      <p class="fw-bold mb-1">Mango</p>
                     </div>
                   </div>
                 </td>
                 <td>
-                  <p class="fw-normal mb-1">Software engineer</p>
-                  <p class="text-muted mb-0">IT department</p>
+                  <p class="fw-normal mb-1">P120/kilo</p>
                 </td>
                 <td>
-                  <MDBBadge badge="success" pill class="d-inline"
-                    >Active</MDBBadge
-                  >
+                  Fruit
                 </td>
-                <td>Senior</td>
+                <td>Sweet and juicy.</td>
                 <td>
-                  <router-link
-                    class="btn border-2 border-secondary rounded-pill py-1 px-3 text-primary h-50"
-                  >
+                  <router-link class="btn border-2 border-secondary rounded-pill py-1 px-3 text-primary h-50">
                     Edit
                   </router-link>
                 </td>
@@ -70,32 +54,21 @@
               <tr>
                 <td>
                   <div class="d-flex align-items-center">
-                    <img
-                      src="https://mdbootstrap.com/img/new/avatars/6.jpg"
-                      class="rounded-circle"
-                      alt=""
-                      style="width: 45px; height: 45px"
-                    />
+                    <img src="C:\Users\Admin\agrivue\AGRIMARTVUE\src\assets\img\cucumber.jpg" alt="Product" style="width: 120px; height: 120px" />
                     <div class="ms-3">
-                      <p class="fw-bold mb-1">Alex Ray</p>
-                      <p class="text-muted mb-0">alex.ray@gmail.com</p>
+                      <p class="fw-bold mb-1">Cucumber</p>
                     </div>
                   </div>
                 </td>
                 <td>
-                  <p class="fw-normal mb-1">Consultant</p>
-                  <p class="text-muted mb-0">Finance</p>
+                  <p class="fw-normal mb-1">P64/kilo</p>
                 </td>
                 <td>
-                  <MDBBadge badge="primary" pill class="d-inline"
-                    >Onboarding</MDBBadge
-                  >
+                  Vegetable
                 </td>
-                <td>Junior</td>
+                <td>Crisp, refreshing vegetables with a mild, watery flavor.</td>
                 <td>
-                  <router-link
-                    class="btn border-2 border-secondary rounded-pill py-1 px-3 text-primary h-50"
-                  >
+                  <router-link class="btn border-2 border-secondary rounded-pill py-1 px-3 text-primary h-50">
                     Edit
                   </router-link>
                 </td>
@@ -103,33 +76,23 @@
               <tr>
                 <td>
                   <div class="d-flex align-items-center">
-                    <img
-                      src="https://mdbootstrap.com/img/new/avatars/7.jpg"
-                      class="rounded-circle"
-                      alt=""
-                      style="width: 45px; height: 45px"
-                    />
+                    <img src="C:\Users\Admin\agrivue\AGRIMARTVUE\src\assets\img\apple.jpg" alt="Product"
+                      style="width: 120px; height: 120px" />
                     <div class="ms-3">
-                      <p class="fw-bold mb-1">Kate Hunington</p>
-                      <p class="text-muted mb-0">kate.hunington@gmail.com</p>
+                      <p class="fw-bold mb-1">Apple</p>
                     </div>
                   </div>
                 </td>
                 <td>
-                  <p class="fw-normal mb-1">Designer</p>
-                  <p class="text-muted mb-0">UI/UX</p>
+                  <p class="fw-normal mb-1">P150/kilo</p>
                 </td>
                 <td>
-                  <MDBBadge badge="warning" pill class="d-inline"
-                    >Awaiting</MDBBadge
-                  >
+                  Fruit
                 </td>
-                <td>Senior</td>
+                <td> Juicy, sweet and slightly tart flavor.</td>
                 <td>
-                  <router-link
-                    class="btn border-2 border-secondary rounded-pill py-1 px-3 text-primary h-50"
-                  >
-                     Edit
+                  <router-link class="btn border-2 border-secondary rounded-pill py-1 px-3 text-primary h-50">
+                    Edit
                   </router-link>
                 </td>
               </tr>
@@ -241,11 +204,13 @@ export default {
   border-radius: 1rem;
   border: transparent;
 }
+
 @media (max-width: 767px) {
   .card {
     margin: 3vh auto;
   }
 }
+
 .cart {
   background-color: #fff;
   padding: 4vh 5vh;
