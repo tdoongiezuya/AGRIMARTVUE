@@ -24,7 +24,7 @@
                             class="img-thumbnail" alt="User-Profile-Image" />
                         </div>
                         <h4 class="f-w-600 text-white">{{ profile.firstName }} {{ profile.lastName }} {{ profile.middleName }}</h4>
-                        <p class="text-white">Farmer</p>
+                        <p class="text-white">Consumer</p>
                         <div class="m-b-10">
                         <button class="btn border border-light rounded-pill px-3 text-light" data-bs-toggle="modal"
                           data-bs-target="#ModalEditProfile" @click="startEditing">

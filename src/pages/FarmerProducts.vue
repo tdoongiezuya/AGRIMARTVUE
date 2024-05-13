@@ -1,135 +1,50 @@
 <template>
   <div class="container-fluid pt-5">
     <Header />
-    <modal-add-product/>
+    <modal-add-product @add-product="addProduct" />
     <div class="card">
       <div class="row">
         <div class="col cart">
           <div class="title">
             <div class="row p-3">
-              <div class=" col-lg-11 col-md-10 col-sm-9">
+              <div class="col-lg-11 col-md-10 col-sm-9">
                 <h4><b>My Products</b></h4>
               </div>
-              <div class="col-lg-1 col-md-2 col-sm-3">
-                <router-link
-                    class="btn border-2 border-secondary  mr-2  rounded-pill py-1 px-3 text-primary h-100" data-bs-toggle="modal" data-bs-target="#ModalAddProduct"
-                  > Add
-                  </router-link>
+              <div class="col-lg-1 col-md-2 col-sm-3 d-flex align-items-center justify-content-end">
+                <button class="btn border-2 border-secondary rounded-pill py-1 px-3 text-primary"
+                        data-bs-toggle="modal" data-bs-target="#ModalAddProduct"> Add
+                </button>
               </div>
             </div>
           </div>
-          <MDBTable
-            class="align-middle mb-0 bg-white px-2"
-            variant="light"
-            responsive
-            bordered
-          >
+          <MDBTable class="align-middle mb-0 bg-white px-2" variant="light" responsive bordered>
             <thead class="bg-light">
               <tr>
-                <th>Name</th>
-                <th>Title</th>
-                <th>Status</th>
-                <th>Position</th>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Description</th>
                 <th>Actions</th>
               </tr>
             </thead>
-            <tbody >
-              <tr >
+            <tbody>
+              <tr v-for="(product, index) in products" :key="index">
                 <td>
                   <div class="d-flex align-items-center">
-                    <img
-                      src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-                      alt=""
-                      style="width: 45px; height: 45px"
-                      class="rounded-circle"
-                    />
+                    <img v-if="product.photo" :src="product.photo" alt="PRODUCT" class="product-image" />
                     <div class="ms-3">
-                      <p class="fw-bold mb-1">John Doe</p>
-                      <p class="text-muted mb-0">john.doe@gmail.com</p>
+                      <p class="fw-bold mb-1">{{ product.productName }}</p>
                     </div>
                   </div>
                 </td>
                 <td>
-                  <p class="fw-normal mb-1">Software engineer</p>
-                  <p class="text-muted mb-0">IT department</p>
+                  <p class="fw-normal mb-1">{{ product.price }}</p>
                 </td>
+                <td>{{ product.category }}</td>
+                <td>{{ product.description }}</td>
                 <td>
-                  <MDBBadge badge="success" pill class="d-inline"
-                    >Active</MDBBadge
-                  >
-                </td>
-                <td>Senior</td>
-                <td>
-                  <router-link
-                    class="btn border-2 border-secondary rounded-pill py-1 px-3 text-primary h-50"
-                  >
+                  <router-link class="btn border-2 border-secondary rounded-pill py-1 px-3 text-primary h-50">
                     Edit
-                  </router-link>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <img
-                      src="https://mdbootstrap.com/img/new/avatars/6.jpg"
-                      class="rounded-circle"
-                      alt=""
-                      style="width: 45px; height: 45px"
-                    />
-                    <div class="ms-3">
-                      <p class="fw-bold mb-1">Alex Ray</p>
-                      <p class="text-muted mb-0">alex.ray@gmail.com</p>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <p class="fw-normal mb-1">Consultant</p>
-                  <p class="text-muted mb-0">Finance</p>
-                </td>
-                <td>
-                  <MDBBadge badge="primary" pill class="d-inline"
-                    >Onboarding</MDBBadge
-                  >
-                </td>
-                <td>Junior</td>
-                <td>
-                  <router-link
-                    class="btn border-2 border-secondary rounded-pill py-1 px-3 text-primary h-50"
-                  >
-                    Edit
-                  </router-link>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <img
-                      src="https://mdbootstrap.com/img/new/avatars/7.jpg"
-                      class="rounded-circle"
-                      alt=""
-                      style="width: 45px; height: 45px"
-                    />
-                    <div class="ms-3">
-                      <p class="fw-bold mb-1">Kate Hunington</p>
-                      <p class="text-muted mb-0">kate.hunington@gmail.com</p>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <p class="fw-normal mb-1">Designer</p>
-                  <p class="text-muted mb-0">UI/UX</p>
-                </td>
-                <td>
-                  <MDBBadge badge="warning" pill class="d-inline"
-                    >Awaiting</MDBBadge
-                  >
-                </td>
-                <td>Senior</td>
-                <td>
-                  <router-link
-                    class="btn border-2 border-secondary rounded-pill py-1 px-3 text-primary h-50"
-                  >
-                     Edit
                   </router-link>
                 </td>
               </tr>
@@ -139,7 +54,6 @@
       </div>
     </div>
   </div>
-
   <!-- <table class="table is-striped is-bordered mt-2 is-fullwidth">
       <thead>
         <tr>
@@ -172,63 +86,27 @@
 </template>
 
 <script>
-import { MDBTable, MDBBtn, MDBBadge } from "mdb-vue-ui-kit";
+import { MDBTable } from "mdb-vue-ui-kit";
 import Header from "../components/Header.vue";
 import ModalAddProduct from '../components/ModalAddProduct.vue';
 
 export default {
   components: {
     MDBTable,
-    MDBBtn,
-    MDBBadge,
     Header,
     ModalAddProduct,
   },
   data() {
     return {
-      items: [
-        {
-          product_id: 1,
-          product_name: "Product A",
-          product_price: "$100",
-        },
-        {
-          product_id: 2,
-          product_name: "Product B",
-          product_price: "$200",
-        },
-        {
-          product_id: 3,
-          product_name: "Product C",
-          product_price: "$300",
-        },
-      ],
+      products: [
+      ]
     };
   },
-  //   created() {
-  //     this.getProducts();
-  //   },
   methods: {
-    // //get all products
-    // async getProducts() {
-    //   try {
-    //     const response = await axios.get("http://localhost:5000/products");
-    //     this.items = response.data;
-    //     console.log(this.items);
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // },
-    // //delete product
-    // async deleteProduct(id) {
-    //   try {
-    //     await axios.delete(`http://localhost:5000/products/${id}`);
-    //     this.getProducts();
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // },
-  },
+    addProduct(newProduct) {
+      this.products.push(newProduct);
+    }
+  }
 };
 </script>
 
@@ -241,15 +119,22 @@ export default {
   border-radius: 1rem;
   border: transparent;
 }
+
 @media (max-width: 767px) {
   .card {
     margin: 3vh auto;
   }
 }
+
 .cart {
   background-color: #fff;
   padding: 4vh 5vh;
   border-bottom-left-radius: 1rem;
   border-top-left-radius: 1rem;
+}
+.product-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
 }
 </style>
