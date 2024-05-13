@@ -1,9 +1,9 @@
 const pool = require('../db');
 
 async function createProduct(product) {
-  const { product_name, description, price, product_category, user_info_id } = product;
-  const query = 'INSERT INTO product (product_name, description, price, product_category, user_info_id) VALUES (?, ?, ?, ?, ?)';
-  const values = [product_name, description, price, product_category, user_info_id];
+  const { product_name, description, price, product_category, user_info_id, image_name, image_data } = product;
+  const query = 'INSERT INTO product (product_name, description, price, product_category, user_info_id, image_name, image_data) VALUES (?, ?, ?, ?, ?, ?, ?)';
+  const values = [product_name, description, price, product_category, user_info_id, image_name, image_data];
   try {
     const [result] = await pool.execute(query, values);
     return result.insertId;
@@ -17,7 +17,6 @@ async function getAllProducts() {
   try {
     const [rows] = await pool.query(query);
     return rows;
-    
   } catch (error) {
     throw new Error(`Failed to get products: ${error.message}`);
   }
