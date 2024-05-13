@@ -1,19 +1,19 @@
 <template>
   <div class="container-fluid pt-5">
     <Header />
-    <modal-add-product />
+    <modal-add-product @add-product="addProduct" />
     <div class="card">
       <div class="row">
         <div class="col cart">
           <div class="title">
             <div class="row p-3">
-              <div class=" col-lg-11 col-md-10 col-sm-9">
+              <div class="col-lg-11 col-md-10 col-sm-9">
                 <h4><b>My Products</b></h4>
               </div>
-              <div class="col-lg-1 col-md-2 col-sm-3">
-                <router-link class="btn border-2 border-secondary  mr-2  rounded-pill py-1 px-3 text-primary h-100"
-                  data-bs-toggle="modal" data-bs-target="#ModalAddProduct"> Add
-                </router-link>
+              <div class="col-lg-1 col-md-2 col-sm-3 d-flex align-items-center justify-content-end">
+                <button class="btn border-2 border-secondary rounded-pill py-1 px-3 text-primary"
+                        data-bs-toggle="modal" data-bs-target="#ModalAddProduct"> Add
+                </button>
               </div>
             </div>
           </div>
@@ -28,68 +28,20 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr v-for="(product, index) in products" :key="index">
                 <td>
                   <div class="d-flex align-items-center">
-                    <img src="C:\Users\Admin\agrivue\AGRIMARTVUE\src\assets\img\mango.jpg" alt="PRODUCT"
-                      style="width: 120px; height: 120px" />
+                    <img v-if="product.photo" :src="product.photo" alt="PRODUCT" class="product-image" />
                     <div class="ms-3">
-                      <p class="fw-bold mb-1">Mango</p>
+                      <p class="fw-bold mb-1">{{ product.productName }}</p>
                     </div>
                   </div>
                 </td>
                 <td>
-                  <p class="fw-normal mb-1">P120/kilo</p>
+                  <p class="fw-normal mb-1">{{ product.price }}</p>
                 </td>
-                <td>
-                  Fruit
-                </td>
-                <td>Sweet and juicy.</td>
-                <td>
-                  <router-link class="btn border-2 border-secondary rounded-pill py-1 px-3 text-primary h-50">
-                    Edit
-                  </router-link>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <img src="C:\Users\Admin\agrivue\AGRIMARTVUE\src\assets\img\cucumber.jpg" alt="Product" style="width: 120px; height: 120px" />
-                    <div class="ms-3">
-                      <p class="fw-bold mb-1">Cucumber</p>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <p class="fw-normal mb-1">P64/kilo</p>
-                </td>
-                <td>
-                  Vegetable
-                </td>
-                <td>Crisp, refreshing vegetables with a mild, watery flavor.</td>
-                <td>
-                  <router-link class="btn border-2 border-secondary rounded-pill py-1 px-3 text-primary h-50">
-                    Edit
-                  </router-link>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <img src="C:\Users\Admin\agrivue\AGRIMARTVUE\src\assets\img\apple.jpg" alt="Product"
-                      style="width: 120px; height: 120px" />
-                    <div class="ms-3">
-                      <p class="fw-bold mb-1">Apple</p>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <p class="fw-normal mb-1">P150/kilo</p>
-                </td>
-                <td>
-                  Fruit
-                </td>
-                <td> Juicy, sweet and slightly tart flavor.</td>
+                <td>{{ product.category }}</td>
+                <td>{{ product.description }}</td>
                 <td>
                   <router-link class="btn border-2 border-secondary rounded-pill py-1 px-3 text-primary h-50">
                     Edit
@@ -102,7 +54,6 @@
       </div>
     </div>
   </div>
-
   <!-- <table class="table is-striped is-bordered mt-2 is-fullwidth">
       <thead>
         <tr>
@@ -135,63 +86,27 @@
 </template>
 
 <script>
-import { MDBTable, MDBBtn, MDBBadge } from "mdb-vue-ui-kit";
+import { MDBTable } from "mdb-vue-ui-kit";
 import Header from "../components/Header.vue";
 import ModalAddProduct from '../components/ModalAddProduct.vue';
 
 export default {
   components: {
     MDBTable,
-    MDBBtn,
-    MDBBadge,
     Header,
     ModalAddProduct,
   },
   data() {
     return {
-      items: [
-        {
-          product_id: 1,
-          product_name: "Product A",
-          product_price: "$100",
-        },
-        {
-          product_id: 2,
-          product_name: "Product B",
-          product_price: "$200",
-        },
-        {
-          product_id: 3,
-          product_name: "Product C",
-          product_price: "$300",
-        },
-      ],
+      products: [
+      ]
     };
   },
-  //   created() {
-  //     this.getProducts();
-  //   },
   methods: {
-    // //get all products
-    // async getProducts() {
-    //   try {
-    //     const response = await axios.get("http://localhost:5000/products");
-    //     this.items = response.data;
-    //     console.log(this.items);
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // },
-    // //delete product
-    // async deleteProduct(id) {
-    //   try {
-    //     await axios.delete(`http://localhost:5000/products/${id}`);
-    //     this.getProducts();
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // },
-  },
+    addProduct(newProduct) {
+      this.products.push(newProduct);
+    }
+  }
 };
 </script>
 
@@ -216,5 +131,10 @@ export default {
   padding: 4vh 5vh;
   border-bottom-left-radius: 1rem;
   border-top-left-radius: 1rem;
+}
+.product-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
 }
 </style>
