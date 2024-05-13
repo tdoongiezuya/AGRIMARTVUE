@@ -74,13 +74,17 @@
 <script>
 import Header from "../components/Header.vue";
 import swal from "sweetalert";
-import {  mapState, mapActions } from "vuex";
+import {   mapActions } from "vuex";
 export default {
+  data() {
+    return {
+      isLoading: true,
+      product: null,
+    };
+  },
   components: { Header },
   props: ["product_id"],
-  computed:{
-    ...mapState(['product']),
-  },
+
   methods: {
     ...mapActions(['fetchProduct','addProductToCart']),
 
@@ -101,9 +105,15 @@ export default {
     
   },
   
-  mounted(){
-    this.fetchProduct(this.product_id)
-  }
+  async mounted() {
+    try {
+      await this.fetchProduct(this.product_id);
+      this.isLoading = false;
+    } catch (error) {
+      console.error("Failed to fetch product:", error);
+      // Handle error appropriately
+    }
+  },
 };
 </script>
 

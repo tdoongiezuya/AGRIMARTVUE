@@ -54,8 +54,7 @@ export default {
             console.log('State after committing mutations:', {
                 product: state.product,
             });
-            const product = state.product.find(p => p.product_id === productId);
-            return product;
+            return state.product;
         },
     },
 }
