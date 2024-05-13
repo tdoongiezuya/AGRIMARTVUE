@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid fruite py-5">
-   <Header/>
+    <Header />
     <div class="container py-5">
       <h1 class="mb-4">Agriculture Products</h1>
       <div class="row g-4">
@@ -61,15 +61,15 @@
             </div>
             <div class="col-lg-9">
               <div class="row g-4 justify-content-center">
-                <Card v-for="product in products" 
-                  :key="product.id" 
+                <Card
+                  v-for="product in products"
+                  :key="product.product_id"
                   :product="product"
                 />
               </div>
             </div>
 
-            
-              <!-- <div v-for="(item, index) in this.products" :key="index">
+            <!-- <div v-for="(item, index) in this.products" :key="index">
                 <h1>{{ item }}</h1>
               </div>
               <button @click="add()" >add</button> -->
@@ -80,24 +80,26 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
-import Card from "../components/Card.vue";
-import Header from '../components/Header.vue';
-import Categories from "../components/Categories.vue";
 
+import Card from "../components/Card.vue";
+import Header from "../components/Header.vue";
+import Categories from "../components/Categories.vue";
+// import { mapState, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   components: { Categories, Card, Header },
-  props:{
-    products: Object
-  },
-  data(){
-    return {
 
-    }
+  data() {
+    return {};
   },
-  
-  methods:{
-    
+
+  computed:{
+    ...mapGetters({
+      products: 'getProducts',
+    }),
+  },
+  mounted(){
+    this.$store.dispatch('fetchAllProducts')
   }
 };
 </script>

@@ -16,7 +16,9 @@ async function createProduct(req, res) {
 async function getAllProducts(req, res) {
   try {
     const products = await Product.getAllProducts();
-    res.status(200).json(products);
+   
+    console.log(products);
+    res.status(200).send(products);
   } catch (error) {
     console.error('Error getting products:', error);
     res.status(500).json({ error: 'Failed to get products' });

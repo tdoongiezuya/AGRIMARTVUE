@@ -17,6 +17,7 @@ async function getAllProducts() {
   try {
     const [rows] = await pool.query(query);
     return rows;
+    
   } catch (error) {
     throw new Error(`Failed to get products: ${error.message}`);
   }

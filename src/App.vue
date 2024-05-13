@@ -53,19 +53,27 @@ export default {
   components: {
     Nav1,
     Nav2,
-    Nav3
+    Nav3,
   },
   computed: {
     getConditionallyRenderedNavbar() {
-      const user_level = this.$store.getters.userLevel;
+      try {
+        const user_level = this.$store.getters.user_level;
+      console.log(user_level);
       switch (user_level) {
         case 1:
-          return Nav2;
+          return Nav1;
         case 2:
+          return Nav2;
+        case 3:
           return Nav3;
         default:
           return Nav1;
       }
+      } catch (error) {
+        console.error('error: ', error);
+      }
+
     },
   },
 };
