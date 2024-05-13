@@ -18,14 +18,14 @@ async function add(req, res) {
 
 async function update(req, res) {
   const { address_id } = req.params;
-  const { user_info_id, address_line, city, mobile } = req.body;
+  const { address_line, city, mobile } = req.body;
 
-  if (!user_info_id || !address_line || !city || !mobile) {
+  if (!address_line || !city || !mobile) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
   try {
-    await Address.update(address_id, user_info_id, address_line, city, mobile);
+    await Address.update(address_id, address_line, city, mobile);
     res.status(200).json({ message: 'Address updated successfully' });
   } catch (error) {
     console.error('Error updating address:', error);

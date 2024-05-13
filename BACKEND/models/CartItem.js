@@ -34,9 +34,9 @@ async function getCartItemById(cart_item_id) {
 }
 
 // Update a cart item
-async function updateCartItem(cart_item_id, product_id, quantity) {
+async function updateCartItem(cart_item_id, quantity) {
   try {
-    await pool.query('UPDATE cart_item SET product_id = ?, quantity = ? WHERE cart_item_id = ?', [product_id, quantity, cart_item_id]);
+    await pool.query('UPDATE cart_item SET quantity = ? WHERE cart_item_id = ?', [quantity, cart_item_id]);
     return true;
   } catch (error) {
     throw new Error(`Failed to update cart item ${cart_item_id}: ${error.message}`);

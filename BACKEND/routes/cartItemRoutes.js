@@ -6,7 +6,7 @@ const cartItemController = require('../controllers/cartItemController');
 router.post('/createCartItem', cartItemController.createCartItem);
 
 // Get all cart items
-router.get('/getAllCartItems', cartItemController.getAllCartItems); // Add this line
+router.get('/getAllCartItems', cartItemController.getAllCartItems);
 
 // Get cart item by ID
 router.get('/getCartItemById/:cart_item_id', cartItemController.getCartItemById);

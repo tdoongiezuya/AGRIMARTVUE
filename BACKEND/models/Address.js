@@ -1,7 +1,7 @@
 const pool = require('../db');
 
 async function insert(user_info_id, address_line, city, mobile) {
-  const query = 'INSERT INTO user_address (user_info_id, address_line, city, mobile, is_deleted) VALUES (?, ?, ?, ?, 0)';
+  const query = 'INSERT INTO user_address (user_info_id, address_line, city, mobile) VALUES (?, ?, ?, ?)';
   const values = [user_info_id, address_line, city, mobile];
 
   return new Promise((resolve, reject) => {
@@ -15,9 +15,9 @@ async function insert(user_info_id, address_line, city, mobile) {
   });
 }
 
-async function update(address_id, user_info_id, address_line, city, mobile) {
-  const query = 'UPDATE user_address SET user_info_id=?, address_line=?, city=?, mobile=? WHERE user_address_id=?';
-  const values = [user_info_id, address_line, city, mobile, address_id];
+async function update(address_id, address_line, city, mobile) {
+  const query = 'UPDATE user_address SET address_line=?, city=?, mobile=? WHERE user_address_id=?';
+  const values = [address_line, city, mobile, address_id];
 
   return new Promise((resolve, reject) => {
     pool.query(query, values, (err, result) => {

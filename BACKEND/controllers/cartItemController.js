@@ -38,9 +38,9 @@ async function getCartItemById(req, res) {
 // Update a cart item
 async function updateCartItem(req, res) {
   const cartItemId = req.params.cart_item_id;
-  const { product_id, quantity } = req.body;
+  const {quantity } = req.body;
   try {
-    await CartItem.updateCartItem(cartItemId, product_id, quantity);
+    await CartItem.updateCartItem(cartItemId, quantity);
     res.status(200).json({ message: `Cart item ${cartItemId} updated successfully` });
   } catch (error) {
     console.error(`Error updating cart item ${cartItemId}:`, error);
