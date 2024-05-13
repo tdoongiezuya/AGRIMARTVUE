@@ -34,7 +34,7 @@
                         </div>
                         <div class="m-b-25">
                           <button
-                          class="btn border border-light rounded-pill px-3 text-light" data-bs-toggle="modal" data-bs-target="#ModalEditProfile"
+                          class="btn border border-light rounded-pill px-3 text-light"  @click='logout'
                           ><i
                             class="mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"
                           ></i
@@ -110,7 +110,11 @@ export default {
     },
     startEditing() {
       this.editingProfile = true;
-    }
+    },
+    logout() {
+      this.$store.dispatch('logout')
+      this.$router.push({name:"Signin"})
+    },
   }
 };
 </script>

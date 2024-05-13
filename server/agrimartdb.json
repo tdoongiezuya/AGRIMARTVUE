@@ -14,7 +14,7 @@
       "productName": "Orange",
       "category": "Fruit",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, molestias?",
-      "image": "https://staticcookist.akamaized.net/wp-content/uploads/sites/22/2020/06/meat-1200x675.jpg",
+      "image": "https://cdn.britannica.com/24/174524-050-A851D3F2/Oranges.jpg",
       "price": 1.2,
       "farmer_id": 2
     },
@@ -51,7 +51,7 @@
       "category": "Vegetable",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, molestias?",
       "image": "https://staticcookist.akamaized.net/wp-content/uploads/sites/22/2020/06/meat-1200x675.jpg",
-      "price": 1,
+      "price": 1.0,
       "farmer_id": 3
     },
     {

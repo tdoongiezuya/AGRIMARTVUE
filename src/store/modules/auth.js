@@ -3,7 +3,13 @@ import router from '../../router';
 export default {
   state: {
     token: null,
-    user: null,
+    user: {
+      id:null,
+      username: null,
+      last_name: null,
+      email: null,
+      user_level: null
+    }
   },
   mutations: {
     setUser(state, user) {
@@ -25,6 +31,11 @@ export default {
         commit('setToken', token);
         localStorage.setItem('token', token);
         router.push({name: 'Home'});
+        
+        console.log('State after committing mutations:', {
+          token: this.state.token,
+          user: this.state.user,
+        });
         swal({
           text: "Login successful. Please continue",
           icon: "success",
@@ -39,6 +50,10 @@ export default {
         });
       }
     },
+    logout({ commit }) {
+      commit('setToken', null);
+      commit('setUser', null);
+  }
 
   },
   getters: {
@@ -47,6 +62,33 @@ export default {
     },
     user: (state) => {
       return state.user
-    }
+      
+    },
+    user_level: (state) => {
+      return state.user.user_level
+    },
+    first_name: (state) => {
+      return state.user.first_name
+    },
+    last_name: (state) => {
+      return state.user.last_name
+    },
   },
 }
+// async fetchAllProducts({ commit }) {
+//   try{
+//       const res = await axios.get('http://localhost:3000/products/getProduct');
+//       const { products } = res.data;
+//       commit('SET_PRODUCTS', products)
+      
+//   }  catch (error) {
+//       console.error("Error fetching products:", error);
+//   }
+
+// }
+// getProducts(state) {
+//   console.log('State after committing mutations:', {
+//       products: state.products,
+//   });
+//   return state.products
+// },

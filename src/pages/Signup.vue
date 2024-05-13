@@ -25,7 +25,7 @@
                   </div>
                 </div>
               </div>
-              <form @submit="signup">
+              <form @submit.prevent="signup">
                 <div class="row gy-3 gy-md-4 overflow-hidden">
                   <div class="row gy-3 overflow-hidden">
                     <div class="col-md-6">
@@ -178,7 +178,6 @@
 import axios from "axios";
 import swal from "sweetalert";
 export default {
-  props: ["baseURL"],
   data() {
     return {
       email: null,
@@ -223,8 +222,8 @@ export default {
     //             });
     //   }
     // },
-    async signup(e) {
-      e.preventDefault();
+    async signup() {
+      
       // if the password matches
       if (this.password === this.passwordConfirm) {
         // make the post body
@@ -240,7 +239,7 @@ export default {
         // call the API
         await axios({
           method: "post",
-          url: this.baseURL + "auth/register",
+          url: "http://localhost:3000/auth/register",
           data: JSON.stringify(user),
           headers: {
             "Content-Type": "application/json",
