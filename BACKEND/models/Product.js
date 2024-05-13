@@ -22,16 +22,16 @@ async function getAllProducts() {
   }
 }
 
-async function getProductById(productId) {
+async function getProductById(product_id) {
   const query = 'SELECT * FROM product WHERE product_id = ?';
   try {
-    const [rows] = await pool.query(query, [productId]);
+    const [rows] = await pool.query(query, [product_id]);
     if (rows.length === 0) {
       throw new Error('Product not found');
     }
     return rows[0];
   } catch (error) {
-    throw new Error(`Failed to get product ${productId}: ${error.message}`);
+    throw new Error(`Failed to get product ${product_id}: ${error.message}`);
   }
 }
 

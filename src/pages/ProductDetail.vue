@@ -18,8 +18,8 @@
                 </div>
               </div>
               <div class="col-lg-6">
-                <h4 class="fw-bold mb-3">{{ product.productName }}</h4>
-                <p class="mb-3">Category: {{ product.category }}</p>
+                <h4 class="fw-bold mb-3">{{ product.product_name }}</h4>
+                <p class="mb-3">Category: {{ product.product_category }}</p>
                 <h5 class="fw-bold mb-3">P{{ product.price }} / Kg</h5>
                 <div class="d-flex mb-4">
                   <i class="fa fa-star text-secondary"></i>
@@ -57,7 +57,7 @@
                 </div>
                 <a
                   href="#"
-                  @click="addToCart(productId)"
+                  @click="addToCart(product_id)"
                   class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"
                   ><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to
                   cart</a
@@ -74,17 +74,22 @@
 <script>
 import Header from "../components/Header.vue";
 import swal from "sweetalert";
-import axios from "axios";
+import {  mapState, mapActions } from "vuex";
 export default {
-  data() {
-    return {
-      product: {},
-      quantity: 1,
-    };
-  },
   components: { Header },
-  props: ["baseURL", "products"],
+  props: ["product_id"],
+  computed:{
+    ...mapState(['product']),
+  },
   methods: {
+    ...mapActions(['fetchProduct','addProductToCart']),
+
+    addToCart(){
+      this.addProductToCart({
+        product: this.product,
+        quantity:1
+      })
+    },
     incrementQuantity() {
       this.quantity++;
     },
@@ -93,41 +98,12 @@ export default {
         this.quantity--;
       }
     },
-    addToCart() {
-      if (!this.token) {
-        // user is not logged in
-        // show some error
-        swal({
-          text: "please login to add item in cart",
-          icon: "error",
-        });
-        return;
-      }
-
-      // add to cart
-
-      axios
-        .post(`${this.baseURL}/cart/add?token=${this.token}`, {
-          productId: this.id,
-          quantity: this.quantity,
-        })
-        .then((res) => {
-          if (res.status == 201) {
-            swal({
-              text: "Product added in cart",
-              icon: "success",
-            });
-            this.$emit("fetchData");
-          }
-        })
-        .catch((err) => console.log("err", err));
-    },
+    
   },
-  mounted() {
-    this.id = this.$route.params.id;
-    this.product = this.products.find((product) => product.id == this.id);
-    this.token = localStorage.getItem("token");
-  },
+  
+  mounted(){
+    this.fetchProduct(this.product_id)
+  }
 };
 </script>
 
