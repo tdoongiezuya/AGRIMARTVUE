@@ -27,13 +27,13 @@ async function getAllProducts(req, res) {
 
 // Get product by ID
 async function getProductById(req, res) {
-  const productId = req.params.product_id;
+  const product_id = req.params.product_id;
   try {
-    const product = await Product.getProductById(productId);
-    res.status(200).json(product);
+    const product = await Product.getProductById(product_id);
+    res.status(200).send(product);
   } catch (error) {
-    console.error(`Error getting product ${productId}:`, error);
-    res.status(500).json({ error: `Failed to get product ${productId}` });
+    console.error(`Error getting product ${product_id}:`, error);
+    res.status(500).json({ error: `Failed to get product ${product_id}` });
   }
 }
 
