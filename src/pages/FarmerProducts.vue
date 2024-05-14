@@ -147,6 +147,7 @@ export default {
         description: '',
         photo: null
       }
+
     };
   },
   methods: {
