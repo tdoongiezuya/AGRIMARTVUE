@@ -8,12 +8,12 @@
             <div class="row g-4">
               <div class="col-lg-6">
                 <div v-if="isLoading">Loading...</div>.
-                <div class="border rounded" v-if="product">
+                <div class="border rounded">
                   <a href="#">
                     <img
-                      src="https://cdn.britannica.com/22/187222-050-07B17FB6/apples-on-a-tree-branch.jpg"
-                      class="img-fluid rounded"
-                      alt="Image"
+                      :src="`data:image/png;base64,${product.image_data}`"
+                      class="img-fluid w-100  rounded"
+                      alt=""
                     />
                   </a>
                 </div>
@@ -83,10 +83,11 @@ export default {
     return {
       isLoading: true,
       product: {
-        product_name: null,
-        product_category: null,
-        price : null,
-        description: null,
+        // image_data: null,
+        // product_name: null,
+        // product_category: null,
+        // price : null,
+        // description: null,    
       },
       quantity:1,
     };

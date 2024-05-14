@@ -6,6 +6,7 @@ export default {
     user: {
       id:null,
       username: null,
+      first_name: null,
       last_name: null,
       email: null,
       user_level: null
