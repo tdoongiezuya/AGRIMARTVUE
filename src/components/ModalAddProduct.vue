@@ -69,22 +69,43 @@ export default {
   data() {
     return {
       productInfo: {
-        productName: '',
+        product_name: '',
         price: '',
         category: '',
-        description: '',
+        desc: '',
         photo: null
       }
     };
   },
   methods: {
+    async submitProduct() {
+      try {
+        const user = JSON.parse(localStorage.getItem('user')); // Get logged-in user from local storage
+        this.productInfo.addedBy = user.user_info_id; // Assign username as addedBy
+
+        const response = await axios.post('/api/products/createProduct', this.productInfo);
+        console.log(response.data);
+        // Reset form fields after successful submission
+        this.productInfo = {
+          product_name: '',
+          price: '',
+          category: '',
+          descr: '',
+          photo: null
+        };
+        // Refresh products after adding
+        this.$emit('reload-products');
+      } catch (error) {
+        console.error('Error adding product:', error);
+      }
+    },
     submitProduct() {
       this.$emit('add-product', this.productInfo);
       this.productInfo = {
-        productName: '',
+        product_name: '',
         price: '',
         category: '',
-        description: '',
+        descr: '',
         photo: null
       };
     },
@@ -100,6 +121,7 @@ export default {
         this.productInfo.photo = null;
       }
     }
+    // Implement editProduct method similarly
   }
 };
 </script>

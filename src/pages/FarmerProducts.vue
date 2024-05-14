@@ -43,13 +43,53 @@
                 <td>{{ product.category }}</td>
                 <td>{{ product.description }}</td>
                 <td>
-                  <router-link class="btn border-2 border-secondary rounded-pill py-1 px-3 text-primary h-50">
+                  <button class="btn border-2 border-secondary rounded-pill py-1 px-3 text-primary h-50" @click="editProduct(product)">
                     Edit
-                  </router-link>
+                  </button>
                 </td>
               </tr>
             </tbody>
           </MDBTable>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for Editing Product -->
+    <div class="modal fade" id="editProductModal" tabindex="-1" role="dialog" aria-labelledby="editProductModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="updateProduct">
+              <div class="form-group mb-3">
+                <label for="editProductName">Product Name</label>
+                <input type="text" class="form-control" v-model="editingProduct.productName" id="editProductName" required>
+              </div>
+              <div class="form-group mb-3">
+                <label for="editPrice">Price</label>
+                <input type="number" class="form-control" v-model="editingProduct.price" id="editPrice" required>
+              </div>
+              <div class="form-group mb-3">
+                <label for="editCategory">Category</label>
+                <select class="form-control" v-model="editingProduct.category" id="editCategory" required>
+                  <option>Fruits</option>
+                  <option>Vegetables</option>
+                  <option>Meats</option>
+                </select>
+              </div>
+              <div class="form-group mb-3">
+                <label for="editDescription">Description</label>
+                <textarea class="form-control" v-model="editingProduct.description" id="editDescription" rows="3" required></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" @click="updateProduct">Save changes</button>
+          </div>
         </div>
       </div>
     </div>
@@ -98,13 +138,37 @@ export default {
   },
   data() {
     return {
-      products: [
-      ]
+      products: [],
+      editingProduct: {
+        product_id: '',
+        productName: '',
+        price: '',
+        category: '',
+        description: '',
+        photo: null
+      }
     };
   },
   methods: {
     addProduct(newProduct) {
       this.products.push(newProduct);
+    },
+    editProduct(product) {
+      // Set product data to be edited
+      this.editingProduct = { ...product };
+      // Show the edit product modal
+      $('#editProductModal').modal('show');
+    },
+    updateProduct() {
+      // Close the modal
+      $('#editProductModal').modal('hide');
+      // Send update request to API
+      // Here you should implement your update logic using axios or fetch
+      // After successful update, update the product in the frontend
+      const index = this.products.findIndex(p => p.product_id === this.editingProduct.product_id);
+      if (index !== -1) {
+        this.products[index] = { ...this.editingProduct };
+      }
     }
   }
 };

@@ -1,4 +1,5 @@
 const Product = require('../models/Product');
+const FarmerProduct = require('../models/FarmerProduct');
 const fs = require('fs');
 
 // Create a new product with image upload
@@ -28,6 +29,36 @@ async function createProduct(req, res) {
   } catch (error) {
     console.error('Error creating product:', error);
     res.status(500).json({ error: 'Failed to create product' });
+  }
+}
+
+// Create a new farmer product with image upload
+async function createFarmerProduct(req, res) {
+  try {
+    // Check if any files were uploaded
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ error: 'No image uploaded' });
+    }
+
+    const imageFile = req.files[0];
+    const imageBuffer = fs.readFileSync(imageFile.path); // Read image file synchronously
+
+    const farmerProduct = {
+      ...req.body,
+      image_name: imageFile.originalname,
+      image_data: imageBuffer
+    };
+
+    // Insert farmer product into database
+    const newProductId = await FarmerProduct.createFarmerProduct(farmerProduct);
+
+    // Delete the uploaded file after reading and processing it
+    fs.unlinkSync(imageFile.path);
+
+    res.status(201).json({ id: newProductId, message: 'Farmer product created successfully' });
+  } catch (error) {
+    console.error('Error creating farmer product:', error);
+    res.status(500).json({ error: 'Failed to create farmer product' });
   }
 }
 
@@ -77,6 +108,7 @@ async function deleteProduct(req, res) {
 
 module.exports = {
   createProduct,
+  createFarmerProduct,
   getAllProducts,
   getProductById,
   updateProduct,
