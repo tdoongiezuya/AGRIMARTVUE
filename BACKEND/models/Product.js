@@ -11,7 +11,7 @@ async function createProduct(product) {
     throw new Error(`Failed to create product: ${error.message}`);
   }
 }
-
+//
 async function createFarmerProduct(product) {
   try {
     const query = 'INSERT INTO products SET ?';

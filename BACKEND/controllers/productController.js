@@ -22,7 +22,7 @@ async function createProduct(req, res) {
     // Insert product into database
     const newProductId = await Product.createProduct(product);
 
-    // Delete the uploaded file after reading and processing it
+    // Delete the uploaded file after reading and processing i
     fs.unlinkSync(imageFile.path);
 
     res.status(201).json({ id: newProductId, message: 'Product created successfully' });
