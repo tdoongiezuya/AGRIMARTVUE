@@ -5,6 +5,9 @@ const productController = require('../controllers/productController');
 // Create a new product
 router.post('/createProduct', productController.createProduct);
 
+// Create new Farmer Product
+router.post('/products', productController.createFarmerProduct);
+
 // Get all products
 router.get('/getProduct', productController.getAllProducts);
 

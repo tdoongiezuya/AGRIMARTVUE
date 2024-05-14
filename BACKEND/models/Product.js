@@ -12,6 +12,16 @@ async function createProduct(product) {
   }
 }
 
+async function createFarmerProduct(product) {
+  try {
+    const query = 'INSERT INTO products SET ?';
+    const [result] = await pool.query(query, product);
+    return result.insertId;
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function getAllProducts() {
   const query = 'SELECT * FROM product';
   try {
@@ -57,6 +67,7 @@ async function deleteProduct(productId) {
 
 module.exports = {
   createProduct,
+  createFarmerProduct,
   getAllProducts,
   getProductById,
   updateProduct,

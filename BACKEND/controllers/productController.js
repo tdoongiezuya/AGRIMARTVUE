@@ -32,16 +32,15 @@ async function createProduct(req, res) {
   }
 }
 
-// Create a new farmer product with image upload
 async function createFarmerProduct(req, res) {
   try {
-    // Check if any files were uploaded
+  
     if (!req.files || req.files.length === 0) {
       return res.status(400).json({ error: 'No image uploaded' });
     }
 
     const imageFile = req.files[0];
-    const imageBuffer = fs.readFileSync(imageFile.path); // Read image file synchronously
+    const imageBuffer = fs.readFileSync(imageFile.path); 
 
     const farmerProduct = {
       ...req.body,
@@ -49,10 +48,9 @@ async function createFarmerProduct(req, res) {
       image_data: imageBuffer
     };
 
-    // Insert farmer product into database
+
     const newProductId = await FarmerProduct.createFarmerProduct(farmerProduct);
 
-    // Delete the uploaded file after reading and processing it
     fs.unlinkSync(imageFile.path);
 
     res.status(201).json({ id: newProductId, message: 'Farmer product created successfully' });
@@ -61,6 +59,7 @@ async function createFarmerProduct(req, res) {
     res.status(500).json({ error: 'Failed to create farmer product' });
   }
 }
+
 
 async function getAllProducts(req, res) {
   try {
