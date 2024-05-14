@@ -2,14 +2,14 @@ const CartItem = require('../models/CartItem');
 
 // Create a new cart item
 async function createCartItem(req, res) {
-  const { product_id, quantity } = req.body;
+  const { product_id, quantity, user_info_id } = req.body;
 
-  if (!product_id || !quantity) {
+  if (!product_id || !quantity || !user_info_id) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
   try {
-    const newCartItemId = await CartItem.createCartItem(product_id, quantity);
+    const newCartItemId = await CartItem.createCartItem(product_id, quantity, user_info_id);
     res.status(201).json({ id: newCartItemId, message: 'Cart item created successfully' });
   } catch (error) {
     console.error('Error creating cart item:', error);

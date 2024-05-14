@@ -1,9 +1,9 @@
 const pool = require('../db');
 
 // Create a new cart item
-async function createCartItem(product_id, quantity) {
+async function createCartItem(product_id, quantity, user_info_id) {
   try {
-    const [result] = await pool.query('INSERT INTO cart_item (product_id, quantity) VALUES (?, ?)', [product_id, quantity]);
+    const [result] = await pool.query('INSERT INTO cart_item (product_id, quantity, user_info_id) VALUES (?, ?, ?)', [product_id, quantity, user_info_id]);
     return result.insertId;
   } catch (error) {
     throw new Error(`Failed to create cart item: ${error.message}`);

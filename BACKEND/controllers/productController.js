@@ -1,27 +1,22 @@
 const Product = require('../models/Product');
 const fs = require('fs');
 
-// Create a new product with image upload
 async function createProduct(req, res) {
   try {
-    // Check if any files were uploaded
     if (!req.files || req.files.length === 0) {
       return res.status(400).json({ error: 'No image uploaded' });
     }
 
     const imageFile = req.files[0];
-    const imageBuffer = fs.readFileSync(imageFile.path); // Read image file synchronously
+    const imageBuffer = fs.readFileSync(imageFile.path);
 
     const product = {
-      ...req.body,
+     ...req.body,
       image_name: imageFile.originalname,
       image_data: imageBuffer
     };
 
-    // Insert product into database
     const newProductId = await Product.createProduct(product);
-
-    // Delete the uploaded file after reading and processing it
     fs.unlinkSync(imageFile.path);
 
     res.status(201).json({ id: newProductId, message: 'Product created successfully' });
@@ -34,7 +29,11 @@ async function createProduct(req, res) {
 async function getAllProducts(req, res) {
   try {
     const products = await Product.getAllProducts();
-    res.status(200).json(products);
+    const productsWithBase64Images = products.map(product => ({
+     ...product,
+      image_data: product.image_data? product.image_data.toString('base64') : null
+    }));
+    res.status(200).json(productsWithBase64Images);
   } catch (error) {
     console.error('Error getting products:', error);
     res.status(500).json({ error: 'Failed to get products' });
@@ -49,6 +48,17 @@ async function getProductById(req, res) {
   } catch (error) {
     console.error(`Error getting product ${product_id}:`, error);
     res.status(500).json({ error: `Failed to get product ${product_id}` });
+  }
+}
+
+async function getProductByUserId(req, res) {
+  const user_info_id = req.params.user_info_id;
+  try {
+    const products = await Product.getProductByUserId(user_info_id);
+    res.status(200).json(products);
+  } catch (error) {
+    console.error(`Error getting products for user ${user_info_id}:`, error);
+    res.status(500).json({ error: `Failed to get products for user ${user_info_id}` });
   }
 }
 
@@ -79,6 +89,7 @@ module.exports = {
   createProduct,
   getAllProducts,
   getProductById,
+  getProductByUserId,
   updateProduct,
   deleteProduct
 };
