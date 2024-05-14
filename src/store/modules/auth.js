@@ -53,7 +53,7 @@ export default {
     logout({ commit }) {
       commit('setToken', null);
       commit('setUser', null);
-  }
+    } 
 
   },
   getters: {
@@ -75,20 +75,3 @@ export default {
     },
   },
 }
-// async fetchAllProducts({ commit }) {
-//   try{
-//       const res = await axios.get('http://localhost:3000/products/getProduct');
-//       const { products } = res.data;
-//       commit('SET_PRODUCTS', products)
-      
-//   }  catch (error) {
-//       console.error("Error fetching products:", error);
-//   }
-
-// }
-// getProducts(state) {
-//   console.log('State after committing mutations:', {
-//       products: state.products,
-//   });
-//   return state.products
-// },
