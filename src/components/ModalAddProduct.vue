@@ -90,7 +90,7 @@ export default {
           product_name: '',
           price: '',
           category: '',
-          descr: '',
+          desc: '',
           photo: null
         };
         // Refresh products after adding
