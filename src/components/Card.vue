@@ -3,6 +3,9 @@
     <router-link :to="{ name: 'ProductDetail', params: { id: product.product_id } }">
       <div class="rounded position-relative fruite-item">
         <div class="fruite-img">
+          <!-- Displaying the base64 encoded image -->
+          <!-- The `src` attribute is dynamically bound to the base64 string -->
+          <!-- The `data:image/png;base64,` prefix tells the browser to interpret the string as a base64 encoded PNG image -->
           <img
             :src="`data:image/png;base64,${product.image_data}`"
             class="img-fluid w-100 rounded-top"

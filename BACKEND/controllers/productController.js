@@ -1,28 +1,51 @@
 const Product = require('../models/Product');
 const fs = require('fs');
+const util = require('util');
+
+// Promisify the readFile function for asynchronous file reading
+const readFileAsync = util.promisify(fs.readFile);
 
 async function createProduct(req, res) {
   try {
+    // Check if an image file was uploaded
     if (!req.files || req.files.length === 0) {
       return res.status(400).json({ error: 'No image uploaded' });
     }
 
     const imageFile = req.files[0];
-    const imageBuffer = fs.readFileSync(imageFile.path);
+
+    // Read the image file asynchronously
+    const imageData = await readFileAsync(imageFile.path);
 
     const product = {
-     ...req.body,
+      ...req.body,
       image_name: imageFile.originalname,
-      image_data: imageBuffer
+      // Storing the image data as a BLOB in the database
+      image_data: imageData
     };
 
-    const newProductId = await Product.createProduct(product);
-    fs.unlinkSync(imageFile.path);
+    try {
+      // Save the product to the database
+      const newProductId = await Product.createProduct(product);
+      
+      // Delete the temporary image file
+      fs.unlink(imageFile.path, (err) => {
+        if (err) {
+          console.error('Error deleting image file:', err);
+        }
+      });
 
-    res.status(201).json({ id: newProductId, message: 'Product created successfully' });
+      // Respond with success
+      res.status(201).json({ id: newProductId, message: 'Product created successfully' });
+    } catch (error) {
+      console.error('Error saving product to database:', error);
+      // Respond with an error message
+      res.status(500).json({ error: 'Failed to save product to database' });
+    }
   } catch (error) {
-    console.error('Error creating product:', error);
-    res.status(500).json({ error: 'Failed to create product' });
+    console.error('Error reading image file:', error);
+    // Respond with an error message
+    res.status(500).json({ error: 'Failed to read image file' });
   }
 }
 

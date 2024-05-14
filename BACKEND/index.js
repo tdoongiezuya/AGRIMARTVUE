@@ -1,6 +1,6 @@
 require("dotenv").config();
 const express = require("express");
-const mysql = require('mysql2/promise'); // Importing mysql2 with promise support
+const mysql = require('mysql2/promise');
 const routes = require("./routes");
 const db = require("./db");
 const { readFileSync } = require("fs");
@@ -25,7 +25,10 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({ 
+  storage: storage,
+  limits: { fileSize: 10 * 1024 * 1024 } // Adjust the file size limit as needed (10MB in this example)
+});
 
 // Apply the Multer upload middleware to all routes
 app.use(upload.any());
