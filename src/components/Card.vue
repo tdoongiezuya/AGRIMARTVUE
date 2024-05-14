@@ -4,7 +4,7 @@
       <div class="rounded position-relative fruite-item">
         <div class="fruite-img">
           <img
-            src="https://staticcookist.akamaized.net/wp-content/uploads/sites/22/2020/06/meat-1200x675.jpg"
+            src="https://t4.ftcdn.net/jpg/02/39/39/17/360_F_239391735_n3nBwHrEOvuvmIkLntlL30s4wND8SP55.jpg"
             class="img-fluid w-100 h-500 rounded-top"
             alt=""
           />
