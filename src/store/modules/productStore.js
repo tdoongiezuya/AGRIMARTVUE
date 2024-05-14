@@ -62,18 +62,13 @@ export default {
             commit('ADD_TO_CART', {product, quantity} )
         }
     },
-    getters: {
-        getProducts(state) {
-            console.log('State after committing mutations:', {
-                products: state.products,
-            });
-            return state.products
-        },
-        getProduct(state) {
-            console.log('State after committing mutations:', {
-                product: state.product,
-            });
-            return state.product;
-        },
+    
+  getters: {
+    getProducts(state) {
+      return state.products;
     },
-}
+    getProduct(state) {
+      return state.product;
+    },
+  },
+};

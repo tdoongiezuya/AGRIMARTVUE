@@ -14,9 +14,9 @@
                   placeholder="keywords"
                   aria-describedby="search-icon-1"
                 />
-                <span id="search-icon-1" class="input-group-text p-3"
-                  ><i class="fa fa-search"></i
-                ></span>
+                <span id="search-icon-1" class="input-group-text p-3">
+                  <i class="fa fa-search"></i>
+                </span>
               </div>
             </div>
           </div>
@@ -29,25 +29,19 @@
                     <ul class="list-unstyled fruite-categorie">
                       <li>
                         <div class="d-flex justify-content-between fruite-name">
-                          <a href="#"
-                            ><i class="fas fa-apple-alt me-2"></i>Fruits</a
-                          >
+                          <a href="#"><i class="fas fa-apple-alt me-2"></i>Fruits</a>
                           <span>(3)</span>
                         </div>
                       </li>
                       <li>
                         <div class="d-flex justify-content-between fruite-name">
-                          <a href="#"
-                            ><i class="fas fa-apple-alt me-2"></i>Vegetables</a
-                          >
+                          <a href="#"><i class="fas fa-apple-alt me-2"></i>Vegetables</a>
                           <span>(3)</span>
                         </div>
                       </li>
                       <li>
                         <div class="d-flex justify-content-between fruite-name">
-                          <a href="#"
-                            ><i class="fas fa-apple-alt me-2"></i>Meat</a
-                          >
+                          <a href="#"><i class="fas fa-apple-alt me-2"></i>Meat</a>
                           <span>(3)</span>
                         </div>
                       </li>
@@ -68,39 +62,29 @@
                 />
               </div>
             </div>
-
-            <!-- <div v-for="(item, index) in this.products" :key="index">
-                <h1>{{ item }}</h1>
-              </div>
-              <button @click="add()" >add</button> -->
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
-<script>
 
+<script>
 import Card from "../components/Card.vue";
 import Header from "../components/Header.vue";
-import Categories from "../components/Categories.vue";
-// import { mapState, mapActions } from "vuex";
 import { mapGetters } from "vuex";
+
 export default {
-  components: { Categories, Card, Header },
-
-  data() {
-    return {};
-  },
-
-  computed:{
-    ...mapGetters({
+  components: { Card, Header },
+  computed: {
+   ...mapGetters({
       products: 'getProducts',
     }),
   },
-  mounted(){
-    this.$store.dispatch('fetchAllProducts')
+  mounted() {
+    this.$store.dispatch('fetchAllProducts');
   }
 };
 </script>
+
 <style></style>
