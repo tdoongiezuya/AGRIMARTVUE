@@ -1,9 +1,9 @@
 require("dotenv").config();
 const express = require("express");
-const mysql = require('mysql2/promise');
 const routes = require("./routes");
+const chatRoutes = require("./routes/chatRoutes"); // Import chat routes
+const { initializeSocketIO } = require("./controllers/chatController");
 const db = require("./db");
-const { readFileSync } = require("fs");
 const app = express();
 const cors = require("cors");
 const port = 3000;
@@ -40,11 +40,9 @@ const server = app.listen(port, () => {
 app.use("/", routes);
 
 // Import and initialize Socket.io
-const initializeSocketIO = require("./helpers/socketHandler");
-initializeSocketIO(server);
-
-app.get("/chat-history", async (req, res) => {
-  const result = await db.query("SELECT * FROM chat");
-  console.log(result);
-  res.send(result[0]);
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "*",
+  },
 });
+initializeSocketIO(io);

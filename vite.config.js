@@ -7,4 +7,5 @@ export default defineConfig({
     devSourcemap: true,
   },
   plugins: [vue()],
+  base: '/src/',
 })
