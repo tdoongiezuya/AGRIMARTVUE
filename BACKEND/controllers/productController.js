@@ -1,5 +1,4 @@
 const Product = require('../models/Product');
-const FarmerProduct = require('../models/FarmerProduct');
 const fs = require('fs');
 const util = require('util');
 
