@@ -83,7 +83,7 @@ export default {
         const user = JSON.parse(localStorage.getItem('user')); // Get logged-in user from local storage
         this.productInfo.addedBy = user.user_info_id; // Assign username as addedBy
 
-        const response = await axios.post('/api/products/createProduct', this.productInfo);
+        const response = await axios.post('http://localhost:3000/products/createProduct', this.productInfo);
         console.log(response.data);
         // Reset form fields after successful submission
         this.productInfo = {
@@ -117,6 +117,7 @@ export default {
           this.productInfo.photo = e.target.result;
         };
         reader.readAsDataURL(file);
+        console.log(image);
       } else {
         this.productInfo.photo = null;
       }

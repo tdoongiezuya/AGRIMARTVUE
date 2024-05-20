@@ -1,4 +1,4 @@
-import { createStore } from 'vuex';
+import { createStore, createLogger } from 'vuex';
 import productStore from './modules/productStore';
 import auth from './modules/auth';
 const store = createStore({
@@ -6,6 +6,7 @@ const store = createStore({
     auth,
     productStore,
   },
+  plugins: [createLogger()]
 });
 
 export default store;

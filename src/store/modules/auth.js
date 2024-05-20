@@ -19,7 +19,9 @@ export default {
     setToken(state, token) {
       state.token = token;
     },
-    
+    setUserLevel(state, user_level) {
+      state.user.user_level = user_level;
+    },
   },
   actions: {
     async commitSignin({ commit }, form) {
@@ -54,6 +56,10 @@ export default {
     logout({ commit }) {
       commit('setToken', null);
       commit('setUser', null);
+      
+      localStorage.removeItem('token');
+      router.push({name:"Signin"});
+    
     } 
 
   },
@@ -64,6 +70,9 @@ export default {
     user: (state) => {
       return state.user
       
+    },
+    userId: (state) => {
+      return state.user.id
     },
     user_level: (state) => {
       return state.user.user_level

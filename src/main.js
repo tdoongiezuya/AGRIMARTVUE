@@ -1,3 +1,4 @@
+
 import { createApp } from 'vue'
 import './css/style.css'
 import './css/landing.css'
@@ -10,6 +11,8 @@ import "bootstrap"
 
 import router from './router'
 import store from './store/store';
+
+
 
 createApp(App).use(router).use(store).mount('#app')
 
