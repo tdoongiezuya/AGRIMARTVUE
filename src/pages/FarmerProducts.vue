@@ -129,6 +129,7 @@
 import { MDBTable } from "mdb-vue-ui-kit";
 import Header from "../components/Header.vue";
 import ModalAddProduct from '../components/ModalAddProduct.vue';
+import axios from 'axios';
 
 export default {
   components: {
@@ -149,25 +150,27 @@ export default {
       }
     };
   },
+  async mounted() {
+    try {
+      const response = await axios.get('http://localhost:3000/products/getProduct'); 
+      this.products = response.data; 
+    } catch (error) {
+      console.error("Failed to fetch products:", error);
+    }
+  },
   methods: {
     addProduct(newProduct) {
       this.products.push(newProduct);
     },
     editProduct(product) {
-      // Set product data to be edited
-      this.editingProduct = { ...product };
-      // Show the edit product modal
+      this.editingProduct = {...product };
       $('#editProductModal').modal('show');
     },
     updateProduct() {
-      // Close the modal
       $('#editProductModal').modal('hide');
-      // Send update request to API
-      // Here you should implement your update logic using axios or fetch
-      // After successful update, update the product in the frontend
       const index = this.products.findIndex(p => p.product_id === this.editingProduct.product_id);
-      if (index !== -1) {
-        this.products[index] = { ...this.editingProduct };
+      if (index!== -1) {
+        this.products[index] = {...this.editingProduct };
       }
     }
   }
