@@ -99,7 +99,7 @@
         <tr>
           <th>Product Name</th>
           <th>Price</th>
-          <th class="has-text-centered">Actions</th>
+          <th class="has-text-centered">Actionss</th>
         </tr>
       </thead>
       <tbody>
