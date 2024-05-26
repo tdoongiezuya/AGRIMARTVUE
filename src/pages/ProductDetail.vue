@@ -6,13 +6,21 @@
         <div class="row g-4 mb-5">
           <div class="col-lg-8 col-xl-9">
             <div class="row g-4">
+              <div v-if="isLoading">Loading...</div>
+              <div>
+                <router-link
+                  class="btn border border-secondary rounded-pill px-3 text-primary"
+                  :to="{ name: 'Shop' }"
+                >
+                  return to shop</router-link
+                >
+              </div>
               <div class="col-lg-6">
-                <div v-if="isLoading">Loading...</div>.
                 <div class="border rounded">
                   <a href="#">
                     <img
                       :src="`data:image/png;base64,${product.image_data}`"
-                      class="img-fluid w-100  rounded"
+                      class="img-fluid w-100 rounded"
                       alt=""
                     />
                   </a>
@@ -58,7 +66,7 @@
                 </div>
                 <a
                   href="#"
-                  @click="addToCart(product_id)"
+                  @click="addToCart()"
                   class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"
                   ><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to
                   cart</a
@@ -75,38 +83,59 @@
 <script>
 import Header from "../components/Header.vue";
 import swal from "sweetalert";
-import axios from 'axios'; 
-import {   mapActions, mapState } from "vuex";
+import axios from "axios";
+import { mapActions, mapState } from "vuex";
 export default {
-  props: ["id"],
+  // props: ["id"],
   data() {
     return {
       isLoading: true,
       product: {
-        // image_data: null,
-        // product_name: null,
-        // product_category: null,
-        // price : null,
-        // description: null,    
+        image_data: null,
+        image_name:null,
+        product_name: null,
+        product_category: null,
+        price: null,
+        description: null,
+        user_info_id: null,
       },
-      quantity:1,
+      quantity: 1,
     };
   },
+  created() {
+    this.product_id = this.$route.params.id;
+    console.log(this.product_id);
+  },
+  // computed:{
+  //  product() {
+  //   return this.$store.state.product;
+  //  },
+  //  isLoading() {
+  //     return this.$store.state.isLoading; // Use Vuex state for loading indicator
+  //   },
+  // },
   methods: {
+    ...mapActions(["addProductToCart"]),
     async fetchProduct() {
       try {
-        const product_id =this.$route.params.id; 
-        const response = await axios.get(`http://localhost:3000/products/getProductById/${product_id}`);
+        const product_id = this.product_id;
+        const response = await axios.get(
+          `products/getProductById/${product_id}`
+        );
         this.product = response.data; // Update the product data property with the fetched product
+        console.log(this.product);
         this.isLoading = false; // Optionally, update a loading state
       } catch (error) {
-        console.error('Error fetching product:', error);
+        console.error("Error fetching product:", error);
         // Handle the error appropriately, e.g., show a message to the user
       }
     },
-   
-    addToCart(){
-      
+
+    addToCart() {
+      this.addProductToCart({
+        product: this.product,
+        quantity: this.quantity,
+      });
     },
     incrementQuantity() {
       this.quantity++;
@@ -116,44 +145,42 @@ export default {
         this.quantity--;
       }
     },
-    
+
     // Other methods...
   },
   mounted() {
     // Example: Fetching a product when the component is mounted
     this.fetchProduct(this.product_id);
- 
   },
   // mounted(){
-  //   this.$store.dispatch('fetchAllProducts', this.product_id)
+  //   this.$store.dispatch('fetchProduct', { productId: this.product_id }).then(() => {
+
+  //   }).catch((error) => {
+  //     console.error('Error fetching product:', error);
+
+  //   });
   // },
   components: { Header },
-  
-  // computed:{
-  //  ...mapState(["product"]),
-  // },
-  // methods: {
-    // ...mapActions(['addProductToCart']),
-   
-    // addToCart(){
-    //   this.addProductToCart({
-    //     product: this.product,
-    //     quantity:1
-    //   })
-    // },
-    // incrementQuantity() {
-    //   this.quantity++;
-    // },
-    // decrementQuantity() {
-    //   if (this.quantity > 0) {
-    //     this.quantity--;
-    //   }
-    // },
-    
-  // },
-  
-  
 
+  // methods: {
+  // ...mapActions(['addProductToCart']),
+
+  // addToCart(){
+  //   this.addProductToCart({
+  //     product: this.product,
+  //     quantity:1
+  //   })
+  // },
+  // incrementQuantity() {
+  //   this.quantity++;
+  // },
+  // decrementQuantity() {
+  //   if (this.quantity > 0) {
+  //     this.quantity--;
+  //   }
+  // },
+
+  // },
 };
 </script>
 

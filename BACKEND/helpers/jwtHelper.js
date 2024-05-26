@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-
+const jwtSecret = process.env.JWT_SECRET;
 // Middleware to verify JWT token
 exports.verifyToken = (req, res, next) => {
     const token = req.headers['authorization'];
@@ -7,7 +7,7 @@ exports.verifyToken = (req, res, next) => {
 
     jwt.verify(token, jwtSecret, (err, decoded) => {
         if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
-
+        console.log('Retrieved user ID:', decoded.id);
         // Store decoded token data for future middleware/routes
         req.userId = decoded.id;
         next();

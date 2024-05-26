@@ -57,11 +57,6 @@ const routes = [
     component: Contact,
   },
   {
-    path: "/signup",
-    name: "Signup",
-    component: Signup,
-  },
-  {
     path: "/chat",
     name: "Chat",
     component: Chat,
