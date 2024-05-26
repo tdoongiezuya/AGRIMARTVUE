@@ -121,7 +121,7 @@ export default {
         this.productInfo.photo = null;
       }
     }
-    // Implement editProduct method similarlyl
+    // Implement editProduct method similarly
   }
 };
 </script>
