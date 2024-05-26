@@ -148,6 +148,7 @@ export default {
         description: '',
         photo: null
       }
+
     };
   },
   async mounted() {

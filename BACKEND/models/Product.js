@@ -2,7 +2,7 @@ const pool = require('../db');
 
 async function createProduct(product) {
   const { product_name, description, price, product_category, user_info_id, image_name, image_data } = product;
-  const query = 'INSERT INTO product (product_name, description, price, product_category, user_info_id, image_name, image_data) VALUES (?, ?, ?, ?, ?, ?, ?)';
+  const query = 'INSERT INTO product (product_name, description, price, product_category, user_info_id, image_name, image_data) VALUES (?,?,?,?,?,?,?)';
   const values = [product_name, description, price, product_category, user_info_id, image_name, image_data];
   try {
     const [result] = await pool.execute(query, values);
@@ -45,6 +45,16 @@ async function getProductById(product_id) {
   }
 }
 
+async function getProductByUserId(user_info_id) {
+  const query = 'SELECT * FROM product WHERE user_info_id = ?';
+  try {
+    const [rows] = await pool.query(query, [user_info_id]);
+    return rows;
+  } catch (error) {
+    throw new Error(`Failed to get products for user ${user_info_id}: ${error.message}`);
+  }
+}
+
 async function updateProduct(productId, updates) {
   const query = 'UPDATE product SET ? WHERE product_id = ?';
   try {
@@ -70,6 +80,7 @@ module.exports = {
   createFarmerProduct,
   getAllProducts,
   getProductById,
+  getProductByUserId,
   updateProduct,
   deleteProduct
 };
