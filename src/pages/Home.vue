@@ -15,17 +15,32 @@
               the farm to your table on AgriMart, your agriculture marketplace
               connecting you with trusted organic farmers and suppliers.
             </h6>
-            <h5 class="mb-5 text-muted" v-if="isLoggedIn">hello, {{ first_name }} {{ last_name }}</h5>
+            <h5 class="mb-5 text-muted" v-if="isLoggedIn">
+              hello, {{ first_name }} {{ last_name }}
+            </h5>
             <div class="position-relative mx-auto">
+              <div>
+                
+              </div>
+             
+              <router-link
+                to="/farmerProducts"
+                v-if="isFarmer"
+                class="btn btn-primary border-2 border-secondary py-3 px-4 me-4 rounded-pill text-white h-100"
+              >
+                <i class="fa fa-shopping-bag me-2 text-white"></i> Check Products
+              </router-link>
               <router-link
                 to="/shop"
-                class="btn btn-primary border-2 border-secondary py-3 px-4 rounded-pill text-white h-100"
+                v-else
+                class="btn btn-primary border-2 border-secondary py-3 px-4 me-4  rounded-pill text-white h-100" 
               >
                 <i class="fa fa-shopping-bag me-2 text-white"></i> Shop Now
               </router-link>
               <router-link
                 :to="{ name: 'Signin' }"
-                class="btn border-2 border-secondary rounded-pill py-3 px-4 mx-4 text-primary h-100"
+                v-if="!isLoggedIn"
+                class="btn border-2 border-secondary rounded-pill py-3 px-4 text-primary h-100"
               >
                 <i class="fas fa-user me-2"></i> Sign in
               </router-link>
@@ -46,24 +61,30 @@
   </div>
 </template>
 <script>
-import Carousel from '../components/Carousel.vue'
-import {mapGetters} from 'vuex';
+import Carousel from "../components/Carousel.vue";
+import { mapGetters } from "vuex";
 export default {
-    components: { Carousel},
-    computed: {
-        ...mapGetters([
-            'first_name', 'last_name'
-        ]),
-        
-        isLoggedIn() {
-            return this.$store.getters.authenticated
-        },
-        user() {
-            return this.$store.getters.getUser
-        },
-    
-    }
+  components: { Carousel },
+  computed: {
+    ...mapGetters(["first_name", "last_name", "user", "user_level"]),
 
-}
+    isLoggedIn() {
+      return this.$store.getters.authenticated;
+    },
+   
+    isFarmer() {
+      console.log("User:", this.user);
+      return this.user && this.user_level == 2;
+    },
+    isConsumer() {
+      console.log("User:", this.user);
+      return this.user && this.user_level == 1;
+    },
+    isNull() {
+      console.log("User:", this.user);
+      return this.user && this.user_level == null;
+    },
+  },
+};
 </script>
 <style scoped></style>

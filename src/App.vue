@@ -36,7 +36,7 @@
 <template>
   <div>
     <div class="container-fluid">
-      <component :is="getConditionallyRenderedNavbar"></component>
+      <nav1/>
     </div>
     <main>
       <router-view> </router-view>
@@ -46,42 +46,39 @@
 
 <script>
 import Nav1 from "./components/navbars/Nav1.vue";
-import Nav2 from "./components/navbars/Nav2.vue";
-import Nav3 from "./components/navbars/Nav3.vue";
+
 
 export default {
   components: {
     Nav1,
-    Nav2,
-    Nav3,
   },
   computed: {
-    getConditionallyRenderedNavbar() {
-      let user_level = null;
-      try {
-        // Check if the store is available before accessing its getters
-        if (this.$store) {
-          user_level = this.$store.getters.user_level;
-        }
-      } catch (error) {
-        console.error("Error accessing user_level from store:", error);
-        // Handle the error by setting user_level to a default value or handling the error differently
-        user_level = null; // Or any other default value that makes sense in your application
-      }
+    // getConditionallyRenderedNavbar() {
+    //   let user_level = null;
+    //   try {
+    //     // Check if the store is available before accessing its getters
+    //     if (this.$store) {
+    //       user_level = this.$store.getters.user_level;
+    //     }
+    //   } catch (error) {
+    //     console.error("Error accessing user_level from store:", error);
+    //     // Handle the error by setting user_level to a default value or handling the error differently
+    //     user_level = null; // Or any other default value that makes sense in your application
+    //   }
 
-      // Now, use the user_level variable in your switch statement
-      switch (user_level) {
-        case 1:
-          return Nav1;
-        case 2:
-          return Nav2;
-        case 3:
-          return Nav3;
-        case null:
-          return Nav1; // Assuming you want to render Nav3 when user_level is null or undefined
-        default:
-          return Nav1;
-      }
+    //   // Now, use the user_level variable in your switch statement
+    //   switch (user_level) {
+    //     case 1:
+    //       return Nav1;
+    //     case 2:
+    //       return Nav2;
+    //     case 3:
+    //       return Nav3;
+    //     case null:
+    //       return Nav1; // Assuming you want to render Nav3 when user_level is null or undefined
+    //     default:
+    //       return Nav1;
+    //   }
       // try {
       //   const user_level = this.$store.getters.user_level;
       //   console.log(user_level);
@@ -101,7 +98,7 @@ export default {
       //   console.error('error: ', error);
       //   return Nav3;
       // }
-    },
+    
   },
 };
 </script>
