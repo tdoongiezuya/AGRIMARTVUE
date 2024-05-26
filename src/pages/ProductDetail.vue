@@ -92,6 +92,7 @@ export default {
       isLoading: true,
       product: {
         image_data: null,
+        image_name:null,
         product_name: null,
         product_category: null,
         price: null,
@@ -119,7 +120,7 @@ export default {
       try {
         const product_id = this.product_id;
         const response = await axios.get(
-          `http://localhost:3000/products/getProductById/${product_id}`
+          `products/getProductById/${product_id}`
         );
         this.product = response.data; // Update the product data property with the fetched product
         console.log(this.product);

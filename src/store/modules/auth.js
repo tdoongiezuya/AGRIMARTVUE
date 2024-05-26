@@ -1,10 +1,11 @@
 import axios from 'axios';
 import router from '../../router';
 export default {
+  
   state: {
     token: null,
     user: {
-      id:null,
+      user_info_id:null,
       username: null,
       first_name: null,
       last_name: null,
@@ -22,23 +23,31 @@ export default {
     setUserLevel(state, user_level) {
       state.user.user_level = user_level;
     },
+    initStateFromLocalStorage(state) {
+      const token = localStorage.getItem('token');
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (token) {
+        state.token = token;
+      }
+      if (user) {
+        state.user = user;
+      }
+    }
   },
   actions: {
     async commitSignin({ commit }, form) {
       console.log('signin action triggered', form); 
       try {
-        const response = await axios.post('http://localhost:3000/auth/login', form);
+        const response = await axios.post('auth/login', form);
         const { token, user } = response.data;
         console.log(response);
         commit('setUser', user);
         commit('setToken', token);
+        const user_info = JSON.stringify(user);
         localStorage.setItem('token', token);
+        localStorage.setItem('user', user_info);
         router.push({name: 'Home'});
         
-        console.log('State after committing mutations:', {
-          token: this.state.token,
-          user: this.state.user,
-        });
         swal({
           text: "Login successful. Please continue",
           icon: "success",
@@ -58,9 +67,13 @@ export default {
       commit('setUser', null);
       
       localStorage.removeItem('token');
+      localStorage.removeItem('user');
       router.push({name:"Signin"});
     
-    } 
+    } ,
+    initStore({ commit }) {
+      commit('initStateFromLocalStorage');
+    }
 
   },
   getters: {
@@ -72,7 +85,7 @@ export default {
       
     },
     userId: (state) => {
-      return state.user.id
+      return state.user.user_id
     },
     user_level: (state) => {
       return state.user.user_level

@@ -9,7 +9,7 @@ export default {
             product_category: null,
             price : null,
             description: null,    
-            user_info_id: null,
+            user_id: null,
           },
         cartItems: [],
         cart: [],
@@ -40,7 +40,7 @@ export default {
     actions: {
         async fetchAllProducts({ commit }) {
             try {
-                const response = await axios.get('http://localhost:3000/products/getProduct');
+                const response = await axios.get('products/getProduct');
                 commit('SET_PRODUCTS', response.data);
             } catch (error) {
                 console.error('Error fetching products:', error);
@@ -70,6 +70,11 @@ export default {
         // },
         addProductToCart({ commit }, { product , quantity} ) {
             commit('ADD_TO_CART',{ product , quantity} );
+        },
+        async addProduct({ commit }, newProduct) {
+          // Call your API to create a product
+          const response = await axios.post('products/createProduct', newProduct);
+          commit('ADD_PRODUCT', response.data);
         },
     },
     

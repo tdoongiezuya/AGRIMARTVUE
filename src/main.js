@@ -4,6 +4,7 @@ import './css/style.css'
 import './css/landing.css'
 import './css/main.min.css'
 import './front.js'
+import './axios.js'
 import App from './App.vue'
 
 
@@ -14,5 +15,10 @@ import store from './store/store';
 
 
 
-createApp(App).use(router).use(store).mount('#app')
+createApp(App)
+ .use(router)
+ .use(store)
+ .mount('#app');
+
+ store.dispatch('initStore');
 

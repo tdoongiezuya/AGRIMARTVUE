@@ -239,7 +239,7 @@ export default {
         // call the API
         await axios({
           method: "post",
-          url: "http://localhost:3000/auth/register",
+          url: "auth/register",
           data: JSON.stringify(user),
           headers: {
             "Content-Type": "application/json",

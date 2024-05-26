@@ -6,7 +6,10 @@ const store = createStore({
     auth,
     productStore,
   },
-  plugins: [createLogger()]
+  plugins: [
+    createLogger(),
+
+  ]
 });
 
 export default store;
