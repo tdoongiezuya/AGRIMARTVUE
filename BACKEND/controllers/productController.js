@@ -22,15 +22,27 @@ async function createProduct(req, res) {
       ...req.body,
       image_name: imageFile.originalname,
       // Storing the image data as a BLOB in the database
-      image_data: imageData
+      image_data: imageData,
+      user_info_id: req.user.id
     };
 
-    // Insert product into database
-    const newProductId = await Product.createProduct(product);
+    try {
+      // Save the product to the database
+      const newProductId = await Product.createProduct(product);
+      
+      // Delete the temporary image file
+      fs.unlink(imageFile.path, (err) => {
+        if (err) {
+          console.error('Error deleting image file:', err);
+        }
+      });
 
-    // Delete the uploaded file after reading and processing it
+//<<<<<<< HEAD
+    // Delete the uploaded file after reading and processing i
     fs.unlinkSync(imageFile.path);
 
+    res.status(201).json({ id: newProductId, message: 'Product created successfully' });
+//=======
       // Respond with success
       res.status(201).json({ id: newProductId, message: 'Product created successfully' });
     } catch (error) {
@@ -38,6 +50,7 @@ async function createProduct(req, res) {
       // Respond with an error message
       res.status(500).json({ error: 'Failed to save product to database' });
     }
+//>>>>>>> 75392c98061ada4a96239bea055f05c55b795b2c
   } catch (error) {
     console.error('Error reading image file:', error);
     // Respond with an error message
@@ -58,7 +71,8 @@ async function createFarmerProduct(req, res) {
     const farmerProduct = {
       ...req.body,
       image_name: imageFile.originalname,
-      image_data: imageBuffer
+      image_data: imageBuffer,  
+      user_info_id: req.user.id
     };
 
 

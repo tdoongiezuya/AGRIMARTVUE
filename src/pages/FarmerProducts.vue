@@ -151,17 +151,18 @@ export default {
 
     };
   },
-  async mounted() {
-    try {
-      const response = await axios.get('http://localhost:3000/products/getProduct'); 
-      this.products = response.data; 
-    } catch (error) {
-      console.error("Failed to fetch products:", error);
-    }
-  },
   methods: {
-    addProduct(newProduct) {
-      this.products.push(newProduct);
+    async addProduct(newProduct) {
+      try {
+        const user_info_id = this.$store.state.authenticatedUser.id;
+        newProduct.user_info_id = user_info_id;
+
+        const response = await axios.post('http://localhost:3000/products/createProduct', newProduct);
+        const createdProduct = response.data;
+        this.products.push(createdProduct);
+      } catch (error) {
+        console.error('Failed to add product:', error);
+      }
     },
     editProduct(product) {
       this.editingProduct = {...product };
