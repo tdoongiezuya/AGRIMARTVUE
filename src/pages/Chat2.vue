@@ -188,7 +188,7 @@ export default {
     //       message: "Hello, how are you?",
     //     },
     //   ];
-    axios.get("http://localhost:3000/chat-history").then((data) => {
+    axios.get("http://localhost:3000/chat/history").then((data) => {
       this.messages = data.data
     });
   },

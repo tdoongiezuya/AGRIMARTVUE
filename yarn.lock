@@ -61,12 +61,22 @@
   resolved "https://registry.npmjs.org/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.14.3.tgz"
   integrity sha512-/BypzV0H1y1HzgYpxqRaXGBRqfodgoBBCcsrujT6QRcakDQdfU+Lq9PENPh5jB4I44YWq+0C2eHsHya+nZY1sA==
 
+"@sindresorhus/is@^4.0.0":
+  version "4.6.0"
+  resolved "https://registry.npmjs.org/@sindresorhus/is/-/is-4.6.0.tgz"
+  integrity sha512-t09vSN3MdfsyCHoFcTRCH/iUtG7OJ0CsjzB8cjAmKc/va/kIgeDI/TxsigdncE/4be734m0cvIYwNaV4i2XqAw==
 
 "@socket.io/component-emitter@~3.1.0":
   version "3.1.2"
   resolved "https://registry.npmjs.org/@socket.io/component-emitter/-/component-emitter-3.1.2.tgz"
   integrity sha512-9BCxFwvbGg/RsZK9tjXd8s4UcwR0MWeFQ1XEKIQVVvAGJyINdrqKMcTRyLoK8Rse1GjzLV9cwjWV1olXRWEXVA==
 
+"@szmarczak/http-timer@^4.0.5":
+  version "4.0.6"
+  resolved "https://registry.npmjs.org/@szmarczak/http-timer/-/http-timer-4.0.6.tgz"
+  integrity sha512-4BAffykYOgO+5nzBWYwE3W90sBgLJoUPRWWcL8wlyiM8IB8ipJz3UMJ9KXQd1RKQXpKp8Tutn80HZtWsu2u76w==
+  dependencies:
+    defer-to-connect "^2.0.0"
 
 "@tinyhttp/accepts@2.2.1":
   version "2.2.1"
@@ -334,31 +344,31 @@
   integrity sha512-LgPscpE3Vs0x96PzSSB4IGVSZXZBZHpfxs+ZA1d+VEPwHdOXowy/Y2CsvCAIFrf+ssVU1pD1jidj505EpUnfbA==
 
 "@vue/devtools-api@^7.2.0":
-  version "7.2.0"
-  resolved "https://registry.npmjs.org/@vue/devtools-api/-/devtools-api-7.2.0.tgz"
-  integrity sha512-92RsjyH9WKNFO6U/dECUMakq4dm2CeqEDJYLJ8wZ81AnCifpXE7d4jPIjK34ENsPaapA6BSfIZdH/qzLOHiepA==
+  version "7.2.1"
+  resolved "https://registry.npmjs.org/@vue/devtools-api/-/devtools-api-7.2.1.tgz"
+  integrity sha512-6oNCtyFOrNdqm6GUkFujsCgFlpbsHLnZqq7edeM/+cxAbMyCWvsaCsIMUaz7AiluKLccCGEM8fhOsjaKgBvb7g==
   dependencies:
-    "@vue/devtools-kit" "^7.2.0"
+    "@vue/devtools-kit" "^7.2.1"
 
-"@vue/devtools-core@^7.2.0":
-  version "7.2.0"
-  resolved "https://registry.npmjs.org/@vue/devtools-core/-/devtools-core-7.2.0.tgz"
-  integrity sha512-cHSeu70rTtubt2DYia+VDGNTC1m84Xyuk5eNTjmOpMLECaJnWnzCv6kR84EZp7rG+MVZalJG+4ecX2GaTbU3cQ==
+"@vue/devtools-core@^7.2.1":
+  version "7.2.1"
+  resolved "https://registry.npmjs.org/@vue/devtools-core/-/devtools-core-7.2.1.tgz"
+  integrity sha512-OyWl455UnJIVgZ6lo5WQ79WbDMoXtSRwyNKp9WzCZ0HhuQywIk4qv59KtLRe75uVmtGBde4hXNaSyRm+x9bY6g==
   dependencies:
-    "@vue/devtools-kit" "^7.2.0"
-    "@vue/devtools-shared" "^7.2.0"
+    "@vue/devtools-kit" "^7.2.1"
+    "@vue/devtools-shared" "^7.2.1"
     mitt "^3.0.1"
     nanoid "^3.3.4"
     pathe "^1.1.2"
     vite-hot-client "^0.2.3"
 
-"@vue/devtools-electron@^7.2.0":
-  version "7.2.0"
-  resolved "https://registry.npmjs.org/@vue/devtools-electron/-/devtools-electron-7.2.0.tgz"
-  integrity sha512-st6vUkfD0Sw32PcuuSOY+A+0tKwtw0h+X3zpGaZFwp5puKG6uoJcfSW5rj9t5s4yCr78siwgZWo0Us1ncUs0LQ==
+"@vue/devtools-electron@^7.2.1":
+  version "7.2.1"
+  resolved "https://registry.npmjs.org/@vue/devtools-electron/-/devtools-electron-7.2.1.tgz"
+  integrity sha512-XDuYA011H1AxPpGkuu4YZEFhmX3Jilcmtu4nVXm0kB7/5xGQj2E7u1XEmVUB1lDeHC0MDKaU5TUfsZzOd1OqQQ==
   dependencies:
-    "@vue/devtools-core" "^7.2.0"
-    "@vue/devtools-shared" "^7.2.0"
+    "@vue/devtools-core" "^7.2.1"
+    "@vue/devtools-shared" "^7.2.1"
     electron "^29.3.3"
     execa "^8.0.1"
     h3 "^1.11.1"
@@ -367,31 +377,31 @@
     socket.io "^4.7.5"
     socket.io-client "^4.7.5"
 
-"@vue/devtools-kit@^7.2.0":
-  version "7.2.0"
-  resolved "https://registry.npmjs.org/@vue/devtools-kit/-/devtools-kit-7.2.0.tgz"
-  integrity sha512-Kx+U0QiQg/g714euYKfnCdhTcOycSlH1oyTE57D0sAmisdsRCNLfXcnnIwcFY2jdCpuz9DNbuE0VWQuYF5zAZQ==
+"@vue/devtools-kit@^7.2.1":
+  version "7.2.1"
+  resolved "https://registry.npmjs.org/@vue/devtools-kit/-/devtools-kit-7.2.1.tgz"
+  integrity sha512-Wak/fin1X0Q8LLIfCAHBrdaaB+R6IdpSXsDByPHbQ3BmkCP0/cIo/oEGp9i0U2+gEqD4L3V9RDjNf1S34DTzQQ==
   dependencies:
-    "@vue/devtools-shared" "^7.2.0"
+    "@vue/devtools-shared" "^7.2.1"
     hookable "^5.5.3"
     mitt "^3.0.1"
     perfect-debounce "^1.0.0"
     speakingurl "^14.0.1"
 
-"@vue/devtools-shared@^7.2.0":
-  version "7.2.0"
-  resolved "https://registry.npmjs.org/@vue/devtools-shared/-/devtools-shared-7.2.0.tgz"
-  integrity sha512-gVr3IjKjU7axNvclRgICgy1gq/TDnF1hhBAEox+l5mMXZiTIFVIm1zpcIPssc0HxMDgzy+lXqOVsY4DGyZ+ZeA==
+"@vue/devtools-shared@^7.2.1":
+  version "7.2.1"
+  resolved "https://registry.npmjs.org/@vue/devtools-shared/-/devtools-shared-7.2.1.tgz"
+  integrity sha512-PCJF4UknJmOal68+X9XHyVeQ+idv0LFujkTOIW30+GaMJqwFVN9LkQKX4gLqn61KkGMdJTzQ1bt7EJag3TI6AA==
   dependencies:
     rfdc "^1.3.1"
 
 "@vue/devtools@^7.2.0":
-  version "7.2.0"
-  resolved "https://registry.npmjs.org/@vue/devtools/-/devtools-7.2.0.tgz"
-  integrity sha512-a/+g/KCfccXSfWK4heKJSwYbE5Nd7+d0rO6KWBy1u4YTgjb4XWNTCWhjPVugfxMimduf6OwuI1eRzqF7n6eEuQ==
+  version "7.2.1"
+  resolved "https://registry.npmjs.org/@vue/devtools/-/devtools-7.2.1.tgz"
+  integrity sha512-qlh7mA0TIgJsOwHLYoLwehZJN/bT5tSYwXG0lVG8F67D53mXkjgPjPndea1mftVnPPP03yEZpWYyJC5jEt7bRA==
   dependencies:
-    "@vue/devtools-electron" "^7.2.0"
-    "@vue/devtools-kit" "^7.2.0"
+    "@vue/devtools-electron" "^7.2.1"
+    "@vue/devtools-kit" "^7.2.1"
 
 "@vue/reactivity@3.4.24":
   version "3.4.24"
@@ -634,12 +644,47 @@ csstype@^3.1.0, csstype@^3.1.3:
   resolved "https://registry.npmjs.org/csstype/-/csstype-3.1.3.tgz"
   integrity sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==
 
-
+debug@^4.1.0, debug@^4.1.1, debug@~4.3.1, debug@~4.3.2, debug@~4.3.4:
   version "4.3.4"
   resolved "https://registry.npmjs.org/debug/-/debug-4.3.4.tgz"
   integrity sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==
   dependencies:
     ms "2.1.2"
+
+decompress-response@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.npmjs.org/decompress-response/-/decompress-response-6.0.0.tgz"
+  integrity sha512-aW35yZM6Bb/4oJlZncMH2LCoZtJXTRxES17vE3hoRiowU2kWHaJKFkSBDnDR+cm9J+9QhXmREyIfv0pji9ejCQ==
+  dependencies:
+    mimic-response "^3.1.0"
+
+defer-to-connect@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/defer-to-connect/-/defer-to-connect-2.0.1.tgz"
+  integrity sha512-4tvttepXG1VaYGrRibk5EwJd1t4udunSOVMdLSAL6mId1ix438oPwPZMALY41FCijukO1L0twNcGsdzS7dHgDg==
+
+define-data-property@^1.0.1:
+  version "1.1.4"
+  resolved "https://registry.npmjs.org/define-data-property/-/define-data-property-1.1.4.tgz"
+  integrity sha512-rBMvIzlpA8v6E+SJZoo++HAYqsLrkg7MSfIinMPFhmkorw7X+dOXVJQs+QT69zGkzMyfDnIMN2Wid1+NbL3T+A==
+  dependencies:
+    es-define-property "^1.0.0"
+    es-errors "^1.3.0"
+    gopd "^1.0.1"
+
+define-properties@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.npmjs.org/define-properties/-/define-properties-1.2.1.tgz"
+  integrity sha512-8QmQKqEASLd5nx0U1B1okLElbUuuttJ/AnYmRXbbbGDWh6uS208EjD4Xqq/I9wK7u0v6O08XhTWnt5XtEbR6Dg==
+  dependencies:
+    define-data-property "^1.0.1"
+    has-property-descriptors "^1.0.0"
+    object-keys "^1.1.1"
+
+defu@^6.1.3, defu@^6.1.4:
+  version "6.1.4"
+  resolved "https://registry.npmjs.org/defu/-/defu-6.1.4.tgz"
+  integrity sha512-mEQCMmwJu317oSz8CwdIOdwf3xMif1ttiM8LTufzc3g6kR+9Pe236twL8j3IYT1F7GfRgGcW6MWxzZjLIkuHIg==
 
 delayed-stream@~1.0.0:
   version "1.0.0"
@@ -663,6 +708,22 @@ dot-prop@^8.0.2:
   dependencies:
     type-fest "^3.8.0"
 
+electron@^29.3.3:
+  version "29.4.1"
+  resolved "https://registry.npmjs.org/electron/-/electron-29.4.1.tgz"
+  integrity sha512-YQvMAtdmjMF1yGfQFuO/KOmy+04SKot85NalppK/8zxKwOKrrK6dJBp+nJWteqBwRAKiasSrC1lDalF6hZct/w==
+  dependencies:
+    "@electron/get" "^2.0.0"
+    "@types/node" "^20.9.0"
+    extract-zip "^2.0.1"
+
+end-of-stream@^1.1.0:
+  version "1.4.4"
+  resolved "https://registry.npmjs.org/end-of-stream/-/end-of-stream-1.4.4.tgz"
+  integrity sha512-+uw1inIHVPQoaVuHzRyXd21icM+cnt4CzD5rW+NC1wjOUSTOs+Te7FOv7AhN7vS9x/oIyhLP5PR1H+phQAHu5Q==
+  dependencies:
+    once "^1.4.0"
+
 engine.io-client@~6.5.2:
   version "6.5.3"
   resolved "https://registry.npmjs.org/engine.io-client/-/engine.io-client-6.5.3.tgz"
@@ -678,6 +739,22 @@ engine.io-parser@~5.2.1:
   version "5.2.2"
   resolved "https://registry.npmjs.org/engine.io-parser/-/engine.io-parser-5.2.2.tgz"
   integrity sha512-RcyUFKA93/CXH20l4SoVvzZfrSDMOTUS3bWVpTt2FuFP+XYrL8i8oonHP7WInRyVHXh0n/ORtoeiE1os+8qkSw==
+
+engine.io@~6.5.2:
+  version "6.5.4"
+  resolved "https://registry.npmjs.org/engine.io/-/engine.io-6.5.4.tgz"
+  integrity sha512-KdVSDKhVKyOi+r5uEabrDLZw2qXStVvCsEB/LN3mw4WFi6Gx50jTyuxYVCwAAC0U46FdnzP/ScKRBTXb/NiEOg==
+  dependencies:
+    "@types/cookie" "^0.4.1"
+    "@types/cors" "^2.8.12"
+    "@types/node" ">=10.0.0"
+    accepts "~1.3.4"
+    base64id "2.0.0"
+    cookie "~0.4.1"
+    cors "~2.8.5"
+    debug "~4.3.1"
+    engine.io-parser "~5.2.1"
+    ws "~8.11.0"
 
 entities@^4.5.0:
   version "4.5.0"
@@ -1189,6 +1266,11 @@ ms@2.1.2:
   resolved "https://registry.npmjs.org/ms/-/ms-2.1.2.tgz"
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
+nanoid@^3.3.4:
+  version "3.3.7"
+  resolved "https://registry.npmjs.org/nanoid/-/nanoid-3.3.7.tgz"
+  integrity sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==
+
 nanoid@^3.3.7:
   version "3.3.7"
   resolved "https://registry.npmjs.org/nanoid/-/nanoid-3.3.7.tgz"
@@ -1487,6 +1569,14 @@ sirv@^2.0.4:
     mrmime "^2.0.0"
     totalist "^3.0.0"
 
+socket.io-adapter@~2.5.2:
+  version "2.5.4"
+  resolved "https://registry.npmjs.org/socket.io-adapter/-/socket.io-adapter-2.5.4.tgz"
+  integrity sha512-wDNHGXGewWAjQPt3pyeYBtpWSq9cLE5UW1ZUPL/2eGK9jtse/FpXib7epSTsz0Q0m+6sg6Y4KtcFTlah1bdOVg==
+  dependencies:
+    debug "~4.3.4"
+    ws "~8.11.0"
+
 socket.io-client@^4.7.5:
   version "4.7.5"
   resolved "https://registry.npmjs.org/socket.io-client/-/socket.io-client-4.7.5.tgz"
@@ -1504,6 +1594,19 @@ socket.io-parser@~4.2.4:
   dependencies:
     "@socket.io/component-emitter" "~3.1.0"
     debug "~4.3.1"
+
+socket.io@^4.7.5:
+  version "4.7.5"
+  resolved "https://registry.npmjs.org/socket.io/-/socket.io-4.7.5.tgz"
+  integrity sha512-DmeAkF6cwM9jSfmp6Dr/5/mfMwb5Z5qRrSXLpo3Fq5SqyU8CMF15jIN4ZhfSwu35ksM1qmHZDQ/DK5XTccSTvA==
+  dependencies:
+    accepts "~1.3.4"
+    base64id "~2.0.0"
+    cors "~2.8.5"
+    debug "~4.3.2"
+    engine.io "~6.5.2"
+    socket.io-adapter "~2.5.2"
+    socket.io-parser "~4.2.4"
 
 sort-on@^6.0.0:
   version "6.0.0"
@@ -1693,6 +1796,18 @@ whatwg-url@^5.0.0:
   dependencies:
     tr46 "~0.0.3"
     webidl-conversions "^3.0.0"
+
+which@^2.0.1:
+  version "2.0.2"
+  resolved "https://registry.npmjs.org/which/-/which-2.0.2.tgz"
+  integrity sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==
+  dependencies:
+    isexe "^2.0.0"
+
+wrappy@1:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/wrappy/-/wrappy-1.0.2.tgz"
+  integrity sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==
 
 ws@~8.11.0:
   version "8.11.0"

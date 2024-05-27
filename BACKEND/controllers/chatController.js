@@ -9,8 +9,8 @@ function initializeSocketIO(io) {
       const chatId = await insertChatMessage(message);
       const msg = await getChatMessageById(chatId);
 
-      io.emit(`message sent: ${message.sender_id}`, msg);
-      io.emit(`${message.receiver_id}`, msg);
+      // Emit to a room named after the receiver_id
+      io.to(`room_${message.receiver_id}`).emit('message', msg);
     });
   });
 }
