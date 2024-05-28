@@ -43,7 +43,7 @@ app.use("/", routes);
 const initializeSocketIO = require("./helpers/socketHandler");
 initializeSocketIO(server);
 
-app.get("/chat-history", async (req, res) => {
+app.get("/chat/history", async (req, res) => {
   const result = await db.query("SELECT * FROM chat");
   console.log(result);
   res.send(result[0]);

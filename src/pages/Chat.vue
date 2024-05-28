@@ -179,7 +179,7 @@ export default {
     });
     // Fetch messages from your backend when the component is mounted
     // This is just a placeholder, replace with actual fetching logic
-    axios.get("http://localhost:3000/chat-history").then((data) => {
+    axios.get("http://localhost:3000/chat/history").then((data) => {
       this.messages = data.data;
     });
   },
