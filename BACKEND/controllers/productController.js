@@ -22,21 +22,21 @@ async function createProduct(req, res) {
 
     const product = {
       ...req.body,
-      // image_name: imageFile.originalname,
-      // // Storing the image data as a BLOB in the database
-      // image_data: imageData
+      image_name: imageFile.originalname,
+      // Storing the image data as a BLOB in the database
+      image_data: imageData
     };
 
     try {
       // Save the product to the database
       const newProductId = await Product.createProduct(product);
       
-      // Delete the temporary image file
-      // fs.unlink(imageFile.path, (err) => {
-      //   if (err) {
-      //     console.error('Error deleting image file:', err);
-      //   }
-      // });
+      //  Delete the temporary image file
+      fs.unlink(imageFile.path, (err) => {
+        if (err) {
+          console.error('Error deleting image file:', err);
+        }
+      });
 
       // Respond with 
       res.status(201).json({ id: newProductId, message: 'Product created successfully' });
