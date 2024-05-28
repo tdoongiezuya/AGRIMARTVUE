@@ -1,4 +1,6 @@
 const Product = require('../models/Product');
+const Address = require('../models/Address');
+
 // const FarmerProduct = require('../models/FarmerProduct');
 const fs = require('fs');
 const util = require('util');
@@ -20,9 +22,9 @@ async function createProduct(req, res) {
 
     const product = {
       ...req.body,
-      image_name: imageFile.originalname,
-      // Storing the image data as a BLOB in the database
-      image_data: imageData
+      // image_name: imageFile.originalname,
+      // // Storing the image data as a BLOB in the database
+      // image_data: imageData
     };
 
     try {
@@ -30,13 +32,13 @@ async function createProduct(req, res) {
       const newProductId = await Product.createProduct(product);
       
       // Delete the temporary image file
-      fs.unlink(imageFile.path, (err) => {
-        if (err) {
-          console.error('Error deleting image file:', err);
-        }
-      });
+      // fs.unlink(imageFile.path, (err) => {
+      //   if (err) {
+      //     console.error('Error deleting image file:', err);
+      //   }
+      // });
 
-      // Respond with success
+      // Respond with 
       res.status(201).json({ id: newProductId, message: 'Product created successfully' });
     } catch (error) {
       console.error('Error saving product to database:', error);
@@ -80,25 +82,60 @@ async function createProduct(req, res) {
 //   }
 // }
 
+
 async function getAllProducts(req, res) {
   try {
-    const products = await Product.getAllProducts();
+    const productsonly = await Product.getAllProducts();
+
+    // Map over each product to enrich it with user info and address
+    const products = await Promise.all(productsonly.map(async (product) => {
+      // Fetch user info
+      const userInfo = await Address.getUserById(product.user_info_id);
+      // Fetch address
+      const address = await Address.getById(product.user_info_id);
+
+      return {
+       ...product,
+        userInfo: userInfo,
+        address: address,
+      };
+    }));
+
+    // Convert base64 images if needed
     const productsWithBase64Images = products.map(product => ({
      ...product,
-      image_data: product.image_data? product.image_data.toString('base64') : null
+      image_data: product.image_data? product.image_data.toString('base64') : null,
     }));
+
     res.status(200).json(productsWithBase64Images);
   } catch (error) {
     console.error('Error getting products:', error);
     res.status(500).json({ error: 'Failed to get products' });
   }
 }
-
 async function getProductById(req, res) {
   const product_id = req.params.product_id;
   try {
-    const product = await Product.getProductById(product_id);
-    res.status(200).send(product);
+    const productonly = await Product.getProductById(product_id);
+    if (!productonly) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
+    // Then, enrich the product with user info and address
+    const userInfo = await Address.getUserById(productonly.user_info_id);
+    const address = await Address.getById(productonly.user_info_id);
+
+    // Combine the original product data with the user info and address
+    const product = {
+     ...productonly,
+      userInfo: userInfo,
+      address: address,
+    };
+    const productWithImageAsBase64 = {
+      ...product,
+       image_data: product.image_data? product.image_data.toString('base64') : null
+     };
+    res.status(200).send(productWithImageAsBase64);
   } catch (error) {
     console.error(`Error getting product ${product_id}:`, error);
     res.status(500).json({ error: `Failed to get product ${product_id}` });

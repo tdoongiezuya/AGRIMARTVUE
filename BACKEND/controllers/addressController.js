@@ -34,10 +34,10 @@ async function update(req, res) {
 }
 
 async function get(req, res) {
-  const { address_id } = req.params;
+  const { user_info_id } = req.params;
 
   try {
-    const address = await Address.getById(address_id);
+    const address = await Address.getById(user_info_id);
     if (!address) {
       return res.status(404).json({ error: 'Address not found' });
     }
@@ -70,10 +70,36 @@ async function getAll(req, res) {
   }
 }
 
+async function getUserInfoAndAddress(req, res) {
+  const { user_info_id } = req.params;
+
+  try {
+    // Fetch user info
+    const userInfo = await Address.getUserById(user_info_id);
+    if (!userInfo) {
+      return res.status(404).json({ error: 'User info not found' });
+    }
+
+    // Fetch address details
+    const address = await Address.getById(userInfo.user_info_id);
+
+    // Send response
+    res.status(200).json({
+      userInfo: userInfo,
+      address: address,
+    });
+  } catch (error) {
+    console.error('Error fetching user info and address:', error);
+    res.status(500).json({ error: 'Failed to fetch user info and address' });
+  }
+}
+
+
 module.exports = {
   add,
   update,
   get,
   delete: del,
   getAll,
+  getUserInfoAndAddress,
 };

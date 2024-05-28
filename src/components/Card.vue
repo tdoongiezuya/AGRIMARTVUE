@@ -23,7 +23,8 @@
             :to="{ name: 'ProductDetail', params: { id: product.product_id } }"
           >
             <h4>{{ product.product_name }}</h4>
-            <p class="text-muted">{{ product.description }}</p>
+            <p class="text-muted">farmer: {{ product.userInfo.first_name }} {{ product.userInfo.last_name }}</p>
+            <p class="text-muted">address: {{ product.address.city }}</p>
           </router-link>
           <div class="d-flex justify-content-between flex-lg-wrap">
             <p class="text-dark fs-5 fw-bold mb-0 pb-2">
@@ -55,5 +56,8 @@ export default {
   object-fit: cover;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
+}
+p {
+  margin: 3px !important;
 }
 </style>

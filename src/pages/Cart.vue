@@ -17,6 +17,7 @@
                 <th>Product Name</th>
                 <th>Price</th>
                 <th>Category</th>
+                <th>Seller Information</th>
                 <th></th>
                 <th></th>
               </tr>
@@ -35,7 +36,14 @@
                   <p class="fw-normal mb-1">{{ cartItem.product.price }}</p>
                 </td>
                 <td>{{ cartItem.product.product_category }}</td>
-                
+                <td>
+                  <div>
+                    name:{{ cartItem.product.userInfo.first_name }} {{ cartItem.product.userInfo.last_name }}
+                  </div>
+                  <div>
+                    address:{{ cartItem.product.address.address_line }} {{ cartItem.product.address.city }}
+                  </div>
+                </td>
                 <td>
                   <router-link
                     class="btn border-2 border-secondary rounded-pill px-2 text-primary contact-seller" 

@@ -137,65 +137,94 @@ export default {
     };
   },
   methods: {
-    
     async submitProduct() {
       try {
-        const user = JSON.parse(localStorage.getItem("user")); // Get logged-in user from local storage
-        console.log(user);
-        this.product.user_info_id = user.user_info_id; // Assign username as addedBy
+        const user = JSON.parse(localStorage.getItem("user"));
+        this.product.user_info_id = user.user_info_id;
 
-        // Directly use Axios to send the product info to the API
-        const response = await axios.post(
-          "products/createProduct",
-          this.product
-        );
-        console.log(response.data);
-        // Reset form fields after successful submission
-        this.product = {
-          product_name: "",
-          price: "",
-          product_category: "",
-          description: "",
-          files: null,
-          image_name: null,
-          user_info_id: null,
-        };
-        // Emit an event to refresh products after adding
-        this.$emit("reload-products");
+        const formData = new FormData();
+        formData.append("product_name", this.product.product_name);
+        formData.append("price", this.product.price);
+        formData.append("product_category", this.product.product_category);
+        formData.append("description", this.product.description);
+        formData.append("user_info_id", this.product.user_info_id);
+        if (this.product.files) {
+          formData.append("image", this.product.files);
+        }
+
+        const response = await axios.post("products/createProduct", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        // Check if the request was successful
+        if (response.status === 201) {
+          // Assuming 201 is the success status code
+          console.log(response.data); // Log the response data
+          // Display a success message or perform other success-related actions
+          alert("Product created successfully!");
+          // Optionally, reset the form or update the UI to reflect the success
+          this.product = {
+            files: null,
+            product_name: "",
+            product_category: "",
+            price: "",
+            description: "",
+            user_info_id: "",
+          };
+        } else {
+          // Handle errors
+          console.error(
+            "Error adding product:",
+            response.data.error || "Unknown error occurred"
+          );
+          // Display an error message or perform other error-related actions
+          alert("An error occurred while adding the product.");
+        }
       } catch (error) {
         console.error("Error adding product:", error);
+        // Handle network errors or other exceptions
+        alert("Network error occurred. Please try again later.");
       }
     },
     // async submitProduct() {
     //   try {
-    //     const user = JSON.parse(localStorage.getItem('user')); // Get logged-in user from local storage
-    //     this.productInfo.user_id= user.user_id; // Assign username as addedBy
+    //     const user = JSON.parse(localStorage.getItem("user")); // Get logged-in user from local storage
+    //     this.product.user_info_id = user.user_info_id; // Assign username as addedBy
 
-    //     const response = await axios.post('http://localhost:3000/products/createProduct', this.productInfo);
+    //     // Convert product data to a JSON-friendly format
+    //     const payload = {
+    //       files: this.product.files,
+    //       product_name: this.product.product_name,
+    //       price: this.product.price,
+    //       product_category: this.product.product_category,
+    //       description: this.product.description,
+    //       user_info_id: this.product.user_info_id,
+    //     };
+
+    //     // Send the payload as JSON
+    //     const response = await axios.post("products/createProduct", payload, {
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //     });
+
     //     console.log(response.data);
     //     // Reset form fields after successful submission
-    //     this.productInfo = {
-    //       product_name: '',
-    //       price: '',
-    //       category: '',
-    //       desc: '',
-    //       photo: null
+    //     this.product = {
+    //       files: null,
+    //       product_name: "",
+    //       product_category: "",
+    //       price: "",
+    //       description: "",
+    //       user_info_id: "",
     //     };
-    //     // Refresh products after adding
-    //     this.$emit('reload-products');
+    //     // Emit an event to refresh products after adding
+    //     this.$emit("reload-products");
     //   } catch (error) {
-    //     console.error('Error adding product:', error);
+    //     console.error("Error adding product:", error);
     //   }
-    // },
-    // submitProduct() {
-    //   this.$emit('add-product', this.productInfo);
-    //   this.productInfo = {
-    //     product_name: '',
-    //     price: '',
-    //     category: '',
-    //     descr: '',
-    //     photo: null
-    //   };
     // },
 
     previewImage(event) {
@@ -206,12 +235,10 @@ export default {
           this.product.files = e.target.result;
         };
         reader.readAsDataURL(file);
-        console.log(image);
       } else {
         this.product.files = null;
       }
     },
-    // Implement editProduct method similarly
   },
 };
 </script>
