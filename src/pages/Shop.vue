@@ -55,10 +55,12 @@
             </div>
             <div class="col-lg-9">
               <div class="row g-4 justify-content-center">
+                <div v-if="isLoading" class="text-center">Loading...</div>
                 <Card
                   v-for="product in products"
                   :key="product.product_id"
                   :product="product"
+                  v-else
                 />
               </div>
             </div>
@@ -76,14 +78,25 @@ import { mapGetters } from "vuex";
 
 export default {
   components: { Card, Header },
+  data() {
+    return {
+      isLoading: true,
+    };
+  },
   computed: {
-   ...mapGetters({
-      products: 'getProducts',
+    ...mapGetters({
+      products: "getProducts",
     }),
   },
-  mounted() {
-    this.$store.dispatch('fetchAllProducts');
-  }
+  async mounted() {
+    try {
+      await this.$store.dispatch("fetchAllProducts");
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    } finally {
+      this.isLoading = false;
+    }
+  },
 };
 </script>
 

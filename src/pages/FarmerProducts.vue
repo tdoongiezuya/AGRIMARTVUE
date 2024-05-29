@@ -43,13 +43,18 @@
                 <td>{{ product.category }}</td>
                 <td>{{ product.description }}</td>
                 <td>
-                  <button class="btn border-2 border-secondary rounded-pill py-1 px-3 text-primary h-50" @click="editProduct(product)">
+                  <button class="btn border-2 border-secondary rounded-pill py-1 px-3 text-primary h-50" @click="editProduct({...product, product_id: product.id })">
                     Edit
                   </button>
                 </td>
               </tr>
             </tbody>
           </MDBTable>
+          <div v-if="loading" class="text-center">
+            <div v-if="loading" class="text-center">
+              <p>Loading...</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -94,41 +99,13 @@
       </div>
     </div>
   </div>
-  <!-- <table class="table is-striped is-bordered mt-2 is-fullwidth">
-      <thead>
-        <tr>
-          <th>Product Name</th>
-          <th>Price</th>
-          <th class="has-text-centered">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in items" :key="item.product_id">
-          <td>
-            {{ item.product_name }}
-          </td>
-          <td>{{ item.product_price }}</td>
-          <td class="has-text-centered">
-            <router-link
-              :to="{ name: 'Edit', params: { id: item.product_id } }"
-              class="button is-info is-small"
-              >Edit</router-link
-            >
-            <a
-              class="button is-danger is-small"
-              @click="deleteProduct(item.product_id)"
-              >Delete</a
-            >
-          </td>
-        </tr>
-      </tbody>
-    </table> -->
 </template>
 
 <script>
 import { MDBTable } from "mdb-vue-ui-kit";
 import Header from "../components/Header.vue";
 import ModalAddProduct from '../components/ModalAddProduct.vue';
+import axios from 'axios';
 
 export default {
   components: {
@@ -146,8 +123,8 @@ export default {
         category: '',
         description: '',
         photo: null
-      }
-
+      },
+      loading: false // Added loading state
     };
   },
   methods: {
@@ -155,22 +132,62 @@ export default {
       this.products.push(newProduct);
     },
     editProduct(product) {
-      // Set product data to be edited
-      this.editingProduct = { ...product };
-      // Show the edit product modal
+      // Create a deep copy of the product to avoid direct mutation
+      this.editingProduct = JSON.parse(JSON.stringify(product));
       $('#editProductModal').modal('show');
     },
     updateProduct() {
       // Close the modal
       $('#editProductModal').modal('hide');
-      // Send update request to API
-      // Here you should implement your update logic using axios or fetch
-      // After successful update, update the product in the frontend
-      const index = this.products.findIndex(p => p.product_id === this.editingProduct.product_id);
-      if (index !== -1) {
-        this.products[index] = { ...this.editingProduct };
-      }
+
+      // Construct the URL with the product ID
+      const url = `/products/updateProduct/${this.editingProduct.product_id}`;
+
+      // Prepare the product data to be sent to the backend
+      const productToUpdate = {
+        product_name: this.editingProduct.productName,
+        price: this.editingProduct.price,
+        product_category: this.editingProduct.category,
+        description: this.editingProduct.description,
+        photo: this.editingProduct.photo
+      };
+
+      // Send the update request to the backend
+      axios.put(url, productToUpdate)
+        .then(response => {
+          // On success, find the product in the local products array and update it
+          const index = this.products.findIndex(p => p.product_id === this.editingProduct.product_id);
+          if (index !== -1) {
+            // Replace the original product with the updated version
+            this.products.splice(index, 1, {...this.editingProduct});
+          }
+        })
+        .catch(error => {
+          console.error('There was an error updating the product:', error);
+        });
+    },
+    fetchProducts() {
+      this.loading = true; // Start loading
+      axios.get('/products/getProduct')
+      .then(response => {
+          this.products = response.data.map(product => ({
+            product_id: product.id,
+            productName: product.product_name, // Ensure this matches the backend response
+            price: product.price,
+            category: product.product_category, // Ensure this matches the backend response
+            description: product.description,
+            photo: product.photo
+          }));
+          this.loading = false; // End loading
+        })
+      .catch(error => {
+          console.error('There was an error fetching the products:', error);
+          this.loading = false; // Also end loading in case of error
+        });
     }
+  },
+  mounted() {
+    this.fetchProducts();
   }
 };
 </script>

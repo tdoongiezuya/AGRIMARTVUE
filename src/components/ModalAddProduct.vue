@@ -72,6 +72,7 @@
                       class="form-control-file"
                       id="photoUpload"
                       @change="previewImage"
+                      ref="photoUpload"
                       required
                     />
                   </div>
@@ -128,76 +129,61 @@ export default {
     return {
       product: {
         files: null,
-        product_name: null,
-        product_category: null,
-        price: null,
-        description: null,
+        product_name: "",
+        product_category: "",
+        price: "",
+        description: "",
         user_info_id: null,
       },
     };
   },
   methods: {
-    
     async submitProduct() {
       try {
-        const user = JSON.parse(localStorage.getItem("user")); // Get logged-in user from local storage
-        console.log(user);
-        this.product.user_info_id = user.user_info_id; // Assign username as addedBy
+        const user = JSON.parse(localStorage.getItem("user"));
+        this.product.user_info_id = user.user_info_id;
 
-        // Directly use Axios to send the product info to the API
-        const response = await axios.post(
-          "products/createProduct",
-          this.product
-        );
+        const formData = new FormData();
+        formData.append("product_name", this.product.product_name);
+        formData.append("price", this.product.price);
+        formData.append("product_category", this.product.product_category);
+        formData.append("description", this.product.description);
+        formData.append("user_info_id", this.product.user_info_id);
+
+        const fileInput = this.$refs.photoUpload;
+        if (fileInput && fileInput.files.length > 0) {
+          formData.append("file", fileInput.files[0]);
+        }
+
+        const response = await axios.post("products/createProduct", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
         console.log(response.data);
-        // Reset form fields after successful submission
         this.product = {
           product_name: "",
           price: "",
           product_category: "",
           description: "",
           files: null,
-          image_name: null,
           user_info_id: null,
         };
-        // Emit an event to refresh products after adding
         this.$emit("reload-products");
+
+        // Wait for the DOM to update
+        this.$nextTick(() => {
+          // Manually trigger Bootstrap's modal hide method
+          $('#ModalAddProduct').modal('hide');
+
+          // Optionally, manually remove the backdrop if it remains
+          $('.modal-backdrop').remove();
+        });
       } catch (error) {
         console.error("Error adding product:", error);
       }
     },
-    // async submitProduct() {
-    //   try {
-    //     const user = JSON.parse(localStorage.getItem('user')); // Get logged-in user from local storage
-    //     this.productInfo.user_id= user.user_id; // Assign username as addedBy
-
-    //     const response = await axios.post('http://localhost:3000/products/createProduct', this.productInfo);
-    //     console.log(response.data);
-    //     // Reset form fields after successful submission
-    //     this.productInfo = {
-    //       product_name: '',
-    //       price: '',
-    //       category: '',
-    //       desc: '',
-    //       photo: null
-    //     };
-    //     // Refresh products after adding
-    //     this.$emit('reload-products');
-    //   } catch (error) {
-    //     console.error('Error adding product:', error);
-    //   }
-    // },
-    // submitProduct() {
-    //   this.$emit('add-product', this.productInfo);
-    //   this.productInfo = {
-    //     product_name: '',
-    //     price: '',
-    //     category: '',
-    //     descr: '',
-    //     photo: null
-    //   };
-    // },
-
     previewImage(event) {
       const file = event.target.files[0];
       if (file) {
@@ -206,14 +192,17 @@ export default {
           this.product.files = e.target.result;
         };
         reader.readAsDataURL(file);
-        console.log(image);
       } else {
         this.product.files = null;
       }
     },
-    // Implement editProduct method similarly
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+</style>

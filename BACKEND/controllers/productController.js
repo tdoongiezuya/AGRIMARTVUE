@@ -7,19 +7,23 @@ const readFileAsync = util.promisify(fs.readFile);
 
 async function createProduct(req, res) {
   try {
+    let imageFile, imageData, imageName;
+    
     // Check if an image file was uploaded
-    if (!req.files || req.files.length === 0) {
-      return res.status(400).json({ error: 'No image uploaded' });
+    if (req.files && req.files.length > 0) {
+      imageFile = req.files[0];
+      // Read the image file asynchronously
+      imageData = await readFileAsync(imageFile.path);
+      imageName = imageFile.originalname;
+    } else {
+      // Set default values if no image was uploaded
+      imageData = null;
+      imageName = null;
     }
-
-    const imageFile = req.files[0];
-
-    // Read the image file asynchronously
-    const imageData = await readFileAsync(imageFile.path);
 
     const product = {
       ...req.body,
-      image_name: imageFile.originalname,
+      image_name: imageName,
       // Storing the image data as a BLOB in the database
       image_data: imageData
     };
@@ -28,12 +32,14 @@ async function createProduct(req, res) {
       // Save the product to the database
       const newProductId = await Product.createProduct(product);
       
-      // Delete the temporary image file
-      fs.unlink(imageFile.path, (err) => {
-        if (err) {
-          console.error('Error deleting image file:', err);
-        }
-      });
+      // Delete the temporary image file if it exists
+      if (imageFile) {
+        fs.unlink(imageFile.path, (err) => {
+          if (err) {
+            console.error('Error deleting image file:', err);
+          }
+        });
+      }
 
       // Respond with success
       res.status(201).json({ id: newProductId, message: 'Product created successfully' });
