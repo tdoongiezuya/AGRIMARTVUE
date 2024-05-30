@@ -100,7 +100,18 @@ export default {
       editingProfile: false
     };
   },
+  created() {
+    this.fetchUserProfile();
+  },
   methods: {
+    async fetchUserProfile() {
+      try {
+        const response = await axios.get('/http://localhost:3000/'); //saan idk huhu
+        this.profile = response.data;
+      } catch (error) {
+        console.error('Error fetching user profile:', error);
+      }
+    },
     updateProfile(profileData) {
       this.profile = { ...profileData };
       this.editingProfile = false; 
