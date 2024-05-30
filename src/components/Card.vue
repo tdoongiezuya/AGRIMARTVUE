@@ -3,11 +3,9 @@
     <router-link :to="{ name: 'ProductDetail', params: { id: product.product_id } }">
       <div class="rounded position-relative fruite-item">
         <div class="fruite-img">
-          <!-- Displaying the base64 encoded image -->
-          <!-- The `src` attribute is dynamically bound to the base64 string -->
-          <!-- The `data:image/png;base64,` prefix tells the browser to interpret the string as a base64 encoded PNG image -->
+          <!-- Displaying the base64 encoded image or a placeholder if image_data is null -->
           <img
-            :src="`data:image/png;base64,${product.image_data}`"
+            :src="imageSrc"
             class="img-fluid w-100 rounded-top"
             alt=""
           />
@@ -44,8 +42,18 @@
 </template>
 
 <script>
+import placeholderImage from '../assets/img/logo.png'; // Ensure this path is correct
+
 export default {
   props: ["product"],
+  computed: {
+    imageSrc() {
+      // Use the base64 encoded image if available, otherwise use the placeholder image
+      return this.product.image_data
+        ? `data:image/png;base64,${this.product.image_data}`
+        : placeholderImage;
+    }
+  }
 };
 </script>
 

@@ -46,11 +46,13 @@ async function getProductByUserId(user_info_id) {
 }
 
 async function updateProduct(productId, updates) {
-  const query = 'UPDATE product SET ? WHERE product_id = ?';
+  const query = 'UPDATE product SET product_name=?, description=?, price=?, product_category=? WHERE product_id =?';
   try {
-    await pool.query(query, [updates, productId]);
-    return true;
+    const [result] = await pool.query(query, [updates.product_name, updates.description, updates.price, updates.product_category, productId]);
+    console.log('Affected Rows:', result.affectedRows);
+    return result.affectedRows > 0;
   } catch (error) {
+    console.error(`Failed to update product ${productId}: ${error.message}`);
     throw new Error(`Failed to update product ${productId}: ${error.message}`);
   }
 }

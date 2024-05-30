@@ -72,6 +72,7 @@
                       class="form-control-file"
                       id="photoUpload"
                       @change="previewImage"
+                      ref="photoUpload"
                       required
                     />
                   </div>
@@ -128,10 +129,10 @@ export default {
     return {
       product: {
         files: null,
-        product_name: null,
-        product_category: null,
-        price: null,
-        description: null,
+        product_name: "",
+        product_category: "",
+        price: "",
+        description: "",
         user_info_id: null,
       },
     };
@@ -142,14 +143,17 @@ export default {
         const user = JSON.parse(localStorage.getItem("user"));
         this.product.user_info_id = user.user_info_id;
 
+
         const formData = new FormData();
         formData.append("product_name", this.product.product_name);
         formData.append("price", this.product.price);
         formData.append("product_category", this.product.product_category);
         formData.append("description", this.product.description);
         formData.append("user_info_id", this.product.user_info_id);
-        if (this.product.files) {
-          formData.append("image", this.product.files);
+
+        const fileInput = this.$refs.photoUpload;
+        if (fileInput && fileInput.files.length > 0) {
+          formData.append("file", fileInput.files[0]);
         }
 
         const response = await axios.post("products/createProduct", formData, {
@@ -158,36 +162,33 @@ export default {
           },
         });
 
-        // Check if the request was successful
-        if (response.status === 201) {
-          // Assuming 201 is the success status code
-          console.log(response.data); // Log the response data
-          // Display a success message or perform other success-related actions
-          alert("Product created successfully!");
-          // Optionally, reset the form or update the UI to reflect the success
-          this.product = {
-            files: null,
-            product_name: "",
-            product_category: "",
-            price: "",
-            description: "",
-            user_info_id: "",
-          };
-        } else {
-          // Handle errors
-          console.error(
-            "Error adding product:",
-            response.data.error || "Unknown error occurred"
-          );
-          // Display an error message or perform other error-related actions
-          alert("An error occurred while adding the product.");
-        }
+        console.log(response.data);
+        this.product = {
+          product_name: "",
+          price: "",
+          product_category: "",
+          description: "",
+          files: null,
+          user_info_id: null,
+        };
+        this.$emit("reload-products");
+
+        // Wait for the DOM to update
+        this.$nextTick(() => {
+          // Manually trigger Bootstrap's modal hide method
+          $('#ModalAddProduct').modal('hide');
+
+          // Optionally, manually remove the backdrop if it remains
+          $('.modal-backdrop').remove();
+        });
+
       } catch (error) {
         console.error("Error adding product:", error);
         // Handle network errors or other exceptions
         alert("Network error occurred. Please try again later.");
       }
     },
+    
     // async submitProduct() {
     //   try {
     //     const user = JSON.parse(localStorage.getItem("user")); // Get logged-in user from local storage
@@ -227,6 +228,7 @@ export default {
     //   }
     // },
 
+
     previewImage(event) {
       const file = event.target.files[0];
       if (file) {
@@ -243,4 +245,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+</style>
