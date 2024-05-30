@@ -69,6 +69,7 @@ export default {
         //     }
         // },
         addProductToCart({ commit }, { product , quantity} ) {
+          
             commit('ADD_TO_CART',{ product , quantity} );
         },
         async addProduct({ commit }, newProduct) {
@@ -76,6 +77,18 @@ export default {
           const response = await axios.post('products/createProduct', newProduct);
           commit('ADD_PRODUCT', response.data);
         },
+        async fetchUserInfoAndAddress({ commit, state }, { productId }) {
+          try {
+            state.isLoading = true; // Set loading to true before fetching
+            const response = await axios.get(`/api/userinfoandaddress/${productId}`);
+            commit('SET_USER_INFO_AND_ADDRESS', response.data);
+            state.isLoading = false; // Set loading to false after fetching
+          } catch (error) {
+            console.error('Error fetching user info and address:', error);
+            state.isLoading = false; // Ensure loading is set to false in case of error
+          }
+        },
+      
     },
     
   getters: {

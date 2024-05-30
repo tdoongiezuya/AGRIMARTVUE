@@ -11,7 +11,9 @@ export default {
       last_name: null,
       email: null,
       user_level: null
-    }
+    },
+    userInfo: {},
+    address:{}
   },
   mutations: {
     setUser(state, user) {

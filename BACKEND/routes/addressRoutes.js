@@ -17,4 +17,7 @@ router.delete('/deleteAddress/:address_id', addressController.delete);
 // Get all addresses
 router.get('/getAllAddress', addressController.getAll);
 
+// Get address by ID
+router.get('/getInfoAndAddress/:user_info_id', addressController.getUserInfoAndAddress);
+
 module.exports = router;

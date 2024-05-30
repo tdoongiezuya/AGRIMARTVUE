@@ -37,8 +37,14 @@
                   <i class="fa fa-star text-secondary"></i>
                   <i class="fa fa-star"></i>
                 </div>
-                <p class="mb-4">
+                <p >
                   {{ product.description }}
+                </p>
+                <p>
+                  <span>seller:</span> {{ product.userInfo.first_name }} {{ product.userInfo.last_name }}
+                </p>
+                <p class="mb-4">
+                  address: {{ product.address.address_line }}, {{ product.address.city }}
                 </p>
                 <div class="input-group quantity mb-5" style="width: 100px">
                   <div class="input-group-btn">
@@ -98,6 +104,8 @@ export default {
         price: null,
         description: null,
         user_info_id: null,
+        userInfo:{},
+        address:{}
       },
       quantity: 1,
     };

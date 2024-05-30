@@ -12,7 +12,7 @@
             class="img-fluid w-100 h-100 bg-secondary rounded"
             alt="First slide"
           />
-          <a href="#" class="btn px-4 py-2 text-white rounded">Fruits</a>
+         
         </div>
         <div class="carousel-item rounded">
           <img
@@ -20,7 +20,7 @@
             class="img-fluid w-100 h-100 rounded"
             alt="Second slide"
           />
-          <a href="#" class="btn px-4 py-2 text-white rounded">Vegetables</a>
+         
         </div>
         <!-- Left and right controls/icons -->
         <button

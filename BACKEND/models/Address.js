@@ -18,15 +18,15 @@ async function getAll() {
   }
 }
 
-async function getById(address_id) {
+async function getById(user_info_id) {
   try {
-    const [rows] = await pool.query('SELECT * FROM user_address WHERE user_address_id = ?', [address_id]);
+    const [rows] = await pool.query('SELECT * FROM user_address WHERE user_info_id = ?', [user_info_id]);
     if (rows.length === 0) {
       throw new Error('Address not found');
     }
     return rows[0];
   } catch (error) {
-    throw new Error(`Failed to get address ${address_id}: ${error.message}`);
+    throw new Error(`Failed to get address ${user_info_id}: ${error.message}`);
   }
 }
 
@@ -48,10 +48,24 @@ async function del(address_id) {
   }
 }
 
+async function getUserById(user_info_id) {
+  try {
+    const [rows] = await pool.query('SELECT * FROM user_info WHERE user_info_id =?', [user_info_id]);
+    if (rows.length === 0) {
+      throw new Error('User info not found');
+    }
+    return rows[0];
+  } catch (error) {
+    throw new Error(`Failed to get user info ${user_info_id}: ${error.message}`);
+  }
+}
+
+
 module.exports = {
   insert,
   getAll,
   getById,
   update,
+  getUserById,
   delete: del
 };

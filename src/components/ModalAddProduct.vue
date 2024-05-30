@@ -143,6 +143,7 @@ export default {
         const user = JSON.parse(localStorage.getItem("user"));
         this.product.user_info_id = user.user_info_id;
 
+
         const formData = new FormData();
         formData.append("product_name", this.product.product_name);
         formData.append("price", this.product.price);
@@ -180,10 +181,54 @@ export default {
           // Optionally, manually remove the backdrop if it remains
           $('.modal-backdrop').remove();
         });
+
       } catch (error) {
         console.error("Error adding product:", error);
+        // Handle network errors or other exceptions
+        alert("Network error occurred. Please try again later.");
       }
     },
+    
+    // async submitProduct() {
+    //   try {
+    //     const user = JSON.parse(localStorage.getItem("user")); // Get logged-in user from local storage
+    //     this.product.user_info_id = user.user_info_id; // Assign username as addedBy
+
+    //     // Convert product data to a JSON-friendly format
+    //     const payload = {
+    //       files: this.product.files,
+    //       product_name: this.product.product_name,
+    //       price: this.product.price,
+    //       product_category: this.product.product_category,
+    //       description: this.product.description,
+    //       user_info_id: this.product.user_info_id,
+    //     };
+
+    //     // Send the payload as JSON
+    //     const response = await axios.post("products/createProduct", payload, {
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //     });
+
+    //     console.log(response.data);
+    //     // Reset form fields after successful submission
+    //     this.product = {
+    //       files: null,
+    //       product_name: "",
+    //       product_category: "",
+    //       price: "",
+    //       description: "",
+    //       user_info_id: "",
+    //     };
+    //     // Emit an event to refresh products after adding
+    //     this.$emit("reload-products");
+    //   } catch (error) {
+    //     console.error("Error adding product:", error);
+    //   }
+    // },
+
+
     previewImage(event) {
       const file = event.target.files[0];
       if (file) {
