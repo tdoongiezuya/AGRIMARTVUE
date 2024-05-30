@@ -1,7 +1,7 @@
 <template>
   <div class="col-md-6 col-lg-6 col-xl-4">
     <router-link :to="{ name: 'ProductDetail', params: { id: product.product_id } }">
-      <div class="rounded position-relative fruite-item">
+      <div class="rounded position-relative fruite-item bg-white">
         <div class="fruite-img">
           <!-- Displaying the base64 encoded image or a placeholder if image_data is null -->
           <img
@@ -20,17 +20,20 @@
           <router-link
             :to="{ name: 'ProductDetail', params: { id: product.product_id } }"
           >
-            <h4>{{ product.product_name }}</h4>
-            <p class="text-muted">farmer: {{ product.userInfo.first_name }} {{ product.userInfo.last_name }}</p>
-            <p class="text-muted">address: {{ product.address.city }}</p>
+            <h4 class=" w-5">{{ product.product_name }}</h4>
+            <p class="row text-muted">seller: {{ product.userInfo.first_name }} {{ product.userInfo.last_name }}</p>
+            <p class="row text-muted">address: {{ product.address.city }}</p>
           </router-link>
           <div class="d-flex justify-content-between flex-lg-wrap">
-            <p class="text-dark fs-5 fw-bold mb-0 pb-2">
+            <p class="row text-dark fs-5 fw-bold mb-0 pb-2">
               P{{ product.price }} / kg
             </p>
+            
+          </div>
+          <div class="d-flex justify-content-between flex-lg-wrap">
             <a
               href="#"
-              class="btn border border-secondary rounded-pill px-3 text-primary"
+              class=" btn border border-secondary rounded-pill px-3 text-primary"
             >
               <i class="fa fa-shopping-bag me-2 text-primary"></i>View Details
             </a>
