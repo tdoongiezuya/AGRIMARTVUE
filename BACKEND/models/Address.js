@@ -22,7 +22,14 @@ async function getById(user_info_id) {
   try {
     const [rows] = await pool.query('SELECT * FROM user_address WHERE user_info_id = ?', [user_info_id]);
     if (rows.length === 0) {
-      throw new Error('Address not found');
+      return {
+        user_info_id: user_info_id,
+        address_line: 'none',
+        city: 'none',
+        mobile: 'none'
+      };
+      // return null;
+      // console.log('Address not found');
     }
     return rows[0];
   } catch (error) {
