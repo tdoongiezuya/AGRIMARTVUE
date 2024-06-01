@@ -3,7 +3,7 @@
     <ModalSearch />
     <!-- Navbar Start -->
     <div class="container-fluid fixed-top" v-if="isFarmer">
-      <div class="container topbar bg-primary d-none d-lg-block">
+      <div class="container topbar bg-primary  d-lg-block">
         <div class="d-flex justify-content-between">
           <div class="top-info ps-2">
             <small class="me-3"
@@ -19,7 +19,7 @@
           </div>
         </div>
       </div>
-      <div class="container px-0">
+      <div class="container px-0 ">
         <nav class="navbar navbar-light bg-white navbar-expand-xl">
           <router-link :to=" {name : 'Home'}" class="navbar-brand"
             ><img src="../../assets/img/logo.png" class="logo display-6" alt=""
@@ -76,7 +76,7 @@
    <!-- Navbar End -->
     <!-- Navbar start -->
     <div class="container-fluid fixed-top" v-else-if="isConsumer">
-      <div class="container topbar bg-primary d-none d-lg-block">
+      <div class="container topbar bg-primary  d-lg-block">
         <div class="d-flex justify-content-between">
           <div class="top-info ps-2">
             <small class="me-3"
@@ -167,7 +167,7 @@
     <!-- Navbar End -->
     <!-- Navbar start -->
     <div class="container-fluid fixed-top" v-else-if="isNull">
-      <div class="container topbar bg-primary d-none d-lg-block">
+      <div class="container topbar bg-primary  d-lg-block">
         <div class="d-flex justify-content-between">
           <div class="top-info ps-2">
             <small class="me-3"
@@ -258,7 +258,7 @@
     <!-- Navbar End -->
     <!-- Navbar start -->
     <div class="container-fluid fixed-top" v-else>
-      <div class="container topbar bg-primary d-none d-lg-block">
+      <div class="container topbar bg-primary  d-lg-block">
         <div class="d-flex justify-content-between">
           <div class="top-info ps-2">
             <small class="me-3"
@@ -374,8 +374,12 @@ export default {
       console.log('User:', this.user);
         return this.user && this.user_level == 1;
     },
-    isNull(){
+    isAdmin(){
       console.log('User:', this.user);
+        return this.user && this.user_level == 3;
+    },
+    isNull(){
+      console.log('User Admin:', this.user);
         return this.user && this.user_level == null;
     },
     
