@@ -1,10 +1,11 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const db = require('../db');
+const Address = require('../models/Address');
 const jwtSecret = process.env.JWT_SECRET;
 
 exports.registerUser = async (req, res) => {
-    const { username, email, password, first_name, last_name, user_level} = req.body;
+    const { username, email, password, first_name, last_name, user_level } = req.body;
 
     console.log('Data received by the server:', req.body);
 
@@ -17,7 +18,7 @@ exports.registerUser = async (req, res) => {
         const userInfoResult = await db.query('INSERT INTO user_info (last_name, first_name, user_level) VALUES (?, ?, ?)', [last_name, first_name, user_level]);
         const user_info_id = userInfoResult[0].insertId;
         await db.query('INSERT INTO user_cred (user_info_id, username, password, email) VALUES (?, ?, ?, ?)', [user_info_id, username, hashedPassword, email]);
-        
+
         res.send({ message: "User was registered successfully!" });
     } catch (error) {
         console.error("Error registering user:", error);
@@ -37,7 +38,7 @@ exports.loginUser = async (req, res) => {
             console.log(`User ${username} not found`);
             return res.status(404).send({ auth: false, message: "User not found" });
         }
-        
+
         const user = results[0];
         console.log(user)
         console.log(user[0].user_info_id)
@@ -48,26 +49,71 @@ exports.loginUser = async (req, res) => {
         if (passwordMatch) {
             // Correctly fetching user info using user_info_id
             const userInfoResults = await db.query('SELECT first_name, last_name, user_level FROM user_info WHERE user_info_id =?', [user[0].user_info_id]);
-           
+
             const userInfo = userInfoResults[0];
             console.log(userInfo)
-            const token = jwt.sign({ id: user.user_info_id }, jwtSecret, { expiresIn: 86400 });
-            console.log(`User ${username} logged in successfully`);
-            const response = {
-                auth: true,
-                token: token,
-                user: {
+
+            
+            const userAddressResults = await db.query('SELECT * FROM user_address WHERE user_info_id = ?', [user[0].user_info_id]);
+
+            console.log(userAddressResults)
+            if (userAddressResults.length > 0) {
+                const userAddress = userAddressResults[0][0];
+                console.log(userAddress);
+                // Your existing logic to construct the response
+                const token = jwt.sign({ id: user.user_info_id }, jwtSecret, { expiresIn: 86400 });
+                console.log(`User ${username} logged in successfully`);
+                const response = {
+                    auth: true,
+                    token: token,
+                    user: {
+                        user_info_id: user[0].user_info_id,
+                        username: user[0].username,
+                        first_name: userInfo[0].first_name,
+                        last_name: userInfo[0].last_name,
+                        email: user[0].email,
+                        user_level: userInfo[0].user_level,
+                        address_line: userAddress?.address_line,
+                        city: userAddress?.city,
+                        mobile: userAddress?.mobile,
+                        // Add other user details you want to include here
+                    }
+                };
+                res.status(200).send(response);
+                console.log(response)
+            } else {
+                // Adjust the response to indicate that the address was not found
+                const userAddress = {
                     user_info_id: user[0].user_info_id,
-                    username: user[0].username,
-                    first_name: userInfo[0].first_name,
-                    last_name: userInfo[0].last_name,
-                    email: user[0].email,
-                    user_level: userInfo[0].user_level
-                    // Add other user details you want to include here
-                }
-            };
-            res.status(200).send(response);
-            console.log(response)
+                    address_line: 'none',
+                    city: 'none',
+                    mobile: 'none'
+                };
+                console.log(userAddress);
+                // Adjust the rest of your response construction logic
+            }
+            // const userAddress = userAddressResults[0];
+            // console.log(userAddress)
+            // const token = jwt.sign({ id: user.user_info_id }, jwtSecret, { expiresIn: 86400 });
+            // console.log(`User ${username} logged in successfully`);
+            // const response = {
+            //     auth: true,
+            //     token: token,
+            //     user: {
+            //         user_info_id: user[0].user_info_id,
+            //         username: user[0].username,
+            //         first_name: userInfo[0].first_name,
+            //         last_name: userInfo[0].last_name,
+            //         email: user[0].email,
+            //         user_level: userInfo[0].user_level,
+            //         address_line: userAddress?.address_line,
+            //         city: userAddress?.city,
+            //         mobile: userAddress?.mobile,
+            //         // Add other user details you want to include here
+            //     }
+            // };
+            // res.status(200).send(response);
+            // console.log(response)
         } else {
             console.log(`Authentication failed for ${username}: Wrong password`);
             res.status(401).send({ auth: false, message: "Authentication failed. Wrong password." });
